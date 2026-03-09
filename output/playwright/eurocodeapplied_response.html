@@ -1,0 +1,2442 @@
+
+<!DOCTYPE html>
+<html class="no-js" lang="en" prefix="og: http://ogp.me/ns#">
+<head>
+    
+    
+
+    <title>ULS design of rectangular reinforced concrete cross-section - Eurocode 2</title>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="keywords" content="concrete, ULS, ULS  design, rectangular, required reinforcement, bending resistance, interaction diagram, eurocodeapplied.com" />
+<meta name="description" content="Rectangular reinforced concrete cross-section - Calculation of required reinf., ULS bending moment resistance MRd, or M-N interaction diagram for given reinforcement layout according to Eurocode 2 (EN1992-1-1)" />
+<meta name="author" content="EurocodeApplied team" />
+
+<link rel="preconnect" href="https://cdn.eurocodeapplied.com">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://cdn.eurocodeapplied.com/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://cdn.eurocodeapplied.com/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://cdn.eurocodeapplied.com/favicon-16x16.png">
+<link rel="mask-icon" href="https://cdn.eurocodeapplied.com/safari-pinned-tab.svg" color="#2b365a">
+
+<meta property="fb:app_id" content="124348401552513" />
+    <meta property="og:type" content="article" />
+<meta property="og:url" content="https://eurocodeapplied.com/design/en1992/uls-design-rectangular-section" />
+<meta property="og:site_name" content="EurocodeApplied.com" />
+<meta property="og:title" content="ULS design of rectangular reinforced concrete cross-section - Eurocode 2" />
+<meta property="og:description" content="Rectangular reinforced concrete cross-section - Calculation of required reinf., ULS bending moment resistance MRd, or M-N interaction diagram for given reinforcement layout according to Eurocode 2 (EN1992-1-1)" />
+<meta property="og:image" content="https://eurocodeapplied.com/images/screenshots/uls-design-rectangular-section.png" />
+<meta property="og:image:width" content="1500" />
+<meta property="og:image:height" content="900" />
+
+        <meta name="fragment" content="!">
+        <link rel="canonical" href="https://eurocodeapplied.com/design/en1992/uls-design-rectangular-section" />
+
+    
+
+<link href="https://cdn.eurocodeapplied.com/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+
+
+
+        <style>
+@charset "UTF-8";.calculate-block button,a{background-color:transparent}button,hr,input{overflow:visible}progress,sub,sup{vertical-align:baseline}canvas,progress{display:inline-block}html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}article,aside,footer,header,nav,section{display:block}hr{box-sizing:content-box;height:0}a{-webkit-text-decoration-skip:objects}b,strong{font-weight:bolder}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:sans-serif;font-size:100%;line-height:1.15;margin:0}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:ButtonText dotted 1px}fieldset{padding:.35em .75em .625em}[type=checkbox],[type=radio],legend{padding:0;box-sizing:border-box}legend{color:inherit;display:table;max-width:100%;white-space:normal}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}#font-load-trigger #bitter-n4,.fonts-loaded .logo,body.recently-visited .logo{font-family:Bitter,Georgia,serif}#rate-container,.hidden,.loader .state,.modal,[hidden]{display:none}#font-load-trigger{position:absolute;top:-50px;left:0;height:20px;width:20px;overflow:hidden;font-size:6px}#font-load-trigger #opensans-i4,#font-load-trigger #opensans-n4,#font-load-trigger #opensans-n7,.fonts-loaded body,body.recently-visited{font-family:"Open Sans",Arial,sans-serif}#font-load-trigger #opensans-i4{font-style:italic}#font-load-trigger #opensans-n7{font-weight:700}body{font-family:Arial,sans-serif;font-size:.9em;color:#222;background-color:#fff;margin:0}.icon.error,span.error{color:#6c0808}.icon.ok,span.ok{color:#2e7548}.icon.warning,span.warning{color:#f08a24}.overline{text-decoration:overline}.text-align-left{text-align:left!important}.text-align-right{text-align:right!important}.text-align-center{text-align:center!important}.icon-li,.text-center{text-align:center}.font-size-larger{font-size:larger!important}.font-size-smaller{font-size:smaller!important}.icon,.icon-spin{display:inline-block}.icon{vertical-align:middle;padding-left:.5em;padding-right:.5em;width:1em;height:1em;stroke-width:0;stroke:currentColor;fill:currentColor}.icon-ul{padding-left:0;margin-left:2.14285714em;list-style-type:none}.icon-ul>li{position:relative}.icon-li{position:absolute;left:-2.14285714em;width:2.14285714em;top:.14285714em}.icon-li+span{vertical-align:middle}.icon-spin{margin:0;padding:0;-webkit-animation:icon-spin 2s infinite linear;animation:icon-spin 2s infinite linear}.icon-spin svg{display:block}.icon-pulse{display:inline-block;margin:0;padding:0;-webkit-animation:icon-spin 1s infinite steps(8);animation:icon-spin 1s infinite steps(8)}.flow-breaker,.icon-pulse svg{display:block}@-webkit-keyframes icon-spin{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}@keyframes icon-spin{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}.icon-rotate-90{-ms-filter:"progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";-webkit-transform:rotate(90deg);-ms-transform:rotate(90deg);transform:rotate(90deg)}.icon-rotate-180{-ms-filter:"progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";-webkit-transform:rotate(180deg);-ms-transform:rotate(180deg);transform:rotate(180deg)}.icon-rotate-270{-ms-filter:"progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";-webkit-transform:rotate(270deg);-ms-transform:rotate(270deg);transform:rotate(270deg)}.icon-flip-horizontal{-ms-filter:"progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)";-webkit-transform:scale(-1,1);-ms-transform:scale(-1,1);transform:scale(-1,1)}.icon-flip-vertical{-ms-filter:"progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";-webkit-transform:scale(1,-1);-ms-transform:scale(1,-1);transform:scale(1,-1)}:root .icon-flip-horizontal,:root .icon-flip-vertical,:root .icon-rotate-180,:root .icon-rotate-270,:root .icon-rotate-90{filter:none}.social-buttons{color:#fff;font-size:.8em}.social-buttons a{margin:.3em;padding-right:.5em}.social-buttons .fb-share{background-color:#3b5998}.social-buttons .in-share{background-color:#0077b5}.social-buttons .icon+span{vertical-align:middle}#site-content{max-width:1400px;padding:0 10px;overflow:hidden;margin:20px auto}#site-content.full-width{max-width:none;margin:0;padding:0}.page-wrapper{max-width:1400px;margin-left:auto;margin-right:auto;padding:0 10px}.flow-breaker{clear:both}.button,.logo .image,.logo p,button{display:inline-block}h1{font-size:2em;font-weight:700;margin:.67em 0}h2{font-size:1.5em;font-weight:700}h3,h4,h5,h6{font-weight:400}h3{font-size:1.17em}h4{font-size:1em}h5{font-size:.83em}h6{font-size:.67em}a,a:active,a:hover,a:link,a:visited{text-decoration:none;color:inherit}a:hover{color:#008CBA}a.button{color:#fff}a.button:hover{color:inherit}a.link{text-decoration:underline;color:#2b365a}a.link.dark,a.link:hover{color:#008CBA}a.link:hover{color:#386d89}.badge,.button,button{color:#fff;vertical-align:middle}.logo{font-family:Georgia,serif;font-size:2em;vertical-align:middle;line-height:1;margin-left:10px;margin-right:10px}.logo .image{height:1em;width:1em;vertical-align:middle;max-width:100%;background-image:url(https://cdn.eurocodeapplied.com/images/sprites002.png);background-position:0 33.3333%;background-size:200%}.logo p{height:2em;font-size:.5em;line-height:.5em;margin:0 0 0 -.2em;vertical-align:middle;text-align:left}.logo p span{line-height:1}.logo.single-line{float:left;white-space:nowrap;margin-left:3px;margin-right:0}.logo.single-line .image{height:1.2em;width:1.2em}.logo.single-line p{height:.8em;font-size:.8em;line-height:.8em}.logo a:hover .image{background-position:100% 33.3333%}.button-container{text-align:center}.button,button{position:relative;margin:.5em;padding:0;border:none;border-radius:10px;box-shadow:0 2px 8px #333;font-size:1.2em;background-color:#00445c;line-height:2em;transition:box-shadow .5s ease-in-out}.button .state,button .state{display:none;border-radius:inherit}.badge,.button .state.active,button .state.active{display:inline-block}.button :first-child,button :first-child{padding-left:.5em}.button :last-child,button :last-child{padding-right:.5em}.button:hover:after,button:hover:after{content:"";position:absolute;top:0;left:0;bottom:0;right:0;z-index:1;border-radius:10px;background-color:rgba(0,0,0,.15)}.button:hover,button:hover{cursor:pointer}.button.disabled,button.disabled{background-color:#777}.button:focus,button:focus{outline:0;box-shadow:0 0 4px 2px #62b6d9}.badge{height:2em;width:2em;margin:0;padding:0;border-radius:1em;background-color:#2e7548;font-size:3em;line-height:2em;text-align:center}input[type=email],input[type=text],select,textarea{box-sizing:border-box;display:block;height:2em;width:100%;line-height:2em;vertical-align:middle;padding:0 .5em;margin-bottom:5px;border:1px solid #ccc;border-radius:10px;transition:box-shadow .5s ease-in-out}input[type=email]:hover,input[type=text]:hover,select:hover,textarea:hover{outline:0;box-shadow:0 0 4px 2px #f5b06c}input[type=email]:focus,input[type=text]:focus,select:focus,textarea:focus{outline:0;border-color:#a6a6a6;box-shadow:0 0 4px 2px #a0d3e8}#site-header .menubar .design-search,#site-header .menubar .ndp-selection{border-bottom:1px solid #151515;background-color:#222}textarea{overflow:auto;height:10em;max-width:100%}.sticky-content-menu .content{color:#222;font-size:.83em}.sticky-content-menu .content a{padding:.05em .25em;border-radius:.25em}.sticky-content-menu .content svg.icon{padding-right:.2em}.sticky-content-menu .content a.active{background-color:#008CBA}.sticky-content-menu .content a.active:hover{color:#ccc}.sticky-content-menu .content a.disabled{color:#777;cursor:default}.sticky-content-menu .content a.disabled:hover{color:#777}.sticky-content-menu .content dl{margin:0;padding:5px 0}.sticky-content-menu .content dl dt{display:none}.sticky-content-menu .content dl dd{display:inline-block;margin:0 .2em}#site-header{background-color:#2b365a;color:#ccc}#site-header #site-menu{position:fixed;z-index:999;left:0;right:0;background-color:#2b365a}#site-header .menubar,#site-header .mobilebar{max-width:1400px;margin-left:auto;margin-right:auto}#site-header .menubar svg.icon,#site-header .mobilebar svg.icon{padding-left:.3em;padding-right:.3em;font-size:1.17em;line-height:40px;vertical-align:middle}#site-header .menubar .trigger svg.icon,#site-header .mobilebar .trigger svg.icon{font-size:1.8em}#site-header .menubar span.text,#site-header .mobilebar span.text{padding-right:.4em;font-size:1em;line-height:40px;vertical-align:middle}#site-header .menubar span.text+svg.icon,#site-header .mobilebar span.text+svg.icon{padding-left:0}#site-header .menubar .select2-container,#site-header .mobilebar .select2-container{display:inline-block;font-size:1em}#site-header .menubar .select2-selection__arrow,#site-header .mobilebar .select2-selection__arrow{border-left:1px solid gray}#site-header .menubar nav.code-list,#site-header .mobilebar nav.code-list{float:left;margin-top:2px}#site-header .menubar ul.code-list,#site-header .mobilebar ul.code-list{list-style:none;margin:0;padding-left:0;font-size:.73em}#site-header .menubar ul.code-list a,#site-header .mobilebar ul.code-list a{margin-left:.1em;margin-right:.1em}#site-header .menubar ul.code-list li,#site-header .mobilebar ul.code-list li{display:inline-block}#site-header .menubar ul.code-list span,#site-header .mobilebar ul.code-list span{padding:0 .45em}#site-header .menubar nav.code-list,#site-header .menubar ul.code-list .media-large,#site-header .menubar ul.code-list .media-none,#site-header .mobilebar ul.code-list .media-large,#site-header .mobilebar ul.code-list .media-none{display:none}#site-header .menubar .design-search{width:100%}@media screen and (min-width:41em){#site-header #site-menu{background-color:#222}#site-header .menubar nav.code-list{margin-top:0;display:block}#site-header .menubar ul.code-list{font-size:.78em;padding-left:.5em}#site-header .menubar #menubar-flow-control.flow-breaker{display:none}#site-header .menubar .design-search{width:auto}}@media screen and (min-width:41em) and (max-width:62em){#site-header #site-menu .menubar ul.code-list .media-large{display:none}#site-header #site-menu .menubar .main-menu li.contact,#site-header #site-menu .menubar .main-menu li.home{display:inline-block}}@media screen and (min-width:62em){#site-header #site-menu .menubar ul.code-list .media-small-medium{display:none}#site-header #site-menu .menubar ul.code-list .media-large{display:inline}}#site-header .mobilebar{height:40px;overflow:hidden}#site-header .mobilebar .logo{font-size:32px}#site-header .mobilebar .logo small{display:none}#site-header .mobilebar .trigger.active,#site-header .mobilebar .trigger:hover{background-color:#151515}#site-header .mobilebar .trigger{cursor:pointer;display:block;position:relative;z-index:9999;float:right;height:40px;width:48px;text-align:center;background-color:#2b365a}#site-header .mobilebar .burger{display:block;position:absolute;height:4px;width:32px;border-radius:2px;left:8px;background-color:#ccc}#site-header .mobilebar .burger.one{top:7px}#site-header .mobilebar .burger.two{top:18px}#site-header .mobilebar .burger.three{top:29px}@media screen and (min-width:41em){#site-header .mobilebar{display:none}#site-header .mobilebar .logo small{display:inline}}#site-header .menubar .overlay,#site-header .menubar .overlay2{overflow:hidden;width:9999px;height:9999px;cursor:pointer}#site-header .menubar.active{display:block}#site-header #menu-toggle{display:none}#site-header #menu-toggle:checked~.menubar{display:block}#site-header .menubar{display:none;height:40px}#site-header .menubar .design-search{padding-left:2px}#site-header .menubar .design-search .select2-container{width:80%!important;margin-right:.5em}#site-header .menubar .design-search select{color:#222}#site-header .menubar .design-search svg.icon{width:.85em}#site-header .menubar .ndp-selection .select2-container{width:80%!important}#site-header .menubar .ndp-selection .select2-container a{line-height:1.4}#site-header .menubar .ndp-selection select{color:#222}#site-header .menubar .ndp-selection .select2-selection__rendered{line-height:23px}#site-header .menubar .ndp-selection .icon+span{display:none}#site-header .menubar .main-menu{background-color:#222}#site-header .menubar .main-menu ul{margin:0;padding:0;list-style:none}#site-header .menubar .main-menu ul li{line-height:40px;vertical-align:middle;border-bottom:1px solid #151515}#site-header .menubar .main-menu ul li:hover{background-color:#151515;cursor:pointer}#site-header .menubar .main-menu a{display:inline-block;height:100%;width:100%}#site-header .menubar .main-menu a:hover{color:inherit}.design-search-select2-dropdown{padding-top:5px}@media screen and (min-width:41em) and (max-width:62em){.design-search-select2-dropdown{width:400px!important;right:-95px!important}#site-header .menubar .design-search{padding-left:.5em}}@media screen and (min-width:62em){.design-search-select2-dropdown{width:600px!important;right:-95px!important}}@media screen and (min-width:41em){#site-header .menubar .design-search,#site-header .menubar .ndp-selection{padding-top:6px;background:0 0;border:none;float:right}#site-header .menubar .design-search .select2-container{width:95px!important;border:1px solid #000;border-radius:4px;margin-top:-1px;color:#999}.overlay{display:none}#site-header .menubar{display:block}#site-header .menubar .code-list{float:left}#site-header .menubar .ndp-selection{font-size:0}.design-search-select2-dropdown,.ndp-selection-select2-dropdown{left:auto!important;box-shadow:0 2px 8px #000;border-top:1px solid #008CBA}#site-header .menubar .ndp-selection .select2-container{margin-right:10px;width:61px!important}#site-header .menubar .ndp-selection .select2-selection__rendered{line-height:26px;padding-left:3px}#site-header .menubar .ndp-selection .icon{display:none}#site-header .menubar .ndp-selection .icon+span{display:inline;font-size:15px;vertical-align:middle;padding-right:.3em}#site-header .menubar .main-menu{background:0 0;float:right;height:40px}#site-header .menubar .main-menu .text{display:none}#site-header .menubar .main-menu ul li{display:inline-block;float:left;border-bottom:none;height:40px;border-right:1px solid}#site-header .menubar .main-menu svg.icon+span{display:none}.ndp-selection-select2-dropdown{width:220px!important;right:-61px!important}}#site-banner,#site-footer .section{margin-left:auto;margin-right:auto}@media screen and (min-width:62em){#site-header .menubar .main-menu svg.icon+span{display:inline}}#site-banner{max-width:1400px;padding-top:40px}#site-banner span.auxiliary{display:none;line-height:100px;vertical-align:middle}#site-banner .logo{display:none;float:left}#site-banner .ad{overflow:hidden;text-align:center}#site-banner .ad img{display:inline;width:100%;height:initial;max-width:468px;vertical-align:middle}@media screen and (min-width:41em){#site-banner{padding-top:40px}#site-banner .logo{display:block;font-size:50px}#site-banner span.auxiliary{display:inline}#site-footer .logo{float:left;width:50%}#site-footer .social{float:right;width:50%}#site-footer .social .facebook-url{vertical-align:middle}#site-footer .links{clear:both}}@media screen and (min-width:62em){#site-banner{height:100px}#site-banner span.auxiliary{line-height:100px}#site-banner .logo{font-size:80px}}#site-footer{padding:10px 0;background-color:#222;color:#ccc;font-size:.67em;text-align:center}#site-footer .section{max-width:1400px;padding-left:10px;padding-right:10px;clear:both}#site-footer .section+.section{border-top:2px dotted}#site-footer ul{list-style:none;padding:0;margin:10px}#site-footer .icon{font-size:2em;padding:10px}#site-footer .social ul li{display:inline-block;font-size:2em}#site-footer .social .facebook-url{font-size:1.3em}#site-footer .logo{font-size:5em;margin:0}#site-footer .links{margin-bottom:10px}#site-footer .links ul,#site-footer .links ul li{display:inline-block}#site-footer .links ul li+li:before{content:"• ";font-size:100%}#site-footer .copyright{padding-top:10px}#site-footer .copyright span+span{padding-left:1em}@media screen and (min-width:62em){#site-footer .logo,#site-footer .social{width:33%}#site-footer .links{float:left;clear:none;width:33%}#site-footer .links ul{display:block}}#cookies-trigger{position:fixed;bottom:0;right:0;z-index:9998;font-size:2.5em;color:#fff;background-color:#2b365a;margin:0;opacity:.85;border-radius:.5em 0 0}#cookies-trigger .icon{padding:.1em .1em .1em .2em}@media screen and (min-width:41em){#cookies-trigger{font-size:2em}#cookies-notification .button-container{float:right}}#cookies-notification{display:none;position:fixed;z-index:9999;bottom:0;left:0;right:0;background-color:#222;background-color:rgba(34,34,34,.9);font-size:.9em}#cookies-notification .icon{font-size:1.5em;vertical-align:middle}#cookies-notification .button-container{padding:0 10px}#cookies-notification h3{margin:10px 0}#cookies-notification .content{overflow:hidden}#cookies-notification .content p{margin-top:0}#cookies-notification a.button{color:#fff;padding:0 .5em}#site-content.calculation .navigation-link{margin-top:.5em}#site-content.calculation .figure{padding:10px;text-align:center}#site-content.calculation .figure h6{font-size:.83em;font-style:italic;margin:0}#site-content.calculation .figure img{width:100%;height:initial;margin-top:20px}#site-content.calculation hr{color:#ccc;margin:0 10px}#site-content.calculation select.ndp-select{display:none!important}#site-content.calculation fieldset{margin:20px 0}#site-content.calculation fieldset legend{color:#2b365a;font-size:1.5em;font-weight:700}#site-content.calculation fieldset svg.icon{padding:0 .3em;vertical-align:middle}#site-content.calculation fieldset svg.icon.trigger{font-size:.83em}#site-content.calculation fieldset#errors legend{color:#6c0808}#site-content.calculation #rate-container{display:inline-block;vertical-align:middle;font-size:.9em;color:#000;text-decoration:underline}#site-content.calculation fieldset.notes ol li{margin-bottom:.3em}#site-content.calculation fieldset#details mark{background-color:inherit}#site-content.calculation fieldset#details span.code-reference{color:#2e8b57}#site-content.calculation fieldset#details p.short{font-size:0}#site-content.calculation fieldset#details p.short.brief,#site-content.calculation fieldset#details p.short.ndp{font-size:1em}#site-content.calculation fieldset#details p.short span.code-reference{font-size:14.4px}#site-content.calculation fieldset#details p.short span.code-reference.nobrief{font-size:0}#site-content.calculation fieldset#details p.short span.code-reference:before{content:" ["}#site-content.calculation fieldset#details p.short span.code-reference:after{content:"] "}#site-content.calculation fieldset#details p.short mark{display:inline-block;font-size:14.4px;margin-bottom:.5em}#site-content.calculation fieldset#details p.short mark:first-letter{text-transform:uppercase}#site-content.calculation fieldset#details p.short mark.nocaps:first-letter{text-transform:none}#site-content.calculation fieldset#details p.short mark:after{content:" "}#site-content.calculation fieldset#details p.short.equation{font-size:1em}#site-content.calculation fieldset#details p.short.equation.nobrief{font-size:0}#site-content.calculation fieldset#details h2{font-size:1.17em}#site-content.calculation fieldset#details h3{font-style:italic;text-decoration:underline}#site-content.calculation fieldset#details h4:before{content:"- "}#site-content.calculation .field .result-symbol:after,#site-content.calculation .field .symbol:after{content:"= "}#site-content.calculation fieldset#details ul{list-style-type:circle}#site-content.calculation fieldset#details .symbol-details{font-style:italic}#site-content.calculation fieldset#details .symbol-details span,#site-content.calculation fieldset#details .symbol-details sub,#site-content.calculation fieldset#details .symbol-details sup{font-style:normal}#site-content.calculation .field .symbol label,#site-content.calculation fieldset#details .code-reference{font-style:italic}#site-content.calculation fieldset#details p.equation{margin-left:1.5em}#site-content.calculation fieldset#details p.equation .MathJax{text-align:left}#site-content.calculation fieldset#details p.ndp{color:#8b0000!important}#site-content.calculation .field{position:relative;clear:both;margin:10px 0}#site-content.calculation .field .description{float:left;width:100%;padding-top:.4em}#site-content.calculation .field .symbol{float:left;width:25%;font-size:1.5em;text-align:right}#site-content.calculation .field .symbol label span,#site-content.calculation .field .symbol label sub,#site-content.calculation .field .symbol label sup{font-style:normal}#site-content.calculation .field .value{float:left;width:35%}#site-content.calculation .field .units{float:left;width:25%}#site-content.calculation .field .units .suffix{box-sizing:border-box;display:block;height:2em;width:100%;line-height:2em;vertical-align:middle;background-color:rgba(204,204,204,.5);padding:0 .5em;border:1px solid #ccc;border-left:none;border-top-right-radius:10px;border-bottom-right-radius:10px}#site-content.calculation .field .result-symbol{float:left;width:40%;font-size:1.5em;text-align:right;font-style:italic}#site-content.calculation .field .result-symbol span,#site-content.calculation .field .result-symbol sub,#site-content.calculation .field .result-symbol sup{font-style:normal}#site-content.calculation .field .result-value{float:left;width:50%;font-size:1.5em}#site-content.calculation .field .info{float:left;width:10%;cursor:pointer}#site-content.calculation .field .info span.trigger{display:none;color:#2b365a;font-size:1.17em;line-height:1.5em;vertical-align:middle;float:right}#site-content.calculation .field .info span.trigger svg.icon{padding-right:0}#site-content.calculation .field .info span.content+span.trigger{display:inline}#site-content.calculation .field .info span.content:empty+span.trigger{display:none}#site-content.calculation .field .info span.trigger.icon:hover{color:#006687}#site-content.calculation .field .info span.content{display:none;position:absolute;z-index:900;top:110%;right:5%;left:5%;padding:.5em;border-top-left-radius:5px;border-bottom-left-radius:5px;border-bottom-right-radius:5px;color:#ccc;background-color:#222;font-size:.83em;vertical-align:middle;box-shadow:0 2px 8px #000}#site-content.calculation .field .info span.content:after{content:" ";position:absolute;top:-.5em;right:0;border-left:.7em solid transparent;border-bottom:.7em solid #222}#site-content.calculation .field .info span.content.active{display:block}#site-content.calculation .field .print-description{float:left;text-align:left;width:100%}#site-content.calculation .field .print-description label{padding-right:1em}#site-content.calculation .field .print-value{float:left;width:100%}#site-content.calculation .field .value input[type=text],#site-content.calculation .field .value select,#site-content.calculation .field .value textarea{border-top-right-radius:0;border-bottom-right-radius:0}@media screen and (min-width:41em){#site-content.calculation .field .description{width:33%}#site-content.calculation .field .symbol{width:20%}#site-content.calculation .field .value{width:25%}#site-content.calculation .field .units{width:15%}#site-content.calculation .field .result-symbol,#site-content.calculation .field .result-value{width:30%}#site-content.calculation .field .info{width:7%}#site-content.calculation .field .print-description{text-align:right;line-height:2em;width:25%}#site-content.calculation .field .print-value{width:75%}}@media screen and (min-width:62em){#site-content.calculation .social-buttons{float:right}#site-content.calculation .field .description{width:25%}#site-content.calculation .field .symbol{width:15%}#site-content.calculation .field .value{width:20%}#site-content.calculation .field .units{width:10%}#site-content.calculation .field .result-value{width:25%}#site-content.calculation .field .result-symbol{width:20%}#site-content.calculation .field .info{width:30%}#site-content.calculation .field .info span.content+span.trigger{display:none}#site-content.calculation .field .info span.content{display:inline-block;position:static;border:none;color:#222;background-color:transparent;box-shadow:none}#site-content.calculation .field .info span.content:after{content:"";border:none}#site-content.calculation .field .print-description{width:25%}#site-content.calculation .field .print-value{width:75%}}#site-content.calculation .field.list .description{text-align:right;padding:.6em 1em .2em .2em}#site-content.calculation .field.list .value{text-align:left;padding:.2em}#site-content.calculation .field.list .value input{border-radius:0}#site-content.calculation .field.list.items-6 .description,#site-content.calculation .field.list.items-6 .value{width:14%}.calculate-block{text-align:center}.calculate-block button{font-size:2em}.calculate-block button span.state{padding-left:0}.calculate-block button .icon-pulse{margin-top:-4px;margin-bottom:-4px;padding:0!important}.calculate-block button .calculate{background-color:#00445c}.calculate-block button .calculating{background-color:#2b365a}.calculate-block button .finished{background-color:#2e7548}.calculate-block button .recalculate{background-color:#00445c}#site-content.calculation .field.chart .title{font-weight:700;font-size:1.17em;text-align:center}#site-content.calculation .field.chart .title small{font-weight:400}#site-content.calculation .field.chart .container,#site-content.calculation .field.chart .title{width:100%;max-width:700px}#site-content.calculation .field.chart .target{width:100%;height:100%}#site-content.calculation .field.chart .jqplot-table-legend{width:max-content}.table-container.fixed-header-column thead tr:first-child th,.table-container.fixed-header-only thead tr:first-child th{height:35px}.table-container.fixed-header-column thead tr:nth-child(2) th,.table-container.fixed-header-only thead tr:nth-child(2) th{top:35px}.table-container.fixed-tall-header-column thead tr:first-child th,.table-container.fixed-tall-header-only thead tr:first-child th{height:85px}.table-container.fixed-tall-header-column thead tr:nth-child(2) th,.table-container.fixed-tall-header-only thead tr:nth-child(2) th{top:85px}.table-container.fixed-header-column,.table-container.fixed-tall-header-column{width:400px;width:90vw;max-width:1350px;max-height:150px;max-height:60vh;overflow:scroll}.table-container.fixed-header-column thead tr:first-child th,.table-container.fixed-tall-header-column thead tr:first-child th{position:-webkit-sticky;position:sticky;top:0}.table-container.fixed-header-column thead tr:nth-child(2) th,.table-container.fixed-tall-header-column thead tr:nth-child(2) th{position:-webkit-sticky;position:sticky}.table-container.fixed-header-column thead th:first-child,.table-container.fixed-tall-header-column thead th:first-child{left:0}.table-container.fixed-header-column tbody th,.table-container.fixed-tall-header-column tbody th{position:-webkit-sticky;position:sticky;left:0}.table-container.fixed-header-only{max-height:150px;max-height:60vh;overflow-y:scroll;width:min-content}.table-container.fixed-header-only thead tr:first-child th{position:-webkit-sticky;position:sticky;top:0}.table-container.fixed-header-only thead tr:nth-child(2) th{position:-webkit-sticky;position:sticky}.table-container.fixed-column-only{width:400px;width:90vw;max-width:1350px;overflow-x:scroll}.table-container.fixed-column-only tbody th,.table-container.fixed-column-only thead th:first-child{position:-webkit-sticky;position:sticky;left:0}.table-container{background-color:#ddd}.table-container table{border-collapse:separate;border-spacing:0}.table-container td,.table-container th{padding:.5em;text-align:center;box-sizing:border-box}.table-container tbody td,.table-container tbody th{border-right:1px solid #ddd;border-bottom:1px solid #ddd}#site-content.calculation table.table td.border-right,#site-content.calculation table.table th.border-right,.table-container td.border-right,.table-container th.border-right{border-right:1px solid #000}.table-container thead th{font-weight:700;background-color:#fff;z-index:2}#site-content.calculation table.table.static tr:nth-child(even),.table-container tbody tr.odd td,.table-container tbody tr.odd th{background-color:#f9f9f9}.table-container thead th:first-child{z-index:3}.table-container thead tr:first-child th{border-top:1px solid #000;border-bottom:1px solid #fff}.table-container tbody tr:last-child td,.table-container tbody tr:last-child th,.table-container td.border-bottom,.table-container th.border-bottom,.table-container thead tr:last-child th,.table-container tr.border-bottom td,.table-container tr.border-bottom th{border-bottom:1px solid #000}.table-container thead tr:nth-child(2) th{border-top:1px solid #000}.table-container tbody th{font-weight:400;z-index:1;border-top:1px solid #fff;border-left:1px solid #fff}#site-content.calculation table.table td.border-top,#site-content.calculation table.table th.border-top,#site-content.calculation table.table tr.border-top td,#site-content.calculation table.table tr.border-top th,.table-container td.border-top,.table-container th.border-top,.table-container tr.border-top td,.table-container tr.border-top th{border-top:1px solid #000}#site-content.calculation table.table td.border-left,#site-content.calculation table.table th.border-left,.table-container td.border-left,.table-container th.border-left{border-left:1px solid #000}.table-container caption{font-weight:700;margin-bottom:.5em}.table-container tbody tr.even td,.table-container tbody tr.even th{background-color:#fff}.table-container tbody tr:hover td,.table-container tbody tr:hover th{background-color:#daf390!important}.table-container td.border-bottom-none,.table-container th.border-bottom-none{border-bottom:none}#site-content.calculation table.table{border-collapse:separate;border-spacing:0;margin:1em}#site-content.calculation table.table td,#site-content.calculation table.table th{padding:10px;text-align:center}#site-content.calculation table.table caption{font-weight:700;margin-bottom:.5em}#site-content.calculation table.table thead th{font-weight:700}#site-content.calculation table.table td.border-bottom,#site-content.calculation table.table th.border-bottom,#site-content.calculation table.table tr.border-bottom td,#site-content.calculation table.table tr.border-bottom th{border-bottom:1px solid #000}#site-content.calculation table.table td.border-all,#site-content.calculation table.table th.border-all{border:1px solid #000}#site-content.calculation table.table td.border-bottom-none,#site-content.calculation table.table th.border-bottom-none,#site-content.code-list .title-block.item-block{border-bottom:none}#site-content.calculation table.table td.border-none,#site-content.calculation table.table th.border-none{border:none}#site-content.calculation table.table.centered{margin:1em auto}#site-content.calculation table.table.static{border-collapse:collapse}#site-content.calculation table.table.static th{border:1px solid #000}#site-content.calculation table.table.static td{border-top:1px solid #ddd;border-bottom:1px solid #ddd;border-left:1px solid #000;border-right:1px solid #000}#site-content.calculation table.table.static tr:last-child td{border-bottom:1px solid #000}table.small{font-size:.85em}table.small td,table.small th{padding:8px}table.very-small{font-size:.7em}table.very-small td,table.very-small th{padding:5px}table.table.tiny{font-size:.6em}table.table.tiny td,table.table.tiny th{padding:3px}#site-content.calculation .field.table{padding-top:1em;padding-bottom:1em}#site-content.calculation .field.table .title{font-weight:700;font-size:1.17em;text-align:left;margin-bottom:5px}#site-content.calculation .field.table .title small{font-weight:400}#site-content.calculation .field.table .wrapper{width:100%;position:relative;min-height:100px}#site-content.calculation .field.table .container{position:absolute;width:100%}#site-content.calculation .field.table tbody tr.even:hover,#site-content.calculation .field.table tbody tr.odd:hover{background-color:#daf390!important}.item-block .thumbnail{float:left;margin:5px}.item-block dl,.title-block dl{margin:5px 0}.item-block dl dt,.title-block dl dt{width:7.5em;padding-left:10px;text-decoration:underline;font-style:italic;font-weight:400}.item-block dl dd,.title-block dl dd{margin:6px 0;padding-left:10px;overflow:hidden}.navigation-link{float:right;font-size:1.2em}@media screen and (min-width:41em){.item-block dl dt,.title-block dl dt{float:left}}.title-block{border-bottom:2px solid #2b365a}.title-block .title{margin:0}.title-block .title span.code{display:inline-block;padding:5px 10px;background:#386d89;color:#fff;border-radius:10px;vertical-align:middle;text-align:center;font-size:.83em;font-weight:700;white-space:nowrap}.title-block .title span.text{margin-left:10px;display:inline-block;vertical-align:middle}.item-block{background-color:#bacad3;margin:10px;padding:10px;border-radius:10px}.item-block a{font-weight:700}.item-block a:hover{color:inherit}.item-block:hover{cursor:pointer;background-color:#8ba6b5}#site-content.code-list ul{list-style:none;padding-left:10px}#site-content.code-list .title-block{color:#2b365a;margin-bottom:20px}#site-content.code-list .title-block dl{color:#222}#site-content.code-list .title-block .title-block span.text,#site-content.code-list .title-block svg.icon{vertical-align:middle}.beta-stage,.compatibility{display:block;color:#6c0808;background-color:#f9adad}.beta-stage .page-wrapper,.compatibility .page-wrapper{padding-top:10px;padding-bottom:10px}.beta-stage{color:#222;background-color:#916ba2}.beta-stage a{color:#222}.old-browser{display:none}        </style>
+        <script id="loadcss1">
+            !function (e) { "use strict"; var n = function (n, t, o) { var i, r = e.document, d = r.createElement("link"); if (t) i = t; else { var a = (r.body || r.getElementsByTagName("head")[0]).childNodes; i = a[a.length - 1] } var l = r.styleSheets; d.rel = "stylesheet", d.href = n, d.media = "only x", function e(n) { if (r.body) return n(); setTimeout(function () { e(n) }) }(function () { i.parentNode.insertBefore(d, t ? i : i.nextSibling) }); var f = function (e) { for (var n = d.href, t = l.length; t--;)if (l[t].href === n) return e(); setTimeout(function () { f(e) }) }; function s() { d.addEventListener && d.removeEventListener("load", s), d.media = o || "all" } return d.addEventListener && d.addEventListener("load", s), d.onloadcssdefined = f, f(s), d }; "undefined" != typeof exports ? exports.loadCSS = n : e.loadCSS = n }("undefined" != typeof global ? global : this);
+        </script>
+        <script id="loadcss2">
+            loadCSS("https://fonts.googleapis.com/css?family=Bitter|Open+Sans:400,400i,700&subset=greek", document.getElementById("loadcss1"));
+            loadCSS("https://cdn.eurocodeapplied.com/css/site046.min.css", document.getElementById("loadcss1"));
+            loadCSS("//cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css", document.getElementById("loadcss2"));
+            loadCSS("//cdnjs.cloudflare.com/ajax/libs/jqPlot/1.0.9/jquery.jqplot.min.css", document.getElementById("loadcss2"));
+            loadCSS("//cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.4/jquery.rateyo.min.css", document.getElementById("loadcss2"));
+        </script>
+        <noscript>
+            <link rel="stylesheet" type="text/css" href="https://cdn.eurocodeapplied.com/css/site046.min.css" />
+            <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Bitter|Open+Sans:400,400i,700&amp;subset=greek" />
+            <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" />
+            <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/jqPlot/1.0.9/jquery.jqplot.min.css" />
+            <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.4/jquery.rateyo.min.css" />
+        </noscript>
+
+
+
+
+
+    <script>
+        document.documentElement.className = "";
+    </script>
+
+    <script>
+        /* Font Face Observer v2.0.13 - © Bram Stein. License: BSD-3-Clause */(function(){'use strict';var f,g=[];function l(a){g.push(a);1==g.length&&f()}function m(){for(;g.length;)g[0](),g.shift()}f=function(){setTimeout(m)};function n(a){this.a=p;this.b=void 0;this.f=[];var b=this;try{a(function(a){q(b,a)},function(a){r(b,a)})}catch(c){r(b,c)}}var p=2;function t(a){return new n(function(b,c){c(a)})}function u(a){return new n(function(b){b(a)})}function q(a,b){if(a.a==p){if(b==a)throw new TypeError;var c=!1;try{var d=b&&b.then;if(null!=b&&"object"==typeof b&&"function"==typeof d){d.call(b,function(b){c||q(a,b);c=!0},function(b){c||r(a,b);c=!0});return}}catch(e){c||r(a,e);return}a.a=0;a.b=b;v(a)}}
+        function r(a,b){if(a.a==p){if(b==a)throw new TypeError;a.a=1;a.b=b;v(a)}}function v(a){l(function(){if(a.a!=p)for(;a.f.length;){var b=a.f.shift(),c=b[0],d=b[1],e=b[2],b=b[3];try{0==a.a?"function"==typeof c?e(c.call(void 0,a.b)):e(a.b):1==a.a&&("function"==typeof d?e(d.call(void 0,a.b)):b(a.b))}catch(h){b(h)}}})}n.prototype.g=function(a){return this.c(void 0,a)};n.prototype.c=function(a,b){var c=this;return new n(function(d,e){c.f.push([a,b,d,e]);v(c)})};
+        function w(a){return new n(function(b,c){function d(c){return function(d){h[c]=d;e+=1;e==a.length&&b(h)}}var e=0,h=[];0==a.length&&b(h);for(var k=0;k<a.length;k+=1)u(a[k]).c(d(k),c)})}function x(a){return new n(function(b,c){for(var d=0;d<a.length;d+=1)u(a[d]).c(b,c)})};window.Promise||(window.Promise=n,window.Promise.resolve=u,window.Promise.reject=t,window.Promise.race=x,window.Promise.all=w,window.Promise.prototype.then=n.prototype.c,window.Promise.prototype["catch"]=n.prototype.g);}());
+
+        (function(){function l(a,b){document.addEventListener?a.addEventListener("scroll",b,!1):a.attachEvent("scroll",b)}function m(a){document.body?a():document.addEventListener?document.addEventListener("DOMContentLoaded",function c(){document.removeEventListener("DOMContentLoaded",c);a()}):document.attachEvent("onreadystatechange",function k(){if("interactive"==document.readyState||"complete"==document.readyState)document.detachEvent("onreadystatechange",k),a()})};function r(a){this.a=document.createElement("div");this.a.setAttribute("aria-hidden","true");this.a.appendChild(document.createTextNode(a));this.b=document.createElement("span");this.c=document.createElement("span");this.h=document.createElement("span");this.f=document.createElement("span");this.g=-1;this.b.style.cssText="max-width:none;display:inline-block;position:absolute;height:100%;width:100%;overflow:scroll;font-size:16px;";this.c.style.cssText="max-width:none;display:inline-block;position:absolute;height:100%;width:100%;overflow:scroll;font-size:16px;";
+        this.f.style.cssText="max-width:none;display:inline-block;position:absolute;height:100%;width:100%;overflow:scroll;font-size:16px;";this.h.style.cssText="display:inline-block;width:200%;height:200%;font-size:16px;max-width:none;";this.b.appendChild(this.h);this.c.appendChild(this.f);this.a.appendChild(this.b);this.a.appendChild(this.c)}
+        function t(a,b){a.a.style.cssText="max-width:none;min-width:20px;min-height:20px;display:inline-block;overflow:hidden;position:absolute;width:auto;margin:0;padding:0;top:-999px;white-space:nowrap;font-synthesis:none;font:"+b+";"}function y(a){var b=a.a.offsetWidth,c=b+100;a.f.style.width=c+"px";a.c.scrollLeft=c;a.b.scrollLeft=a.b.scrollWidth+100;return a.g!==b?(a.g=b,!0):!1}function z(a,b){function c(){var a=k;y(a)&&a.a.parentNode&&b(a.g)}var k=a;l(a.b,c);l(a.c,c);y(a)};function A(a,b){var c=b||{};this.family=a;this.style=c.style||"normal";this.weight=c.weight||"normal";this.stretch=c.stretch||"normal"}var B=null,C=null,E=null,F=null;function G(){if(null===C)if(J()&&/Apple/.test(window.navigator.vendor)){var a=/AppleWebKit\/([0-9]+)(?:\.([0-9]+))(?:\.([0-9]+))/.exec(window.navigator.userAgent);C=!!a&&603>parseInt(a[1],10)}else C=!1;return C}function J(){null===F&&(F=!!document.fonts);return F}
+        function K(){if(null===E){var a=document.createElement("div");try{a.style.font="condensed 100px sans-serif"}catch(b){}E=""!==a.style.font}return E}function L(a,b){return[a.style,a.weight,K()?a.stretch:"","100px",b].join(" ")}
+        A.prototype.load=function(a,b){var c=this,k=a||"BESbswy",q=0,D=b||3E3,H=(new Date).getTime();return new Promise(function(a,b){if(J()&&!G()){var M=new Promise(function(a,b){function e(){(new Date).getTime()-H>=D?b():document.fonts.load(L(c,'"'+c.family+'"'),k).then(function(c){1<=c.length?a():setTimeout(e,25)},function(){b()})}e()}),N=new Promise(function(a,c){q=setTimeout(c,D)});Promise.race([N,M]).then(function(){clearTimeout(q);a(c)},function(){b(c)})}else m(function(){function u(){var b;if(b=-1!=
+        f&&-1!=g||-1!=f&&-1!=h||-1!=g&&-1!=h)(b=f!=g&&f!=h&&g!=h)||(null===B&&(b=/AppleWebKit\/([0-9]+)(?:\.([0-9]+))/.exec(window.navigator.userAgent),B=!!b&&(536>parseInt(b[1],10)||536===parseInt(b[1],10)&&11>=parseInt(b[2],10))),b=B&&(f==v&&g==v&&h==v||f==w&&g==w&&h==w||f==x&&g==x&&h==x)),b=!b;b&&(d.parentNode&&d.parentNode.removeChild(d),clearTimeout(q),a(c))}function I(){if((new Date).getTime()-H>=D)d.parentNode&&d.parentNode.removeChild(d),b(c);else{var a=document.hidden;if(!0===a||void 0===a)f=e.a.offsetWidth,
+        g=n.a.offsetWidth,h=p.a.offsetWidth,u();q=setTimeout(I,50)}}var e=new r(k),n=new r(k),p=new r(k),f=-1,g=-1,h=-1,v=-1,w=-1,x=-1,d=document.createElement("div");d.dir="ltr";t(e,L(c,"sans-serif"));t(n,L(c,"serif"));t(p,L(c,"monospace"));d.appendChild(e.a);d.appendChild(n.a);d.appendChild(p.a);document.body.appendChild(d);v=e.a.offsetWidth;w=n.a.offsetWidth;x=p.a.offsetWidth;I();z(e,function(a){f=a;u()});t(e,L(c,'"'+c.family+'",sans-serif'));z(n,function(a){g=a;u()});t(n,L(c,'"'+c.family+'",serif'));
+        z(p,function(a){h=a;u()});t(p,L(c,'"'+c.family+'",monospace'))})})};"object"===typeof module?module.exports=A:(window.FontFaceObserver=A,window.FontFaceObserver.prototype.load=A.prototype.load);}());
+</script>
+<script>
+    const openSansRegular = new FontFaceObserver('Open Sans', {
+        weight: 400
+    });
+    const openSansItalic = new FontFaceObserver('Open Sans', {
+        weight: 400,
+        style: 'italic'
+    });
+    const openSansBold = new FontFaceObserver('Open Sans', {
+        weight: 700
+    });
+    const bitterRegular = new FontFaceObserver('Bitter');
+
+    if (document.cookie.includes("FontsLoaded")) {
+        document.documentElement.className += " fonts-loaded";
+    }
+    else {
+        Promise.all([openSansRegular.load(), openSansItalic.load(), openSansBold.load(), bitterRegular.load()]).then(function () {
+            document.documentElement.className += " fonts-loaded";
+            if (document.cookie.includes("CookieConsentFunctionality")) {
+                document.cookie = "FontsLoaded=true;path=/";
+            }
+        })
+    }
+</script>
+
+    <!--[if lt IE 9]>
+        <link href="/css/ie8-and-down.min.css" rel="stylesheet" type="text/css" />
+        <script src="//ajax.aspnetcdn.com/ajax/modernizr/modernizr-2.8.3.js"></script>
+    <![endif]-->
+
+    
+</head>
+
+<body class="">
+    <div id="font-load-trigger">
+        <span id="bitter-n4">I</span>
+        <span id="opensans-n4">I&Iota;</span>
+        <span id="bitter-i4">I&Iota;</span>
+        <span id="bitter-n7">I</span>
+    </div>
+
+    <header id="site-header">
+
+        <div id="site-menu">
+            <input type="checkbox" id="menu-toggle" />
+
+            <div class="mobilebar">
+                <label class="trigger arial" for="menu-toggle" onclick="">
+                    <span class="burger one"></span>
+                    <span class="burger two"></span>
+                    <span class="burger three"></span>
+                </label>
+                <div class="logo single-line">
+                    <a href="/">
+                        <div class="image"></div>
+                    </a>
+                </div>
+                <nav class="code-list">
+                    <ul class="code-list">
+    <li>
+        <a class="button index-call-for-action-code" href="/design/en1991">
+            <span class="code media-large">Eurocode 1</span>
+            <span class="code media-none"> (</span>
+            <span class="code media-small-medium">EN1991</span>
+            <span class="code media-none">)</span>
+        </a>
+    </li>
+    <li>
+        <a class="button index-call-for-action-code" href="/design/en1992">
+            <span class="code media-large">Eurocode 2</span>
+            <span class="code media-none"> (</span>
+            <span class="code media-small-medium">EN1992</span>
+            <span class="code media-none">)</span>
+        </a>
+    </li>
+    <li>
+        <a class="button index-call-for-action-code" href="/design/en1993">
+            <span class="code media-large">Eurocode 3</span>
+            <span class="code media-none"> (</span>
+            <span class="code media-small-medium">EN1993</span>
+            <span class="code media-none">)</span>
+        </a>
+    </li>
+    <li>
+        <a class="button index-call-for-action-code" href="/design/en1998">
+            <span class="code media-large">Eurocode 8</span>
+            <span class="code media-none"> (</span>
+            <span class="code media-small-medium">EN1998</span>
+            <span class="code media-none">)</span>
+        </a>
+    </li>
+</ul>
+                </nav>
+            </div>
+
+            <div class="menubar">
+                <nav class="code-list">
+                    <ul class="code-list">
+    <li>
+        <a class="button index-call-for-action-code" href="/design/en1991">
+            <span class="code media-large">Eurocode 1</span>
+            <span class="code media-none"> (</span>
+            <span class="code media-small-medium">EN1991</span>
+            <span class="code media-none">)</span>
+        </a>
+    </li>
+    <li>
+        <a class="button index-call-for-action-code" href="/design/en1992">
+            <span class="code media-large">Eurocode 2</span>
+            <span class="code media-none"> (</span>
+            <span class="code media-small-medium">EN1992</span>
+            <span class="code media-none">)</span>
+        </a>
+    </li>
+    <li>
+        <a class="button index-call-for-action-code" href="/design/en1993">
+            <span class="code media-large">Eurocode 3</span>
+            <span class="code media-none"> (</span>
+            <span class="code media-small-medium">EN1993</span>
+            <span class="code media-none">)</span>
+        </a>
+    </li>
+    <li>
+        <a class="button index-call-for-action-code" href="/design/en1998">
+            <span class="code media-large">Eurocode 8</span>
+            <span class="code media-none"> (</span>
+            <span class="code media-small-medium">EN1998</span>
+            <span class="code media-none">)</span>
+        </a>
+    </li>
+</ul>
+                </nav>
+
+                <div id="menubar-flow-control" class="flow-breaker"></div>
+                <div id="ndp-selection" class="ndp-selection">
+                    <svg class="icon icon-globe"><use xlink:href="/images/icons001.svg#icon-globe"></use></svg>
+                    <span>NDPs:</span>
+                    <select id="ndp-dropdown" class="select2-container">
+                        <optgroup label="Values for NDPs:">
+    <option value="Default" data-flag="flag-europe">CEN default</option>
+    <option value="Belgium" data-flag="flag-belgium">Belgium</option>
+    <option value="Bulgaria" data-flag="flag-bulgaria">Bulgaria</option>
+    <option value="Croatia" data-flag="flag-croatia">Croatia</option>
+    <option value="Cyprus" data-flag="flag-cyprus">Cyprus</option>
+    <option value="Czech_Republic" data-flag="flag-czech_Republic">Czech Republic</option>
+    <option value="Denmark" data-flag="flag-denmark">Denmark</option>
+    <option value="Estonia" data-flag="flag-estonia">Estonia</option>
+    <option value="Finland" data-flag="flag-finland">Finland</option>
+    <option value="Greece" data-flag="flag-greece">Greece</option>
+    <option value="Iceland" data-flag="flag-iceland">Iceland</option>
+    <option value="Ireland" data-flag="flag-ireland">Ireland</option>
+    <option value="Italy" data-flag="flag-italy">Italy</option>
+    <option value="Latvia" data-flag="flag-latvia">Latvia</option>
+    <option value="Lithuania" data-flag="flag-lithuania">Lithuania</option>
+    <option value="Luxembourg" data-flag="flag-luxembourg">Luxembourg</option>
+    <option value="Norway" data-flag="flag-norway">Norway</option>
+    <option value="Poland" data-flag="flag-poland">Poland</option>
+    <option value="Portugal" data-flag="flag-portugal">Portugal</option>
+    <option value="Romania" data-flag="flag-romania">Romania</option>
+    <option value="Singapore" data-flag="flag-singapore">Singapore</option>
+    <option value="Slovakia" data-flag="flag-slovakia">Slovakia</option>
+    <option value="Slovenia" data-flag="flag-slovenia">Slovenia</option>
+    <option value="Spain" data-flag="flag-spain">Spain</option>
+    <option value="Sweden" data-flag="flag-sweden">Sweden</option>
+    <option value="Switzerland" data-flag="flag-switzerland">Switzerland</option>
+    <option value="United_Kingdom" data-flag="flag-united_kingdom">United Kingdom</option>
+</optgroup>
+
+                    </select>
+                </div>
+
+                <div id="design-search" class="design-search">
+                    <svg class="icon icon-search"><use xlink:href="/images/icons001.svg#icon-search"></use></svg>
+                    <select id="design-options-ajax-target" class="select2-container" data-placeholder="search...">
+                        <option>search... &nbsp;&nbsp;&nbsp;&nbsp;(javascript required)</option>
+                    </select>
+                </div>
+
+                <nav class="main-menu">
+                    <ul>
+                        <li class="home">
+                            <a href="/">
+                                <svg class="icon icon-home"><use xlink:href="/images/icons001.svg#icon-home"></use></svg><span class="text">Home</span>
+                            </a>
+                        </li>
+                        <li class="contact">
+                            <a href="/contact">
+                                <svg class="icon icon-envelope-o"><use xlink:href="/images/icons001.svg#icon-envelope-o"></use></svg><span class="text">Contact</span>
+                            </a>
+                        </li>
+                        <li class="faq">
+                            <a href="/faq">
+                                <svg class="icon icon-question-circle"><use xlink:href="/images/icons001.svg#icon-question-circle"></use></svg><span class="text">FAQ</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="external ad" href="https://www.paypal.com/donate?hosted_button_id=6HWFQESZMRT6A" target="_blank" rel="nofollow noopener">
+                                <svg class="icon icon-hand-peace-o"><use xlink:href="/images/icons001.svg#icon-hand-peace-o"></use></svg><span class="text">Donate</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="overlay"></div>
+            </div>
+        </div>
+
+        <div id="site-banner">
+            <div class="logo">
+                <span class="auxiliary"></span>
+                <a href="/">
+                    <div class="image"></div>
+                    <p>
+                        <span>Eurocode</span><br />
+                        <span>Applied<small>.com</small></span>
+                    </p>
+                </a>
+            </div>
+            <div id="banner-ad" class="ad">
+                    <span class="auxiliary"></span>
+                    <a id="banner-ad" class="external ad" href="https://www.paypal.com/donate?hosted_button_id=6HWFQESZMRT6A" target="_blank" rel="nofollow noopener">
+                        <img src="https://cdn.eurocodeapplied.com/ads/donate.png" width="468" height="60" alt="Donate to support our website" title="Donate to support our website" />
+                    </a>
+            </div>
+            <div class="flow-breaker"></div>
+
+            <div class="compatibility">
+                <noscript>
+                    <div class="page-wrapper">
+                        <strong>Your browser does not support javascript or javascript is disabled.</strong>
+                        <br />
+                        This website uses javascript technology to deliver the best possible user experience.
+                        While some basic functionality is still available, please consider enabling javascript to benefit from the more advanced features such as:
+                        a) multi-level design menu, b) auto-complete search box, c) interactive charts and tables, d) save/load functionality, e) asynchronous calculation etc.
+                    </div>
+                </noscript>
+
+                <div class="old-browser page-wrapper">
+                    <strong>Your browser is very old and it is not supported.</strong>
+                    <br />
+                    This website uses modern web design practices to deliver the best possible user experience.
+                    While some basic functionality is still available for your browser, please consider installing a modern browser such as Chrome or Firefox to properly view this website.
+                </div>
+
+            </div>
+
+            <div id="cookies-notification">
+                <div class="page-wrapper">
+                    <h3><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg>Important notification about cookies - Please select</h3>
+                    <div class="button-container">
+                        <button id="cookie-consent-accept"><span>Accept</span></button>
+                        <button id="cookie-consent-decline"><span>Decline</span></button>
+                        <a class="button" href="/cookies">More info</a>
+                    </div>
+                    <div class="content">
+                        <p>
+                            This website uses simple non-tracking cookies to function properly (essential cookies). 
+                            If you click "Accept" you also allow anonymous statistical cookies that help us understand our web trafic using Google Analytics.
+                            Click "More info" to find more details about cookies. 
+                            You can modify your selection later by clicking the cog icon at the bottom-right.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <a id="cookies-trigger" title="Cookie Preferences" href="/cookies">
+                <svg class="icon icon-cog"><use xlink:href="/images/icons001.svg#icon-cog"></use></svg>
+            </a>
+    </header>
+
+
+    
+ 
+
+
+
+
+<div id="site-content" class="calculation">
+    <div class="modal-block">
+        <div class="modal load">
+            <div class="content">
+                <p>Please select a previously saved calculation file. </p>
+                <p>Make sure that the selected file is appropriate for this calculation.</p>
+                <input id="file-load" type="file">
+                <div class="button-container">
+                    <hr />
+                    <button id="calculation-load" class="ok">
+                        <svg class="icon icon-check"><use xlink:href="/images/icons001.svg#icon-check"></use></svg><span>Ok</span>
+                    </button>
+                    <button class="cancel">
+                        <svg class="icon icon-close"><use xlink:href="/images/icons001.svg#icon-close"></use></svg><span>Cancel</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal print">
+            <div class="logo-container print-only">
+                <div class="logo">
+                    <div class="image"></div>
+                    <p>
+                        <span>Eurocode</span><br />
+                        <span>Applied<small>.com</small></span>
+                    </p>
+                </div>
+                <p class="motto">Free online calculation tools for structural design according to Eurocodes</p>
+            </div>
+
+            <div class="content">
+                <p>You can provide the following project data as page header. </p>
+                <form id="print-form">
+
+<div class="field print">
+    <div class="print-description">
+        <label for="Calculation_Project">Project:</label>
+    </div>
+    <div class="print-value">
+        <input id="Calculation_Project" name="Calculation.Project" type="text" value="" />
+    </div>
+</div>
+
+
+
+
+<div class="field print">
+    <div class="print-description">
+        <label for="Calculation_Subject">Subject:</label>
+    </div>
+    <div class="print-value">
+        <input id="Calculation_Subject" name="Calculation.Subject" type="text" value="" />
+    </div>
+</div>
+
+
+
+
+<div class="field print">
+    <div class="print-description">
+        <label for="Calculation_Designer">Designer:</label>
+    </div>
+    <div class="print-value">
+        <input id="Calculation_Designer" name="Calculation.Designer" type="text" value="" />
+    </div>
+</div>
+
+
+
+
+<div class="field print">
+    <div class="print-description">
+        <label for="Calculation_Date">Date:</label>
+    </div>
+    <div class="print-value">
+        <input id="Calculation_Date" name="Calculation.Date" type="text" value="" />
+    </div>
+</div>
+
+
+
+                </form>
+                <div class="trigger field print">
+                    <div class="print-description">&nbsp;</div>
+                    <div class="print-value">
+                        <input type="checkbox" id="current-date" name="current-date" /><label for="current-date"> Use current date</label>
+                    </div>
+                </div>
+                <span class="flow-breaker"></span>
+
+                <div class="button-container">
+                    <hr />
+                    <button id="calculation-print" class="ok">
+                        <svg class="icon icon-print"><use xlink:href="/images/icons001.svg#icon-print"></use></svg><span>Print</span>
+                    </button>
+                    <button class="cancel">
+                        <svg class="icon icon-close"><use xlink:href="/images/icons001.svg#icon-close"></use></svg><span>Close</span>
+                    </button>
+                </div>
+            </div>
+            <span class="flow-breaker"></span>
+        </div>
+    </div>
+
+
+    <header class="title-block">
+        <h1 class="title">
+            <span class="code">Eurocode 2 </span>
+            <span class="text">ULS design of rectangular reinforced concrete cross-section for bending and axial force</span>
+        </h1>
+        <dl>
+            <dt><span>Description:</span></dt>
+            <dd>
+                  ULS design of rectangular reinforced concrete cross-section for bending and axial force (calculation of required reinforcement for given bending moment / axial force, maximum moment resistance MRd for given axial force, or complete M-N interaction diagram for given reinforcement layout)
+                </dd>
+            <dt><span>According to:</span></dt>
+            <dd>EN 1992-1-1:2004+AC2:2010 Section 6.1</dd>
+
+<dt>
+    <span>Applicable for:</span>
+</dt>
+<dd>
+    Uniaxial bending
+</dd>
+
+
+<dt>
+    <span>Supported National Annexes:</span>
+</dt>
+<dd>
+    Nationally Defined Parameters (NDPs) automatically filled for supported countries
+</dd>
+
+        </dl>
+        <span class="flow-breaker"></span>
+    </header>
+
+
+    <nav class="sticky-content-menu">
+        <span class="trigger"></span>
+        <div class="content">
+            <dl>
+                <dt>Contents:</dt>
+
+                        <dd><a href="#input"><svg class="icon icon-list"><use xlink:href="/images/icons001.svg#icon-list"></use></svg>Input</a></dd>
+                        <dd><a href="#ndp"><svg class="icon icon-globe"><use xlink:href="/images/icons001.svg#icon-globe"></use></svg>NDP</a></dd>
+                        <dd><a href="#results"><svg class="icon icon-cog"><use xlink:href="/images/icons001.svg#icon-cog"></use></svg>Results</a></dd>
+                        <dd><a href="#notes"><svg class="icon icon-exclamation-circle"><use xlink:href="/images/icons001.svg#icon-exclamation-circle"></use></svg>Notes</a></dd>
+                        <dd><a href="#charts"><svg class="icon icon-line-chart"><use xlink:href="/images/icons001.svg#icon-line-chart"></use></svg>Charts</a></dd>
+                        <dd><a href="#tables"><svg class="icon icon-table"><use xlink:href="/images/icons001.svg#icon-table"></use></svg>Tables</a></dd>
+                        <dd><a href="#details"><svg class="icon icon-edit"><use xlink:href="/images/icons001.svg#icon-edit"></use></svg>Details</a></dd>
+            </dl>
+        </div>
+    </nav>
+
+    <div class="control-block">
+            <button id="calculation-save" class="save">
+                <svg class="icon icon-download"><use xlink:href="/images/icons001.svg#icon-download"></use></svg><span>Save</span>
+            </button>
+            <button class="load">
+                <svg class="icon icon-upload"><use xlink:href="/images/icons001.svg#icon-upload"></use></svg><span>Load</span>
+            </button>
+        <button accesskey="P" class="print">
+            <svg class="icon icon-print"><use xlink:href="/images/icons001.svg#icon-print"></use></svg><span>Print-PDF</span>
+        </button>
+
+        <a class="all-calculations" href="/design">
+            <div class="button">
+                <svg class="icon icon-cog"><use xlink:href="/images/icons001.svg#icon-cog"></use></svg><span>All Calculations</span>
+            </div>
+        </a>
+
+        <div class="social-buttons">
+    <div id="rate-container">
+        <div>Rate this calculation:</div>
+        <div id="rateYo"></div>
+    </div>
+    <a class="button fb-share" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Feurocodeapplied.com%2Fdesign%2Fen1992%2Fuls-design-rectangular-section"><svg class="icon icon-facebook"><use xlink:href="/images/icons001.svg#icon-facebook"></use></svg><span>Share</span></a>
+    <a class="button in-share" target="_blank" rel="noopener" href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Feurocodeapplied.com%2Fdesign%2Fen1992%2Fuls-design-rectangular-section&title=&summary=&source="><svg class="icon icon-linkedin"><use xlink:href="/images/icons001.svg#icon-linkedin"></use></svg><span>Share</span></a>
+</div>
+
+
+        <div class="flow-breaker"></div>
+
+    </div>
+
+
+
+        <div class="custom-content">
+                <div id="ec2-general-section-uls-design-custom-content" class="content">
+                    
+
+                </div>
+        </div>
+        <section class="input">
+            
+ 
+
+<form id="input-form" data-ajax="true" action="/design/en1992/uls-design-rectangular-section" method="post">
+            <fieldset id="input">
+                <legend class="slide-up"><svg class="icon icon-list"><use xlink:href="/images/icons001.svg#icon-list"></use></svg>Input<span class="trigger"><svg class="icon icon-chevron-up"><use xlink:href="/images/icons001.svg#icon-chevron-up"></use></svg></span></legend>
+                <div class="content">
+
+<div class="field numeric">
+    <div class="description">
+        <label for="Calculation_fck">Concrete characteristic strength</label>
+    </div>
+    <div class="symbol">
+        <label for="Calculation_fck">f<sub>ck</sub></label>
+    </div>
+    <div class="value">
+        <input data-val="true" data-val-number="The field Concrete characteristic strength must be a number." data-val-range="f&lt;sub&gt;ck&lt;/sub&gt;: Value must be between 0 and 90MPa" data-val-range-max="90" data-val-range-min="5E-324" data-val-required="The Concrete characteristic strength field is required." id="Calculation_fck" name="Calculation.fck" type="text" value="25" />
+    </div>
+    <div class="units">
+        <span class="suffix">MPa</span>
+    </div>
+    <div class="info">
+        <span class="content">e.g. 30 MPa for concrete class C30/37. For a list of concrete classes see <a class='link dark' href='/design/en1992/concrete-design-properties'>Table of Concrete Design Properties</a></span>
+        <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+    </div>
+    <div class="validation">
+        <span class="field-validation-valid" data-valmsg-for="Calculation.fck" data-valmsg-replace="true"></span>
+    </div>
+</div>
+
+
+
+
+<div class="field numeric">
+    <div class="description">
+        <label for="Calculation_fyk">Steel characteristic yield strength</label>
+    </div>
+    <div class="symbol">
+        <label for="Calculation_fyk">f<sub>yk</sub></label>
+    </div>
+    <div class="value">
+        <input data-val="true" data-val-number="The field Steel characteristic yield strength must be a number." data-val-range="f&lt;sub&gt;yk&lt;/sub&gt;: Value must be greater than 0" data-val-range-max="1.7976931348623157E&#x2B;308" data-val-range-min="5E-324" data-val-required="f&lt;sub&gt;yk&lt;/sub&gt;: Value is required" id="Calculation_fyk" name="Calculation.fyk" type="text" value="500" />
+    </div>
+    <div class="units">
+        <span class="suffix">MPa</span>
+    </div>
+    <div class="info">
+        <span class="content"></span>
+        <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+    </div>
+    <div class="validation">
+        <span class="field-validation-valid" data-valmsg-for="Calculation.fyk" data-valmsg-replace="true"></span>
+    </div>
+</div>
+
+
+
+
+<div class="field enum">
+    <div class="description">
+        <label for="Calculation_ReinforcementLaw">Type of reinforcement stress-strain law</label>
+    </div>
+    <div class="symbol">
+        <label for="Calculation_ReinforcementLaw"></label>
+    </div>
+    <div class="value">
+        <select data-val="true" data-val-required="The Type of reinforcement stress-strain law field is required." id="Calculation_ReinforcementLaw" name="Calculation.ReinforcementLaw"><option selected="selected" value="0">No hardening (Perfectly plastic)</option>
+<option value="1">With hardening (Class A)</option>
+<option value="2">With hardening (Class B)</option>
+<option value="3">With hardening (Class C)</option>
+<option value="4">Custom</option>
+</select>
+    </div>
+    <div class="units">
+        <span class="suffix"></span>
+    </div>
+    <div class="info">
+        <span class="content">The elastic-perfectly plastic model (no hardening) is permitted in EN1992-1-1 &sect;3.2.7(2) with unlimited strain. A strain limit of 75&permil; is consider in this calculation for numerical reasons. Alternatively stress-strain laws with hardening and limited strains may be considered according to the ductility classes A, B or C specified in EN1992-1-1 Annex C.</span>
+        <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+    </div>
+    <div class="validation">
+        <span class="field-validation-valid" data-valmsg-for="Calculation.ReinforcementLaw" data-valmsg-replace="true"></span>
+    </div>
+</div>
+<div class="field numeric">
+    <div class="description">
+        <label for="Calculation_HardeningRatio">Ratio of characteristic ultimate strength to characteristic yield strength</label>
+    </div>
+    <div class="symbol">
+        <label for="Calculation_HardeningRatio"><span>(</span>f<sub>t</sub><span>/</span>f<sub>y</sub><span>)</span><sub>k</sub></label>
+    </div>
+    <div class="value">
+        <input data-val="true" data-val-number="The field Ratio of characteristic ultimate strength to characteristic yield strength must be a number." data-val-range="(f&lt;sub&gt;t&lt;/sub&gt;/f&lt;sub&gt;y&lt;/sub&gt;)&lt;sub&gt;k&lt;/sub&gt;: Value must not be smaller than 1.0" data-val-range-max="1.7976931348623157E&#x2B;308" data-val-range-min="1" data-val-required="(f&lt;sub&gt;t&lt;/sub&gt;/f&lt;sub&gt;y&lt;/sub&gt;)&lt;sub&gt;k&lt;/sub&gt;: Value is required" id="Calculation_HardeningRatio" name="Calculation.HardeningRatio" type="text" value="1" />
+    </div>
+    <div class="units">
+        <span class="suffix"></span>
+    </div>
+    <div class="info">
+        <span class="content"></span>
+        <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+    </div>
+    <div class="validation">
+        <span class="field-validation-valid" data-valmsg-for="Calculation.HardeningRatio" data-valmsg-replace="true"></span>
+    </div>
+</div>
+
+
+
+
+<div class="field numeric">
+    <div class="description">
+        <label for="Calculation_epsilonuk">Characteristic value of ultimate strain</label>
+    </div>
+    <div class="symbol">
+        <label for="Calculation_epsilonuk">&epsilon;<sub>uk</sub></label>
+    </div>
+    <div class="value">
+        <input data-val="true" data-val-number="The field Characteristic value of ultimate strain must be a number." data-val-range="&amp;epsilon;&lt;sub&gt;uk&lt;/sub&gt;: Value must be greater than 0" data-val-range-max="1.7976931348623157E&#x2B;308" data-val-range-min="5E-324" data-val-required="&amp;epsilon;&lt;sub&gt;uk&lt;/sub&gt;: Value is required" id="Calculation_epsilonuk" name="Calculation.epsilonuk" type="text" value="75" />
+    </div>
+    <div class="units">
+        <span class="suffix">&permil;</span>
+    </div>
+    <div class="info">
+        <span class="content"></span>
+        <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+    </div>
+    <div class="validation">
+        <span class="field-validation-valid" data-valmsg-for="Calculation.epsilonuk" data-valmsg-replace="true"></span>
+    </div>
+</div>
+
+
+
+<hr />
+<div class="field numeric">
+    <div class="description">
+        <label for="Calculation_h">Height of cross-section</label>
+    </div>
+    <div class="symbol">
+        <label for="Calculation_h">h</label>
+    </div>
+    <div class="value">
+        <input data-val="true" data-val-number="The field Height of cross-section must be a number." data-val-range="h: Value must be greater than 0" data-val-range-max="1.7976931348623157E&#x2B;308" data-val-range-min="5E-324" data-val-required="h: Value is required" id="Calculation_h" name="Calculation.h" type="text" value="0.5" />
+    </div>
+    <div class="units">
+        <span class="suffix">m</span>
+    </div>
+    <div class="info">
+        <span class="content"></span>
+        <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+    </div>
+    <div class="validation">
+        <span class="field-validation-valid" data-valmsg-for="Calculation.h" data-valmsg-replace="true"></span>
+    </div>
+</div>
+
+
+
+
+<div class="field numeric">
+    <div class="description">
+        <label for="Calculation_b">Width of cross-section</label>
+    </div>
+    <div class="symbol">
+        <label for="Calculation_b">b</label>
+    </div>
+    <div class="value">
+        <input data-val="true" data-val-number="The field Width of cross-section must be a number." data-val-range="b: Value must be greater than 0" data-val-range-max="1.7976931348623157E&#x2B;308" data-val-range-min="5E-324" data-val-required="b: Value is required" id="Calculation_b" name="Calculation.b" type="text" value="0.3" />
+    </div>
+    <div class="units">
+        <span class="suffix">m</span>
+    </div>
+    <div class="info">
+        <span class="content"></span>
+        <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+    </div>
+    <div class="validation">
+        <span class="field-validation-valid" data-valmsg-for="Calculation.b" data-valmsg-replace="true"></span>
+    </div>
+</div>
+
+
+
+<hr /><p><b>Initial reinforcement:</b> When the required reinforcement is requested the initial reinforcement will be modified accordingly.</p>
+<div class="field numeric">
+    <div class="description">
+        <label for="Calculation_nBars1">Number of bars of bottom reinforcement layer 1</label>
+    </div>
+    <div class="symbol">
+        <label for="Calculation_nBars1">n<sub>bars,1</sub></label>
+    </div>
+    <div class="value">
+        <input data-val="true" data-val-number="The field Number of bars of bottom reinforcement layer 1 must be a number." data-val-range="n&lt;sub&gt;bars,1&lt;/sub&gt;: Value must not be smaller than 0 or greater than 200" data-val-range-max="200" data-val-range-min="0" data-val-required="n&lt;sub&gt;bars,1&lt;/sub&gt;: Value is required" id="Calculation_nBars1" name="Calculation.nBars1" type="text" value="2" />
+    </div>
+    <div class="units">
+        <span class="suffix"></span>
+    </div>
+    <div class="info">
+        <span class="content">Enter 0 to disable the bottom reinforcement layer. Non-integer values are handled by suitable modification of bar cross-sectional area.</span>
+        <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+    </div>
+    <div class="validation">
+        <span class="field-validation-valid" data-valmsg-for="Calculation.nBars1" data-valmsg-replace="true"></span>
+    </div>
+</div>
+
+
+
+
+<div class="field numeric">
+    <div class="description">
+        <label for="Calculation_Phi1">Diameter of bars of bottom reinforcement layer 1</label>
+    </div>
+    <div class="symbol">
+        <label for="Calculation_Phi1">&Phi;<sub>1</sub></label>
+    </div>
+    <div class="value">
+        <input data-val="true" data-val-number="The field Diameter of bars of bottom reinforcement layer 1 must be a number." data-val-range="&amp;Phi;&lt;sub&gt;1&lt;/sub&gt;: Value must be greater than 0" data-val-range-max="1.7976931348623157E&#x2B;308" data-val-range-min="5E-324" data-val-required="&amp;Phi;&lt;sub&gt;1&lt;/sub&gt;: Value is required" id="Calculation_Phi1" name="Calculation.Phi1" type="text" value="20" />
+    </div>
+    <div class="units">
+        <span class="suffix">mm</span>
+    </div>
+    <div class="info">
+        <span class="content"></span>
+        <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+    </div>
+    <div class="validation">
+        <span class="field-validation-valid" data-valmsg-for="Calculation.Phi1" data-valmsg-replace="true"></span>
+    </div>
+</div>
+
+
+
+
+<div class="field numeric">
+    <div class="description">
+        <label for="Calculation_cPrime1">Distance from centroid of bottom reinforcement layer 1 to bottom concrete edge</label>
+    </div>
+    <div class="symbol">
+        <label for="Calculation_cPrime1">c'<sub>1</sub></label>
+    </div>
+    <div class="value">
+        <input data-val="true" data-val-number="The field Distance from centroid of bottom reinforcement layer 1 to bottom concrete edge must be a number." data-val-range="c&#x27;&lt;sub&gt;1&lt;/sub&gt;: Value must be greater than 0" data-val-range-max="1.7976931348623157E&#x2B;308" data-val-range-min="5E-324" data-val-required="c&#x27;&lt;sub&gt;1&lt;/sub&gt;: Value is required" id="Calculation_cPrime1" name="Calculation.cPrime1" type="text" value="0.04" />
+    </div>
+    <div class="units">
+        <span class="suffix">m</span>
+    </div>
+    <div class="info">
+        <span class="content"></span>
+        <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+    </div>
+    <div class="validation">
+        <span class="field-validation-valid" data-valmsg-for="Calculation.cPrime1" data-valmsg-replace="true"></span>
+    </div>
+</div>
+
+
+
+<hr />
+<div class="field numeric">
+    <div class="description">
+        <label for="Calculation_nBars2">Number of bars of top reinforcement layer 2</label>
+    </div>
+    <div class="symbol">
+        <label for="Calculation_nBars2">n<sub>bars,2</sub></label>
+    </div>
+    <div class="value">
+        <input data-val="true" data-val-number="The field Number of bars of top reinforcement layer 2 must be a number." data-val-range="n&lt;sub&gt;bars,2&lt;/sub&gt;: Value must not be smaller than 0 or greater than 200" data-val-range-max="200" data-val-range-min="0" data-val-required="n&lt;sub&gt;bars,2&lt;/sub&gt;: Value is required" id="Calculation_nBars2" name="Calculation.nBars2" type="text" value="2" />
+    </div>
+    <div class="units">
+        <span class="suffix"></span>
+    </div>
+    <div class="info">
+        <span class="content">Enter 0 to disable the top reinforcement layer. Non-integer values are handled by suitable modification of bar cross-sectional area.</span>
+        <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+    </div>
+    <div class="validation">
+        <span class="field-validation-valid" data-valmsg-for="Calculation.nBars2" data-valmsg-replace="true"></span>
+    </div>
+</div>
+
+
+
+
+<div class="field numeric">
+    <div class="description">
+        <label for="Calculation_Phi2">Diameter of bars of top reinforcement layer 2</label>
+    </div>
+    <div class="symbol">
+        <label for="Calculation_Phi2">&Phi;<sub>2</sub></label>
+    </div>
+    <div class="value">
+        <input data-val="true" data-val-number="The field Diameter of bars of top reinforcement layer 2 must be a number." data-val-range="&amp;Phi;&lt;sub&gt;2&lt;/sub&gt;: Value must be greater than 0" data-val-range-max="1.7976931348623157E&#x2B;308" data-val-range-min="5E-324" data-val-required="&amp;Phi;&lt;sub&gt;2&lt;/sub&gt;: Value is required" id="Calculation_Phi2" name="Calculation.Phi2" type="text" value="20" />
+    </div>
+    <div class="units">
+        <span class="suffix">mm</span>
+    </div>
+    <div class="info">
+        <span class="content"></span>
+        <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+    </div>
+    <div class="validation">
+        <span class="field-validation-valid" data-valmsg-for="Calculation.Phi2" data-valmsg-replace="true"></span>
+    </div>
+</div>
+
+
+
+
+<div class="field numeric">
+    <div class="description">
+        <label for="Calculation_cPrime2">Distance from centroid of top reinforcement layer 2 to top concrete edge</label>
+    </div>
+    <div class="symbol">
+        <label for="Calculation_cPrime2">c'<sub>2</sub></label>
+    </div>
+    <div class="value">
+        <input data-val="true" data-val-number="The field Distance from centroid of top reinforcement layer 2 to top concrete edge must be a number." data-val-range="c&#x27;&lt;sub&gt;2&lt;/sub&gt;: Value must be greater than 0" data-val-range-max="1.7976931348623157E&#x2B;308" data-val-range-min="5E-324" data-val-required="c&#x27;&lt;sub&gt;2&lt;/sub&gt;: Value is required" id="Calculation_cPrime2" name="Calculation.cPrime2" type="text" value="0.04" />
+    </div>
+    <div class="units">
+        <span class="suffix">m</span>
+    </div>
+    <div class="info">
+        <span class="content">Distance from bar centroid of top reinforcement layer to concrete edge</span>
+        <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+    </div>
+    <div class="validation">
+        <span class="field-validation-valid" data-valmsg-for="Calculation.cPrime2" data-valmsg-replace="true"></span>
+    </div>
+</div>
+
+
+
+<hr />
+<div class="field numeric">
+    <div class="description">
+        <label for="Calculation_nBars3">Number of bars of side reinforcement layer 3 <u>per side</u></label>
+    </div>
+    <div class="symbol">
+        <label for="Calculation_nBars3">n<sub>bars,3</sub></label>
+    </div>
+    <div class="value">
+        <input data-val="true" data-val-number="The field Number of bars of side reinforcement layer 3 &lt;u&gt;per side&lt;/u&gt; must be a number." data-val-range="n&lt;sub&gt;bars,3&lt;/sub&gt;: Value must not be smaller than 0 or greater than 200" data-val-range-max="200" data-val-range-min="0" data-val-required="n&lt;sub&gt;bars,3&lt;/sub&gt;: Value is required" id="Calculation_nBars3" name="Calculation.nBars3" type="text" value="0" />
+    </div>
+    <div class="units">
+        <span class="suffix"></span>
+    </div>
+    <div class="info">
+        <span class="content">Enter 0 to disable the side reinforcement layer. Non-integer values are handled by suitable modification of bar cross-sectional area.</span>
+        <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+    </div>
+    <div class="validation">
+        <span class="field-validation-valid" data-valmsg-for="Calculation.nBars3" data-valmsg-replace="true"></span>
+    </div>
+</div>
+
+
+
+
+<div class="field numeric">
+    <div class="description">
+        <label for="Calculation_Phi3">Diameter of bars of side reinforcement layer 3</label>
+    </div>
+    <div class="symbol">
+        <label for="Calculation_Phi3">&Phi;<sub>3</sub></label>
+    </div>
+    <div class="value">
+        <input data-val="true" data-val-number="The field Diameter of bars of side reinforcement layer 3 must be a number." data-val-range="&amp;Phi;&lt;sub&gt;3&lt;/sub&gt;: Value must be greater than 0" data-val-range-max="1.7976931348623157E&#x2B;308" data-val-range-min="5E-324" data-val-required="&amp;Phi;&lt;sub&gt;3&lt;/sub&gt;: Value is required" id="Calculation_Phi3" name="Calculation.Phi3" type="text" value="12" />
+    </div>
+    <div class="units">
+        <span class="suffix">mm</span>
+    </div>
+    <div class="info">
+        <span class="content"></span>
+        <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+    </div>
+    <div class="validation">
+        <span class="field-validation-valid" data-valmsg-for="Calculation.Phi3" data-valmsg-replace="true"></span>
+    </div>
+</div>
+
+
+
+<hr />
+<div class="field enum">
+    <div class="description">
+        <label for="Calculation_AnalysisType">Type of analysis</label>
+    </div>
+    <div class="symbol">
+        <label for="Calculation_AnalysisType"></label>
+    </div>
+    <div class="value">
+        <select data-val="true" data-val-required="The Type of analysis field is required." id="Calculation_AnalysisType" name="Calculation.AnalysisType"><option value="0">Required reinforcement As</option>
+<option selected="selected" value="1">Bending resistance MRd</option>
+<option value="2">Interaction diagram M-N</option>
+</select>
+    </div>
+    <div class="units">
+        <span class="suffix"></span>
+    </div>
+    <div class="info">
+        <span class="content"></span>
+        <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+    </div>
+    <div class="validation">
+        <span class="field-validation-valid" data-valmsg-for="Calculation.AnalysisType" data-valmsg-replace="true"></span>
+    </div>
+</div>
+<div class="field numeric">
+    <div class="description">
+        <label for="Calculation_MEd">Design value of the bending moment - ULS factored loads (positive when tension at bottom side)</label>
+    </div>
+    <div class="symbol">
+        <label for="Calculation_MEd">M<sub>Ed</sub></label>
+    </div>
+    <div class="value">
+        <input data-val="true" data-val-number="The field Design value of the bending moment - ULS factored loads (positive when tension at bottom side) must be a number." data-val-required="The Design value of the bending moment - ULS factored loads (positive when tension at bottom side) field is required." id="Calculation_MEd" name="Calculation.MEd" type="text" value="0" />
+    </div>
+    <div class="units">
+        <span class="suffix">kNm</span>
+    </div>
+    <div class="info">
+        <span class="content">The design value of the bending moment at the ULS combination for which the required reinforcement will be determined</span>
+        <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+    </div>
+    <div class="validation">
+        <span class="field-validation-valid" data-valmsg-for="Calculation.MEd" data-valmsg-replace="true"></span>
+    </div>
+</div>
+
+
+
+
+<div class="field numeric">
+    <div class="description">
+        <label for="Calculation_NEd">Design value of the axial force - ULS factored loads (compression negative)</label>
+    </div>
+    <div class="symbol">
+        <label for="Calculation_NEd">N<sub>Ed</sub></label>
+    </div>
+    <div class="value">
+        <input data-val="true" data-val-number="The field Design value of the axial force - ULS factored loads (compression negative) must be a number." data-val-required="The Design value of the axial force - ULS factored loads (compression negative) field is required." id="Calculation_NEd" name="Calculation.NEd" type="text" value="0" />
+    </div>
+    <div class="units">
+        <span class="suffix">kN</span>
+    </div>
+    <div class="info">
+        <span class="content">The design value of the axial force at the ULS combination for which the maximum bending moment resistance of the cross-section will be calculated</span>
+        <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+    </div>
+    <div class="validation">
+        <span class="field-validation-valid" data-valmsg-for="Calculation.NEd" data-valmsg-replace="true"></span>
+    </div>
+</div>
+
+
+
+
+<div class="field enum">
+    <div class="description">
+        <label for="Calculation_VariableReinforcementLayers">Variable reinforcement layers to be modified</label>
+    </div>
+    <div class="symbol">
+        <label for="Calculation_VariableReinforcementLayers"></label>
+    </div>
+    <div class="value">
+        <select data-val="true" data-val-required="The Variable reinforcement layers to be modified field is required." id="Calculation_VariableReinforcementLayers" name="Calculation.VariableReinforcementLayers"><option selected="selected" value="0">Layer 1</option>
+<option value="1">Layer 2</option>
+<option value="2">Layer 3</option>
+<option value="3">Layers 1 &amp; 2</option>
+<option value="4">Layers 2 &amp; 3</option>
+<option value="5">Layers 1 &amp; 3</option>
+<option value="6">Layers 1 &amp; 2 &amp; 3</option>
+</select>
+    </div>
+    <div class="units">
+        <span class="suffix"></span>
+    </div>
+    <div class="info">
+        <span class="content">The specified layers will be modified proportionally by multiplication by the same factor. The rest of the layers will remain unchanged.</span>
+        <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+    </div>
+    <div class="validation">
+        <span class="field-validation-valid" data-valmsg-for="Calculation.VariableReinforcementLayers" data-valmsg-replace="true"></span>
+    </div>
+</div>
+
+
+<div class="figure">
+    <div class="flow-breaker"></div>
+    <div class="images">
+        <img src="https://cdn.eurocodeapplied.com/images/figures/ec2-rectangular-section.png" width="450" height="300" style="max-width: 450px;" title="Rectangular concrete cross-section" alt="Rectangular concrete cross-section" />
+    </div>
+    <h6 class="caption">Rectangular concrete cross-section</h6>
+</div>
+
+
+
+                </div>
+            </fieldset>
+            <fieldset id="ndp">
+                <legend class="slide-up"><svg class="icon icon-globe"><use xlink:href="/images/icons001.svg#icon-globe"></use></svg>Nationally Defined Parameters<span class="trigger"><svg class="icon icon-chevron-up"><use xlink:href="/images/icons001.svg#icon-chevron-up"></use></svg></span></legend>
+                <div class="content">
+
+<div class="field numeric">
+    <div class="description">
+        <label for="Calculation_acc">Coefficient taking account of long term effects and loading effects on the compressive strength of concrete (for bending)</label>
+    </div>
+    <div class="symbol">
+        <label for="Calculation_acc">&alpha;<sub>cc</sub></label>
+    </div>
+    <div class="value">
+        <input data-val="true" data-val-number="The field Coefficient taking account of long term effects and loading effects on the compressive strength of concrete (for bending) must be a number." data-val-range="&amp;alpha;&lt;sub&gt;cc&lt;/sub&gt;: Value must be between 0.8 and 1.0" data-val-range-max="1" data-val-range-min="0.8" data-val-required="The Coefficient taking account of long term effects and loading effects on the compressive strength of concrete (for bending) field is required." id="Calculation_acc" name="Calculation.acc" type="text" value="0.85" />
+    </div>
+    <div class="units">
+        <span class="suffix"></span>
+    </div>
+    <div class="info">
+        <span class="content">According to EN1992-1-1 &sect;3.1.6(1)P and the National Annex.</span>
+        <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+    </div>
+    <div class="validation">
+        <span class="field-validation-valid" data-valmsg-for="Calculation.acc" data-valmsg-replace="true"></span>
+    </div>
+</div>
+
+
+
+
+<select class="ndp-select" id="Calculation__acc" name="Calculation._acc"><option value="Default">1</option>
+<option value="Austria">1</option>
+<option value="Belgium">0.85</option>
+<option value="Bulgaria">0.85</option>
+<option value="Croatia">1</option>
+<option value="Cyprus">1</option>
+<option value="Czech_Republic">1</option>
+<option value="Denmark">1</option>
+<option value="Estonia">1</option>
+<option value="Finland">0.85</option>
+<option value="France">1</option>
+<option value="Germany">0.85</option>
+<option value="Greece">0.85</option>
+<option value="Iceland">1</option>
+<option value="Ireland">0.85</option>
+<option value="Italy">0.85</option>
+<option value="Latvia">0.85</option>
+<option value="Lithuania">0.9</option>
+<option value="Luxembourg">0.85</option>
+<option value="Netherlands">1</option>
+<option value="Norway">0.85</option>
+<option value="Poland">1</option>
+<option value="Portugal">1</option>
+<option value="Romania">1</option>
+<option value="Singapore">0.85</option>
+<option value="Slovakia">1</option>
+<option value="Slovenia">1</option>
+<option value="Spain">1</option>
+<option value="Sweden">1</option>
+<option value="Switzerland">1</option>
+<option value="United_Kingdom">0.85</option>
+</select>
+
+<div class="field numeric">
+    <div class="description">
+        <label for="Calculation_gammaC">Concrete partial material safety factor</label>
+    </div>
+    <div class="symbol">
+        <label for="Calculation_gammaC">&gamma;<sub>c</sub></label>
+    </div>
+    <div class="value">
+        <input data-val="true" data-val-number="The field Concrete partial material safety factor must be a number." data-val-range="&amp;gamma;&lt;sub&gt;c&lt;/sub&gt;: Value must not be smaller than 1" data-val-range-max="1.7976931348623157E&#x2B;308" data-val-range-min="1" data-val-required="The Concrete partial material safety factor field is required." id="Calculation_gammaC" name="Calculation.gammaC" type="text" value="1.25" />
+    </div>
+    <div class="units">
+        <span class="suffix"></span>
+    </div>
+    <div class="info">
+        <span class="content">According to EN1992-1-1 &sect;2.4.2.4 and the National Annex.</span>
+        <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+    </div>
+    <div class="validation">
+        <span class="field-validation-valid" data-valmsg-for="Calculation.gammaC" data-valmsg-replace="true"></span>
+    </div>
+</div>
+
+
+
+
+<select class="ndp-select" id="Calculation__gammaC" name="Calculation._gammaC"><option value="Default">1.5</option>
+<option value="Austria">1.5</option>
+<option value="Belgium">1.5</option>
+<option value="Bulgaria">1.5</option>
+<option value="Croatia">1.5</option>
+<option value="Cyprus">1.5</option>
+<option value="Czech_Republic">1.5</option>
+<option value="Denmark">1.45</option>
+<option value="Estonia">1.5</option>
+<option value="Finland">1.5</option>
+<option value="France">1.5</option>
+<option value="Germany">1.5</option>
+<option value="Greece">1.5</option>
+<option value="Iceland">1.5</option>
+<option value="Ireland">1.5</option>
+<option value="Italy">1.5</option>
+<option value="Latvia">1.5</option>
+<option value="Lithuania">1.5</option>
+<option value="Luxembourg">1.5</option>
+<option value="Netherlands">1.5</option>
+<option value="Norway">1.5</option>
+<option value="Poland">1.5</option>
+<option value="Portugal">1.5</option>
+<option value="Romania">1.5</option>
+<option value="Singapore">1.5</option>
+<option value="Slovakia">1.5</option>
+<option value="Slovenia">1.5</option>
+<option value="Spain">1.5</option>
+<option value="Sweden">1.5</option>
+<option value="Switzerland">1.5</option>
+<option value="United_Kingdom">1.5</option>
+</select>
+
+<div class="field numeric">
+    <div class="description">
+        <label for="Calculation_gammaS">Reinforcement steel partial material safety factor</label>
+    </div>
+    <div class="symbol">
+        <label for="Calculation_gammaS">&gamma;<sub>s</sub></label>
+    </div>
+    <div class="value">
+        <input data-val="true" data-val-number="The field Reinforcement steel partial material safety factor must be a number." data-val-range="&amp;gamma;&lt;sub&gt;s&lt;/sub&gt;: Value must not be smaller than 1" data-val-range-max="1.7976931348623157E&#x2B;308" data-val-range-min="1" data-val-required="The Reinforcement steel partial material safety factor field is required." id="Calculation_gammaS" name="Calculation.gammaS" type="text" value="1.2" />
+    </div>
+    <div class="units">
+        <span class="suffix"></span>
+    </div>
+    <div class="info">
+        <span class="content">According to EN1992-1-1 &sect;2.4.2.4 and the National Annex.</span>
+        <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+    </div>
+    <div class="validation">
+        <span class="field-validation-valid" data-valmsg-for="Calculation.gammaS" data-valmsg-replace="true"></span>
+    </div>
+</div>
+
+
+
+
+<select class="ndp-select" id="Calculation__gammaS" name="Calculation._gammaS"><option value="Default">1.15</option>
+<option value="Austria">1.15</option>
+<option value="Belgium">1.15</option>
+<option value="Bulgaria">1.15</option>
+<option value="Croatia">1.15</option>
+<option value="Cyprus">1.15</option>
+<option value="Czech_Republic">1.15</option>
+<option value="Denmark">1.2</option>
+<option value="Estonia">1.15</option>
+<option value="Finland">1.15</option>
+<option value="France">1.15</option>
+<option value="Germany">1.15</option>
+<option value="Greece">1.15</option>
+<option value="Iceland">1.15</option>
+<option value="Ireland">1.15</option>
+<option value="Italy">1.15</option>
+<option value="Latvia">1.15</option>
+<option value="Lithuania">1.15</option>
+<option value="Luxembourg">1.15</option>
+<option value="Netherlands">1.15</option>
+<option value="Norway">1.15</option>
+<option value="Poland">1.15</option>
+<option value="Portugal">1.15</option>
+<option value="Romania">1.15</option>
+<option value="Singapore">1.15</option>
+<option value="Slovakia">1.15</option>
+<option value="Slovenia">1.15</option>
+<option value="Spain">1.15</option>
+<option value="Sweden">1.15</option>
+<option value="Switzerland">1.15</option>
+<option value="United_Kingdom">1.15</option>
+</select>
+
+<div class="field enum">
+    <div class="description">
+        <label for="Calculation_epsilonudRule">Design value of reinforcement ultimate strain</label>
+    </div>
+    <div class="symbol">
+        <label for="Calculation_epsilonudRule">&epsilon;<sub>ud</sub></label>
+    </div>
+    <div class="value">
+        <select data-val="true" data-val-required="The Design value of reinforcement ultimate strain field is required." id="Calculation_epsilonudRule" name="Calculation.epsilonudRule"><option value="0">1.0&#x3B5;uk</option>
+<option value="1">0.9&#x3B5;uk</option>
+<option value="2">0.85&#x3B5;uk</option>
+<option value="3">0.8&#x3B5;uk</option>
+<option value="4">2.5%</option>
+<option value="5">2.0%</option>
+<option selected="selected" value="6">1.0%</option>
+<option value="7">&#x3B5;yd</option>
+</select>
+    </div>
+    <div class="units">
+        <span class="suffix"></span>
+    </div>
+    <div class="info">
+        <span class="content">According to EN1992-1-1 &sect;3.2.7(2) and the National Annex.</span>
+        <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+    </div>
+    <div class="validation">
+        <span class="field-validation-valid" data-valmsg-for="Calculation.epsilonudRule" data-valmsg-replace="true"></span>
+    </div>
+</div>
+<select class="ndp-select" id="Calculation__epsilonudRule" name="Calculation._epsilonudRule"><option value="Default">1</option>
+<option value="Austria">1</option>
+<option value="Belgium">3</option>
+<option value="Bulgaria">4</option>
+<option value="Croatia">1</option>
+<option value="Cyprus">1</option>
+<option value="Czech_Republic">1</option>
+<option value="Denmark">1</option>
+<option value="Finland">6</option>
+<option value="France">1</option>
+<option value="Germany">4</option>
+<option value="Greece">1</option>
+<option value="Estonia">6</option>
+<option value="Iceland">1</option>
+<option value="Ireland">1</option>
+<option value="Italy">1</option>
+<option value="Latvia">1</option>
+<option value="Lithuania">1</option>
+<option value="Luxembourg">6</option>
+<option value="Netherlands">1</option>
+<option value="Norway">2</option>
+<option value="Poland">1</option>
+<option value="Portugal">1</option>
+<option value="Romania">1</option>
+<option value="Singapore">1</option>
+<option value="Slovakia">1</option>
+<option value="Slovenia">1</option>
+<option value="Spain">6</option>
+<option value="Sweden">1</option>
+<option value="Switzerland">1</option>
+<option value="United_Kingdom">1</option>
+</select>
+                    <div class="no-print">
+                        <small>
+                            <strong>Note:</strong> Always verify the validity of the Nationally Defined Parameters (NDPs).
+                            Please inform us of any discrepancy using our <a class="link" href="/contact">Contact Form</a>.
+                            The NDP value is left blank for all NDPs that we do not have this information available.
+                            Interested users who have access to the corresponding NDPs can notify us using our <a class="link" href="/contact">Contact Form</a> to fill-in the missing information.
+                        </small>
+                    </div>
+                </div>
+            </fieldset>
+
+    <span id="results"></span>
+    <div class="calculate-block">
+        <button accesskey="C" id="calculation-calculate" class="calculate" type="submit">
+            <span class="state calculate active">
+                <svg class="icon icon-bolt"><use xlink:href="/images/icons001.svg#icon-bolt"></use></svg><span class="text">Calculate</span>
+            </span>
+            <span class="state finished">
+                <svg class="icon icon-check"><use xlink:href="/images/icons001.svg#icon-check"></use></svg><span class="text">Finished</span>
+            </span>
+            <span class="state recalculate">
+                <svg class="icon icon-refresh"><use xlink:href="/images/icons001.svg#icon-refresh"></use></svg><span class="text">Recalculate</span>
+            </span>
+            <span class="state calculating">
+                <span class="icon-pulse"><svg class="icon icon-spinner"><use xlink:href="/images/icons001.svg#icon-spinner"></use></svg></span><span class="text">Loading...</span>
+            </span>
+        </button>
+
+    </div>
+<input name="__RequestVerificationToken" type="hidden" value="CfDJ8HDUFuR8mVJJnu3_ItVJkbMsmlwDQENW354g2hEaUAGtRWHkBH0k-0hPdo366Mf2a622OUMU_vIX020LRDHXpLqAJc_2yLHgCpewLO_bwqWzeansC9hgtxwfajOWWHBFyX0GDPC1slC4-ZKqk-X3A5o" /></form>
+
+        </section>
+    <section id="calculation-target" class="output">
+
+
+ 
+
+
+<div class="validation-summary-valid" data-valmsg-summary="true"><ul><li style="display:none"></li>
+</ul></div>
+
+    <fieldset class="results-container">
+            <span id="results"></span>
+        <legend class="slide-up"><svg class="icon icon-cog"><use xlink:href="/images/icons001.svg#icon-cog"></use></svg>Results<span class="trigger"><svg class="icon icon-chevron-up"><use xlink:href="/images/icons001.svg#icon-chevron-up"></use></svg></span></legend>
+        <div class="content">
+
+    <div class="field result">
+        <div class="description">
+            <span>Maximum positive design bending moment resistance for given design axial force</span>
+        </div>
+        <div class="result-symbol">
+            <span>M<sub>Rd,plus</sub></span>
+        </div>
+        <div class="result-value">
+            <span>
+                113.16 kNm
+            </span>
+        </div>
+        <div class="info">
+            <span class="content"></span>
+            <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+        </div>
+    </div>
+
+
+
+    <div class="field result">
+        <div class="description">
+            <span>Maximum negative design bending moment resistance for given design axial force</span>
+        </div>
+        <div class="result-symbol">
+            <span>M<sub>Rd,minus</sub></span>
+        </div>
+        <div class="result-value">
+            <span>
+                -113.16 kNm
+            </span>
+        </div>
+        <div class="info">
+            <span class="content"></span>
+            <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+        </div>
+    </div>
+
+
+<div class='flow-breaker'><br /></div><hr />
+    <div class="field result">
+        <div class="description">
+            <span>Reinforcement - Layer 1 (bottom)</span>
+        </div>
+        <div class="result-symbol">
+            <span>A<sub>s,1</sub></span>
+        </div>
+        <div class="result-value">
+            <span>
+                6.28 cm<sup>2</sup>
+            </span>
+        </div>
+        <div class="info">
+            <span class="content"></span>
+            <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+        </div>
+    </div>
+
+
+
+    <div class="field result">
+        <div class="description">
+            <span>Reinforcement - Layer 2 (top)</span>
+        </div>
+        <div class="result-symbol">
+            <span>A<sub>s,2</sub></span>
+        </div>
+        <div class="result-value">
+            <span>
+                6.28 cm<sup>2</sup>
+            </span>
+        </div>
+        <div class="info">
+            <span class="content"></span>
+            <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+        </div>
+    </div>
+
+
+
+    <div class="field result">
+        <div class="description">
+            <span>Reinforcement - Layer 3 (sides)</span>
+        </div>
+        <div class="result-symbol">
+            <span>A<sub>s,3</sub></span>
+        </div>
+        <div class="result-value">
+            <span>
+                0.00 cm<sup>2</sup>
+            </span>
+        </div>
+        <div class="info">
+            <span class="content"></span>
+            <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+        </div>
+    </div>
+
+
+
+    <div class="field result">
+        <div class="description">
+            <span>Reinforcement - Total</span>
+        </div>
+        <div class="result-symbol">
+            <span>A<sub>s,tot</sub></span>
+        </div>
+        <div class="result-value">
+            <span>
+                12.57 cm<sup>2</sup> (0.84%)
+            </span>
+        </div>
+        <div class="info">
+            <span class="content"></span>
+            <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+        </div>
+    </div>
+
+
+<div class='flow-breaker'><br /></div><hr />
+    <div class="field result">
+        <div class="description">
+            <span>Check of total axial force convergence</span>
+        </div>
+        <div class="result-symbol">
+            <span><span>|&Delta;</span>N<span>|</span></span>
+        </div>
+        <div class="result-value">
+            <span>
+                0.00 N &le; 1 N &rArr; ok <svg class='icon icon-check ok'><use xlink:href='/images/icons001.svg#icon-check'></use></svg>
+            </span>
+        </div>
+        <div class="info">
+            <span class="content"></span>
+            <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+        </div>
+    </div>
+
+
+
+    <div class="field result">
+        <div class="description">
+            <span>Check of bending moment convergence</span>
+        </div>
+        <div class="result-symbol">
+            <span><span>|&Delta;</span>M<span>|</span></span>
+        </div>
+        <div class="result-value">
+            <span>
+                0.00 Nm &le; 1 Nm &rArr; ok <svg class='icon icon-check ok'><use xlink:href='/images/icons001.svg#icon-check'></use></svg>
+            </span>
+        </div>
+        <div class="info">
+            <span class="content"></span>
+            <span class="trigger"><svg class="icon icon-info-circle"><use xlink:href="/images/icons001.svg#icon-info-circle"></use></svg></span>
+        </div>
+    </div>
+
+
+        </div>
+    </fieldset>
+
+
+            <fieldset id="notes" class="notes">
+                <legend class="slide-up"><svg class="icon icon-exclamation-circle"><use xlink:href="/images/icons001.svg#icon-exclamation-circle"></use></svg>Notes<span class="trigger"><svg class="icon icon-chevron-up"><use xlink:href="/images/icons001.svg#icon-chevron-up"></use></svg></span></legend>
+                <div class="content">
+                    
+<ol>
+        <li>
+            <span>Positive bending moment produces tension at the bottom side. Negative bending moment produces tension at the top side.</span>
+        </li>
+        <li>
+            <span>According to EN1992-1-1 &sect; 6.1(4) when the axial force <i>N</i><sub>Ed</sub> is compressive the absolute value of the design bending moment should be at least |<i>M</i><sub>Ed</sub>| &ge; <i>e</i><sub>0</sub> &times; |<i>N</i><sub>Ed</sub>| where <i>e</i><sub>0</sub> is the minimum assumed eccentricity of the compressive load which is equal to <i>e</i><sub>0</sub> = max( <i>h</i></sub>/30, 20 mm), where <i>h</i> is the total depth of the cross-section.</span>
+        </li>
+</ol>
+
+
+
+
+                </div>
+            </fieldset>
+            <fieldset id="charts">
+                <legend class="slide-up"><svg class="icon icon-line-chart"><use xlink:href="/images/icons001.svg#icon-line-chart"></use></svg>Charts<span class="trigger"><svg class="icon icon-chevron-up"><use xlink:href="/images/icons001.svg#icon-chevron-up"></use></svg></span></legend>
+                <div class="content">
+
+
+<div class="field chart">
+    <noscript>Javascript is required to display interactive charts.</noscript>
+    
+<div class="loader">
+    <div class="state loading"><span class="icon-pulse"><svg class="icon icon-spinner"><use xlink:href="/images/icons001.svg#icon-spinner"></use></svg></span><span>Loading...</span></div>
+    <div class="state error"><svg class="icon icon-times-circle"><use xlink:href="/images/icons001.svg#icon-times-circle"></use></svg><span>error loading chart!</span></div>
+</div>
+
+    <div class="title">
+    </div>
+    <div class="container">
+        <div id="interaction-chart" class="target">
+        </div>
+    </div>
+</div>
+
+    
+
+                </div>
+            </fieldset>
+            <fieldset id="tables">
+                <legend class="slide-up"><svg class="icon icon-table"><use xlink:href="/images/icons001.svg#icon-table"></use></svg>Tables<span class="trigger"><svg class="icon icon-chevron-up"><use xlink:href="/images/icons001.svg#icon-chevron-up"></use></svg></span></legend>
+                <div class="content">
+                        <div class="field table" id="mn-interaction-table">
+                                <button class="font-size-smaller no-print" onclick="eaHelper.copyToClipboard(document.getElementById('mn-interaction-table'));"><span>Copy to Clipboard</span></button>
+                            
+
+
+<div class="title">Internal equilibrium state of cross-section</div>
+<div class="table-container fixed-header-column ">
+    <table class="">
+        <caption class="title hidden">Internal equilibrium state of cross-section</caption>
+        <thead>
+            <tr><th colspan = '1' class='border-left border-right'></th><th colspan = '2' class='border-right'>N-M interaction</th><th colspan = '6' class='border-right'>Lever arm &amp; neutral axis</th><th colspan = '8' class='border-right'>Curvature &amp; strains</th><th colspan = '5' class='border-right'>Stresses</th><th colspan = '4' class='border-right'>Internal forces &amp; moments</th><th colspan = '2' class='border-right'>Effective stiffness</th></tr>
+            <tr>
+                    <th class="border-left border-right">#</th>
+                    <th>Design axial force resistance <br /> N<sub>Rd</sub> [kN]</th>
+                    <th class="border-right">Design bending moment resistance <br /> M<sub>Rd</sub> [kNm]</th>
+                    <th>Location of neutral axis from centroid <br /> y<sub>n</sub> [m]</th>
+                    <th>Lever arm of internal forces <br /> z [m]</th>
+                    <th>Normalized level arm <br /> z/d [-]</th>
+                    <th>Depth of compressive zone <br /> x [m]</th>
+                    <th>Normalized depth of compressive zone <br /> x/d [-]</th>
+                    <th class="border-right">Area of compressive zone <br /> A<sub>C</sub> [m<sup>2</sup>]</th>
+                    <th>Curvature <br /> &phi; [&times;10<sup>&minus;3</sup>&nbsp;m<sup>&minus;1</sup>]</th>
+                    <th>Strain at centroid <br /> &epsilon;<sub>0</sub> [&permil;]</th>
+                    <th>Top concrete strain <br /> &epsilon;<sub>c,top</sub> [&permil;]</th>
+                    <th>Bottom concrete strain <br /> &epsilon;<sub>c,bot</sub> [&permil;]</th>
+                    <th>Maximum reinforcement strain <br /> &epsilon;<sub>s,max</sub> [&permil;]</th>
+                    <th>Minimum reinforcement strain <br /> &epsilon;<sub>s,min</sub> [&permil;]</th>
+                    <th>Reinforcement yield in tension</th>
+                    <th class="border-right">Reinforcement yield in compression</th>
+                    <th>Maximum concrete stress <br /> &sigma;<sub>c,max</sub> [MPa]</th>
+                    <th>Minimum concrete stress <br /> &sigma;<sub>c,min</sub> [MPa]</th>
+                    <th>Average concrete stress <br /> &sigma;<sub>c,ave</sub> [MPa]</th>
+                    <th>Maximum reinforcement stress <br /> &sigma;<sub>s,max</sub> [MPa]</th>
+                    <th class="border-right">Minimum reinforcement stress <br /> &sigma;<sub>s,min</sub> [MPa]</th>
+                    <th>Internal compression force <br /> F<sub>C</sub> [kN]</th>
+                    <th>Internal tension force <br /> F<sub>T</sub> [kN]</th>
+                    <th>Internal compression moment <br /> M<sub>C</sub> [kNm]</th>
+                    <th class="border-right">Internal tension moment <br /> M<sub>T</sub> [kNm]</th>
+                    <th>Effective bending stiffness <br /> (EI)<sub>eff</sub> [kNm<sup>2</sup>]</th>
+                    <th class="border-right">Effective bending stiffness ratio <br /> (EI)<sub>eff</sub> / (EI)<sub>gross</sub> [-]</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr class="odd">
+                            <th class="border-left border-right">1</th>
+                            <td>0.00</td>
+                            <td class="border-right">113.16</td>
+                            <td>0.187</td>
+                            <td>0.432</td>
+                            <td>0.940</td>
+                            <td>0.063</td>
+                            <td>0.137</td>
+                            <td class="border-right">0.0188</td>
+                            <td>25.200</td>
+                            <td>4.71</td>
+                            <td>-1.59</td>
+                            <td>11.01</td>
+                            <td>10.00</td>
+                            <td>-0.58</td>
+                            <td>yes</td>
+                            <td class="border-right">no</td>
+                            <td>0.00</td>
+                            <td>-16.29</td>
+                            <td>-10.05</td>
+                            <td>416.7</td>
+                            <td class="border-right">-116.8</td>
+                            <td>-261.80</td>
+                            <td>261.80</td>
+                            <td>58.19</td>
+                            <td class="border-right">54.98</td>
+                            <td>4491</td>
+                            <td class="border-right">0.0457</td>
+                </tr>
+                <tr class="even">
+                            <th class="border-left border-right">2</th>
+                            <td>0.00</td>
+                            <td class="border-right">-113.16</td>
+                            <td>-0.187</td>
+                            <td>0.432</td>
+                            <td>0.940</td>
+                            <td>0.063</td>
+                            <td>0.137</td>
+                            <td class="border-right">0.0188</td>
+                            <td>-25.200</td>
+                            <td>4.71</td>
+                            <td>11.01</td>
+                            <td>-1.59</td>
+                            <td>10.00</td>
+                            <td>-0.58</td>
+                            <td>yes</td>
+                            <td class="border-right">no</td>
+                            <td>0.00</td>
+                            <td>-16.29</td>
+                            <td>-10.05</td>
+                            <td>416.7</td>
+                            <td class="border-right">-116.8</td>
+                            <td>-261.80</td>
+                            <td>261.80</td>
+                            <td>-58.19</td>
+                            <td class="border-right">-54.98</td>
+                            <td>4491</td>
+                            <td class="border-right">0.0457</td>
+                </tr>
+        </tbody>
+    </table>
+</div>
+
+                        </div>
+                </div>
+            </fieldset>
+            <fieldset id="details">
+                <legend class="slide-up"><svg class="icon icon-edit"><use xlink:href="/images/icons001.svg#icon-edit"></use></svg>Details<span class="trigger"><svg class="icon icon-chevron-up"><use xlink:href="/images/icons001.svg#icon-chevron-up"></use></svg></span></legend>
+                <div class="content">
+                        <div id="ec2-general-section-uls-design-detailed-calculation" class="field detail">
+                            
+
+
+
+    <h2 id="chapter-input">Input Data</h2>
+    <ul>
+            <li>
+                
+<span>Concrete characteristic strength</span>:
+<span class="symbol-details">f<sub>ck</sub></span> =
+25
+<span>MPa</span>
+
+
+
+
+
+            </li>
+            <li>
+                
+<span>Steel characteristic yield strength</span>:
+<span class="symbol-details">f<sub>yk</sub></span> =
+500
+<span>MPa</span>
+
+
+
+
+
+            </li>
+            <li>
+                
+<span>Type of reinforcement stress-strain law</span>:
+<span class="symbol-details"></span> =
+No hardening (Perfectly plastic)
+<span></span>
+
+            </li>
+            <li>
+                
+<span>Ratio of characteristic ultimate strength to characteristic yield strength</span>:
+<span class="symbol-details"><span>(</span>f<sub>t</sub><span>/</span>f<sub>y</sub><span>)</span><sub>k</sub></span> =
+1
+<span></span>
+
+
+
+
+
+            </li>
+            <li>
+                
+<span>Characteristic value of ultimate strain</span>:
+<span class="symbol-details">&epsilon;<sub>uk</sub></span> =
+75
+<span>&permil;</span>
+
+
+
+
+
+            </li>
+            <li>
+                
+<span>Height of cross-section</span>:
+<span class="symbol-details">h</span> =
+0.5
+<span>m</span>
+
+
+
+
+
+            </li>
+            <li>
+                
+<span>Width of cross-section</span>:
+<span class="symbol-details">b</span> =
+0.3
+<span>m</span>
+
+
+
+
+
+            </li>
+            <li>
+                
+<span>Number of bars of bottom reinforcement layer 1</span>:
+<span class="symbol-details">n<sub>bars,1</sub></span> =
+2
+<span></span>
+
+
+
+
+
+            </li>
+            <li>
+                
+<span>Diameter of bars of bottom reinforcement layer 1</span>:
+<span class="symbol-details">&Phi;<sub>1</sub></span> =
+20
+<span>mm</span>
+
+
+
+
+
+            </li>
+            <li>
+                
+<span>Distance from centroid of bottom reinforcement layer 1 to bottom concrete edge</span>:
+<span class="symbol-details">c'<sub>1</sub></span> =
+0.04
+<span>m</span>
+
+
+
+
+
+            </li>
+            <li>
+                
+<span>Number of bars of top reinforcement layer 2</span>:
+<span class="symbol-details">n<sub>bars,2</sub></span> =
+2
+<span></span>
+
+
+
+
+
+            </li>
+            <li>
+                
+<span>Diameter of bars of top reinforcement layer 2</span>:
+<span class="symbol-details">&Phi;<sub>2</sub></span> =
+20
+<span>mm</span>
+
+
+
+
+
+            </li>
+            <li>
+                
+<span>Distance from centroid of top reinforcement layer 2 to top concrete edge</span>:
+<span class="symbol-details">c'<sub>2</sub></span> =
+0.04
+<span>m</span>
+
+
+
+
+
+            </li>
+            <li>
+                
+<span>Number of bars of side reinforcement layer 3 <u>per side</u></span>:
+<span class="symbol-details">n<sub>bars,3</sub></span> =
+0
+<span></span>
+
+
+
+
+
+            </li>
+            <li>
+                
+<span>Diameter of bars of side reinforcement layer 3</span>:
+<span class="symbol-details">&Phi;<sub>3</sub></span> =
+12
+<span>mm</span>
+
+
+
+
+
+            </li>
+            <li>
+                
+<span>Type of analysis</span>:
+<span class="symbol-details"></span> =
+Bending resistance MRd
+<span></span>
+
+            </li>
+            <li>
+                
+<span>Design value of the bending moment - ULS factored loads (positive when tension at bottom side)</span>:
+<span class="symbol-details">M<sub>Ed</sub></span> =
+0
+<span>kNm</span>
+
+
+
+
+
+            </li>
+            <li>
+                
+<span>Design value of the axial force - ULS factored loads (compression negative)</span>:
+<span class="symbol-details">N<sub>Ed</sub></span> =
+0
+<span>kN</span>
+
+
+
+
+
+            </li>
+            <li>
+                
+<span>Variable reinforcement layers to be modified</span>:
+<span class="symbol-details"></span> =
+Layer 1
+<span></span>
+
+            </li>
+    </ul>
+
+    <h2 id="chapter-ndp">Nationally Defined Parameters</h2>
+    <ul>
+                <li>
+                    
+<span>Coefficient taking account of long term effects and loading effects on the compressive strength of concrete (for bending)</span>:
+<span class="symbol-details">&alpha;<sub>cc</sub></span> =
+0.85
+<span></span>
+
+
+
+
+
+                </li>
+                <li>
+                    
+<span>Concrete partial material safety factor</span>:
+<span class="symbol-details">&gamma;<sub>c</sub></span> =
+1.25
+<span></span>
+
+
+
+
+
+                </li>
+                <li>
+                    
+<span>Reinforcement steel partial material safety factor</span>:
+<span class="symbol-details">&gamma;<sub>s</sub></span> =
+1.2
+<span></span>
+
+
+
+
+
+                </li>
+                <li>
+                    
+<span>Design value of reinforcement ultimate strain</span>:
+<span class="symbol-details">&epsilon;<sub>ud</sub></span> =
+1.0%
+<span></span>
+
+                </li>
+    </ul>
+<hr />
+
+<h2>Properties of rectangular concrete cross-section</h2>
+<p>
+    The following geometric properties are obtained from basic theory of mechanics. The values of the reinforcement areas, reinforcement ratios and axial resistances of the cross-section correspond to the final reinforcement if different than the initially specified reinforcement.
+    <ul>
+        <li>Area of gross cross-section: <i>A</i> = 0.1500 m<sup>2<sup></li>
+        <li>Second moment of the area of gross cross-section: <i>I</i> = 0.003125 m<sup>4<sup></li>
+        <li>Total height of cross-section: <i>h</i> = 0.500 m</li>
+        <li>Location of centroid of gross cross-section (from top): <i>z</i><sub>cm</sub> = 0.250 m</li>
+        <li>Total area of longitudinal reinforcement: <i>A</i><sub>s,tot</sub> = 12.57 cm<sup>2</sup></li>
+        <li>Geometric reinforcement ratio: <i>&rho;</i><sub>l</sub> = <i>A</i><sub>s,tot</sub> / <i>A</i> = 0.0084 = 0.84 %</li>
+        <li>Mechanical reinforcement ratio: <i>&omega;</i> = <i>&rho;</i><sub>l</sub> &sdot; <i>f</i><sub>yd</sub> / <i>f</i><sub>cd</sub> = 0.2053</li>
+        <li>Compressive axial force resistance (ULS): <i>N</i><sub>Rd,compression</sub> = -3052.65 kN</li>
+        <li>Tensile axial force resistance (ULS): <i>N</i><sub>Rd,tension</sub> = 523.60 kN</li>
+    </ul>
+</p>
+
+<h2>Stress-strain law at the Ultimate Limit State (ULS)</h2>
+<h3>Assumptions</h3>
+<p>
+    The design ULS bending moment resistance <i>M</i><sub>Rd</sub> of reinforced concrete cross-section is covered in <span class="code-reference">EN1992-1-1 &sect;6.1</span>.
+    This analysis is applicable for undisturbed regions of beams, columns, slabs and other similar types of members for which sections remain plane before and after loading.
+    Discontinuity regions are not covered in this calculation, see <span class="code-reference">EN 1992-1-1 &sect;6.5</span> instead.
+</p>
+<p>
+    The following assumptions are made in <span class="code-reference">EN1992-1-1 &sect;6.1(2)P</span>:
+    <ul>
+        <li>Plane sections remain plane after loading.</li>
+        <li>The strain in bonded reinforcement or bonded prestressing tendons, whether in tension or in compression, is the same as that in the surrounding concrete.</li>
+        <li>The tensile strength of the concrete is ignored.</li>
+        <li>The initial strain in prestressing tendons is taken into account when assessing the stresses in the tendons.</li>
+    </ul>
+</p>
+
+<h3>Stress-strain relation for concrete</h3>
+<p>
+    The stresses in the concrete in compression <i>&sigma;</i><sub>c</sub> are obtained from the design curves in <span class="code-reference">EN1992-1-1 &sect;3.1.7</span> and <span class="code-reference">EN1992-1-1 Figure 3.3</span> as a function of the concrete strain <i>&epsilon;</i><sub>c</sub>:
+</p>
+<p class="equation">
+    <i>&sigma;</i><sub>c</sub> = 0 for tensile strain<br />
+    <i>&sigma;</i><sub>c</sub> = <i>f</i><sub>cd</sub>&sdot;[1 - (1 - <i>&epsilon;</i><sub>c</sub> / <i>&epsilon;</i><sub>c2</sub>)<sup><i>n</i></sup>] for compressive strain 0 &le; <i>&epsilon;</i><sub>c</sub> &le; <i>&epsilon;</i><sub>c2</sub> <br />
+    <i>&sigma;</i><sub>c</sub> = <i>f</i><sub>cd</sub> for compressive strain <i>&epsilon;</i><sub>c2</sub>  &lt; <i>&epsilon;</i><sub>c</sub> &le; <i>&epsilon;</i><sub>cu2</sub>
+</p>
+<p>
+    The value of the design compressive strength of concrete <i>f</i><sub>cd</sub> is calculated as specified in <span class="code-reference">EN1992-1-1 &sect;3.1.6(1)P</span>:
+</p>
+<p class="equation">
+    <i>f</i><sub>cd</sub> =  <i>&alpha;</i><sub>cc</sub> &sdot; <i>f</i><sub>ck</sub> / <i>&gamma;</i><sub>C</sub> = 0.85 &sdot; 25.00 MPa / 1.25 = 17.00 MPa
+</p>
+<p>
+    The strains <i>&epsilon;</i><sub>c2</sub>, <i>&epsilon;</i><sub>cu2</sub> and the exponent <i>n</i> are defined in <span class="code-reference">EN1992-1-1 Table 3.1</span> depending on the concrete class.
+    For characteristic strength <i>f</i><sub>ck</sub> = 25.00 MPa the corresponding values are <i>&epsilon;</i><sub>c2</sub> = 2.00 &permil;, <i>&epsilon;</i><sub>cu2</sub> = 3.50 &permil; and <i>n</i> = 2.00.
+</p>
+
+<h3>Stress-strain relation for reinforcement steel</h3>
+<p>
+    The stresses in reinforcement steel <i>&sigma;</i><sub>s</sub> are obtained from the design curves in <span class="code-reference">EN1992-1-1 &sect;3.2.7</span> and <span class="code-reference">EN1992-1-1 Figure 3.8</span> as a function of the steel strain <i>&epsilon;</i><sub>s</sub>:
+</p>
+<p class="equation">
+    <i>&sigma;</i><sub>s</sub> = <i>E</i>&sdot;<i>&epsilon;</i><sub>s</sub> for strains below the design yield point -<i>&epsilon;</i><sub>yd</sub> &le; <i>&epsilon;</i><sub>s</sub> &le; <i>&epsilon;</i><sub>yd</sub>  <br />
+    <i>&sigma;</i><sub>s</sub> = +<i>f</i><sub>yd</sub>&sdot;[1 + ((<i>f</i><sub>t</sub>/<i>f</i><sub>y</sub>)<sub>k</sub> - 1) &sdot; (<i>&epsilon;</i><sub>s</sub> - <i>&epsilon;</i><sub>yd</sub>) / (<i>&epsilon;</i><sub>uk</sub> -  <i>&epsilon;</i><sub>yd</sub>) ] for tensile strain <i>&epsilon;</i><sub>yd</sub> &lt; <i>&epsilon;</i><sub>s</sub> &le; <i>&epsilon;</i><sub>ud</sub>  <br />
+    <i>&sigma;</i><sub>s</sub> = -<i>f</i><sub>yd</sub>&sdot;[1 + ((<i>f</i><sub>t</sub>/<i>f</i><sub>y</sub>)<sub>k</sub> - 1) &sdot; (|<i>&epsilon;</i><sub>s</sub>| - <i>&epsilon;</i><sub>yd</sub>) / (<i>&epsilon;</i><sub>uk</sub> -  <i>&epsilon;</i><sub>yd</sub>) ] for compressive strain <i>&epsilon;</i><sub>s</sub> &lt; -<i>&epsilon;</i><sub>yd</sub> <br />
+</p>
+<p>
+    The value of the design yield strength of reinforcement steel <i>f</i><sub>yd</sub> is calculated as specified in <span class="code-reference">EN1992-1-1 &sect;3.2</span>:
+</p>
+<p class="equation">
+    <i>f</i><sub>yd</sub> =  <i>f</i><sub>yk</sub> / <i>&gamma;</i><sub>S</sub> = 500.0 MPa / 1.20 = 416.67 MPa
+</p>
+<p>
+    The design yield strain of the reinforcement steel <i>&epsilon;</i><sub>yd</sub> is calculated based on the modulus of elasticity specified in <span class="code-reference">EN1992-1-1 &sect;3.2.7(4)</span>:
+</p>
+<p class="equation">
+    <i>&epsilon;</i><sub>yd</sub> =  <i>f</i><sub>yd</sub> / <i>E</i> = 416.67 MPa / 200000 MPa = 2.08 &permil;
+</p>
+<p>
+    The characteristic values of the ultimate strain <i>&epsilon;</i><sub>uk</sub> and the ratio (<i>f</i><sub>t</sub>/<i>f</i><sub>y</sub>)<sub>k</sub> are defined in <span class="code-reference">EN1992-1-1 Annex C</span> depending on the steel ductility class.
+    The design ultimate strain <i>&epsilon;</i><sub>ud</sub> is specified in <span class="code-reference">EN1992-1-1 &sect;3.2.7(2)</span> and the National Annex.
+</p>
+<p>
+    According to <span class="code-reference">EN1992-1-1 &sect;3.2.7(2)</span> the stress-strain law of reinforcement steel can be approximated by either of the following:
+    <ul>
+        <li>
+            An inclined top branch with a strain limit of <i>&epsilon;</i><sub>ud</sub> and a maximum stress of (<i>f</i><sub>t</sub>/<i>f</i><sub>y</sub>)<sub>k</sub>&sdot;(<i>f</i><sub>yk</sub> / <i>&gamma;</i><sub>S</sub>) at <i>&epsilon;</i><sub>uk</sub>,
+        </li>
+        <li>
+            A horizontal top branch (i.e. (<i>f</i><sub>t</sub>/<i>f</i><sub>y</sub>)<sub>k</sub> = 1) without the need to check the strain limit.
+        </li>
+    </ul>
+</p>
+    <p>
+        In this calculation the stress-strain law for reinforcement steel is considered with a horizontal top branch (i.e. (<i>f</i><sub>t</sub>/<i>f</i><sub>y</sub>)<sub>k</sub> = 1).
+        According to <span class="code-reference">EN1992-1-1 &sect;3.2.7(2)</span> for this case there is no need to check the strain limit.
+        For numerical reasons the design value of the tensile strain limit <i>&epsilon;</i><sub>ud</sub> = 10.00 &permil; is assumed in the calculations.
+    </p>
+<p>
+    The following values are assumed:
+    <ul>
+        <li>Characteristic tensile strain limit: <i>&epsilon;</i><sub>uk</sub> = 75.00 &permil;.</li>
+        <li>Design tensile strain limit: <i>&epsilon;</i><sub>ud</sub> = 10.00 &permil;</li>
+        <li>Characteristic ratio of ultimate strength to yield strength: (<i>f</i><sub>t</sub>/<i>f</i><sub>y</sub>)<sub>k</sub> = 1.00</li>
+    </ul>
+</p>
+
+<h3>Permitted range of strain distributions</h3>
+<p>
+    The permitted range of strain distributions is shown in <span class="code-reference">EN1992-1-1 Figure 6.1</span>.
+    The range of permitted strain distributions correspond to linear strain profiles that are defined by the following rules:
+    <ul>
+        <li>Limitation of tensile strain in reinforcement steel to <i>&epsilon;</i><sub>ud</sub> = 10.00 &permil;</li>
+        <li>Limitation of compressive strain in concrete edges to <i>&epsilon;</i><sub>cu2</sub> = 3.50 &permil;</li>
+        <li>Limitation of compressive strain in concrete central region to <i>&epsilon;</i><sub>c2</sub> = 2.00 &permil;</li>
+    </ul>
+</p>
+<p>
+    For a cross-section subjected to bending moment inducing tension at the bottom edge and if <i>d</i> is the static depth from most distant reinforcement to the upper concrete edge then the following strain distribution ranges are established:
+    <ul>
+        <li><u>Range 1:</u> Constant tensile strain <i>&epsilon;</i><sub>ud</sub> at reinforcement level (z=<i>d</i>).  Varying strain at top edge (z=0) from <i>&epsilon;</i><sub>ud</sub> to -<i>&epsilon;</i><sub>cu2</sub>.
+        <li><u>Range 2:</u> Constant compressive strain -<i>&epsilon;</i><sub>cu2</sub> at top edge (z=0).  Varying strain at lower part from <i>&epsilon;</i><sub>ud</sub> at level z=<i>d</i> to 0 at level z=<i>h</i>.
+        <li><u>Range 3:</u> Constant compressive strain -<i>&epsilon;</i><sub>c2</sub> at level z = (1 - <i>&epsilon;</i><sub>c2</sub> / <i>&epsilon;</i><sub>cu2</sub>)&sdot;<i>h</i>. Varying strain at bottom edge (z=<i>h</i>) from 0 to  -<i>&epsilon;</i><sub>c2</sub>.
+    </ul>
+    Where <i>h</i> is the full height of the cross-section and <i>d</i> is the static depth from most distant reinforcement to the upper concrete edge.
+</p>
+<p>
+    For a cross-section subjected to bending moment inducing tension at the top edge the aforementioned ranges are similar with the top and bottom edges swapped.
+</p>
+<p>
+    The permitted range of strain distributions are shown in the following figure (reproduced from EN 1992-1-1 Figure 6.1).
+</p>
+
+
+<div class="figure">
+    <div class="flow-breaker"></div>
+    <div class="images">
+        <img src="https://cdn.eurocodeapplied.com/images/figures/ec2-uls-strain-diagrams.png" width="450" height="225" style="max-width: 450px;" title="Permitted range of strain distributions for ULS design of concrete cross-sections" alt="Permitted range of strain distributions for ULS design of concrete cross-sections" />
+    </div>
+    <h6 class="caption">Permitted range of strain distributions for ULS design of concrete cross-sections (according to EN 1992-1-1 Figure 6.1)</h6>
+</div>
+
+
+<p>
+    The depth of the compressive zone <i>x</i> is determined from depth where the strain profile becomes zero.
+</p>
+<p class="equation">
+    <i>x</i> =  <i>h</i> &sdot; <i>&epsilon;</i><sub>c,top</sub> / (<i>&epsilon;</i><sub>c,top</sub> - <i>&epsilon;</i><sub>c,bot</sub>)
+</p>
+<p>
+    The curvature of the cross-section <i>&phi;</i> corresponding to the strain profile is:
+</p>
+<p class="equation">
+    <i>&phi;</i> =  (<i>&epsilon;</i><sub>c,bot</sub> - <i>&epsilon;</i><sub>c,top</sub>) / <i>h</i>
+</p>
+<p>
+    where <i>&epsilon;</i><sub>c,top</sub>, <i>&epsilon;</i><sub>c,bot</sub> are the strains of the concrete at the top edge and bottom edge respectively (assuming that the bending moment induces tension on the bottom side).
+</p>
+
+<h2>Calculation of internal forces and moments</h2>
+<h3>Discretization of concrete and steel areas</h3>
+<p>
+    The concrete part of the cross-section is discretized in 200 horizontal strips with each strip having height d<i>h</i> = <i>h</i> / 200, where <i>h</i> the full height of the examined cross-section.
+    The width of the i-th strip <i>b</i><sub>i</sub> is established from geometry of the outer boundary and the inner boundaries of the cross-section.
+    The area of the strip <i>A</i><sub>i</sub> is equal to <i>A</i><sub>i</sub> = <i>b</i><sub>i</sub> &sdot; d<i>h</i>.
+    The area of reinforcement bars within the concrete strip height is not subtracted from the area of the concrete strip in order to simplify calculations. This leads to a small discrepancy that is generally acceptable.
+    For each strip the strain <i>&epsilon;</i><sub>i</sub> is assumed constant and taken equal to the corresponding strain at mid-height of the strip, as established from the examined linear strain profile.
+</p>
+<p>
+    The rebars are considered as concentrated point forces at their center.
+    The area of each rebar is <i>A</i><sub>i</sub> = &pi; <i>&Phi;</i><sub>i</sub><sup>2</sup>/4.
+    When non-integer number of bars is specified the next integer number of bars is applied with a suitably reduced area for each rebar.
+</p>
+<p>
+    The force <i>F</i><sub>i</sub> of each component of the cross-section (concrete strip or rebar) is <i>F</i><sub>i</sub> = <i>A</i><sub>i</sub>&sdot;<i>&sigma;</i><sub>i</sub>, where <i>&sigma;</i><sub>i</sub> the stress at the center of the component that corresponds to the relevant strain <i>&epsilon;</i><sub>i</sub>.
+    The total axial force <i>N</i> is the summation of all force components <i>F</i><sub>i</sub>.
+</p>
+<p>
+    The moment <i>M</i><sub>i</sub> of each component of the cross-section (concrete strip or rebar) is <i>M</i><sub>i</sub> = <i>F</i><sub>i</sub> &sdot; (<i>z</i><sub>i</sub> - <i>z</i><sub>cm</sub>), where <i>z</i><sub>i</sub> is the location of the center of the component (measured from top) and <i>z</i><sub>cm</sub> the location of the centroid of the gross cross-section. The total bending moment <i>M</i> is the summation of all moment components <i>M</i><sub>i</sub>.
+</p>
+
+<h3>Pair of internal forces</h3>
+<p>
+    The total force of the cross-section is divided in a tensile component <i>F</i><sub>T</sub> (from rebars in tension) and a compressive component <i>F</i><sub>C</sub> (from concrete in compression and rebars in compression).
+    The internal force components are located at depths <i>z</i><sub>T</sub> and <i>z</i><sub>C</sub> respectively.
+    The internal moment components are <i>M</i><sub>T</sub> = <i>F</i><sub>T</sub> &sdot; (<i>z</i><sub>T</sub> - <i>z</i><sub>cm</sub>) and <i>M</i><sub>C</sub> = <i>F</i><sub>C</sub> &sdot; (<i>z</i><sub>C</sub> - <i>z</i><sub>cm</sub>).
+    The lever arm <i>z</i> of the internal forces is:
+</p>
+<p class="equation">
+    <i>z</i> =  <i>z</i><sub>T</sub> - <i>z</i><sub>C</sub>
+</p>
+
+<h3>Effective bending stiffness of cross-section</h3>
+<p>
+    The effective bending stiffness of the cross-section (<i>EI</i>)<sub>eff</sub> for a given axial force <i>N</i> = <i>N</i><sub>Ed</sub> is the cracked secant stiffness obtained when the bending moment is equal to moment resistance <i>M</i> = <i>M</i><sub>Rd</sub>.
+</p>
+<p class="equation">
+    (<i>EI</i>)<sub>eff</sub> =  <i>M</i> / <i>&phi;</i>
+</p>
+<p>
+    The uncracked bending stiffness of the gross cross-section (<i>EI</i>)<sub>gross</sub> is:
+</p>
+<p class="equation">
+    (<i>EI</i>)<sub>gross</sub> =  <i>E</i><sub>cm</sub> &sdot; <i>I</i>
+</p>
+<p>
+    where <i>E</i><sub>cm</sub> is the secant modulus of elasticity of concrete in accordance with <span class="code-reference">EN1992-1-1 Table 3.1</span> and <i>I</i> is the second moment of the area of gross cross-section.
+</p>
+
+<h2>Calculation of cross-section resistance</h2>
+<h3>Calculation of bending moment resistance <i>M</i><sub>Rd</sub> for given axial force <i>N</i><sub>Ed</sub> and given reinforcement layout</h3>
+<p>
+    The bending moment resistance <i>M</i><sub>Rd</sub> for given axial force <i>N</i><sub>Ed</sub> and reinforcement layout is calculated by finding the strain diagram where the internal axial force <i>N</i> becomes equal to <i>N</i><sub>Ed</sub>.
+    The appropriate strain profile is obtained by the method of bisection until the required convergence is achieved.
+    The solution method proceeds as follows:
+    <ol>
+        <li>The axial force at the ends of each strain range are evaluated and the correct strain range is identified.</li>
+        <li>The variation of the strain profile is considered by considering the variable strain at a suitable depth of the cross-section as a single unknown variable.</li>
+        <li>Three values of the variable strain are considered at start, center, and end of the examined strain range, separating the examined stress range in two halves.</li>
+        <li>The axial force is estimated from the strain profile that corresponds to the three values of the variable strain.</li>
+        <li>The target axial force is compared with the estimated axial force at the start, center and end of the examined strain range. The correct half of the examined strain range is identified.</li>
+        <li>The examined strain range is set to the correct half and the algorithm is repeated from step 3 until the difference between the determined axial force and the target axial force is smaller than the desired tolerance.</li>
+    </ol>
+</p>
+<h3>Calculation of <i>M</i> - <i>N</i> interaction diagram</h3>
+<p>
+    The interaction diagram between bending moment <i>M</i> and axial force <i>N</i> (<i>M</i> - <i>N</i> interaction) is calculated by examining all the permitted strain distributions with sufficient discretization in each strain range.
+    For each strain range the variation of the strain profile is considered by considering the variable strain at a suitable depth of the cross-section.
+    The number of the considered intermediate strain profiles is 20 for strain ranges 1, 3 and 100 for strain range 2.
+</p>
+<h3>Calculation of required reinforcement for given for given bending moment <i>M</i><sub>Ed</sub> and axial force <i>N</i><sub>Ed</sub></h3>
+<p>
+    The required reinforcement area <i>A</i><sub>s</sub> is calculated in order to obtain a bending moment resistance <i>M</i><sub>Rd</sub> at least equal to the bending moment <i>M</i><sub>Ed</sub> for given and axial force <i>N</i><sub>Ed</sub>.
+    A common factor is calculated that multiplies the reinforcement areas of the selected reinforcement layers.
+    The rest of the reinforcement layers are not affected.
+    The value of the multiplication factor is obtained by a root finding algorithm based on the ITP method so that the bending moment resistance <i>M</i><sub>Rd</sub> becomes equal to the specified bending moment <i>M</i><sub>Ed</sub> for given and axial force <i>N</i><sub>Ed</sub>.
+</p>
+<p>
+    It is noted that when two or more layers are modified to obtain the required reinforcement the resulting reinforcement distribution may not be the optimal (i.e. corresponding to the least amount of reinforcement).
+    This is because the variable reinforcement layers are all multiplied by a common factor.
+</p>
+
+                        </div>
+                </div>
+            </fieldset>
+<div class="navigation-link scroll-to-top">
+    <a href="#" class="link">
+        <span>Back to top ^</span>
+    </a>
+</div>
+<div class="flow-breaker"></div>
+
+
+
+
+    </section>
+</div>
+
+
+
+
+    <footer id="site-footer">
+        <div class="section">
+            <div class="logo">
+                <span class="auxiliary"></span>
+                <a href="/">
+                    <div class="image"></div>
+                    <p>
+                        <span>Eurocode</span><br />
+                        <span>Applied<small>.com</small></span>
+                    </p>
+                </a>
+            </div>
+            <div class="social">
+                <ul>
+                    <li><a href="https://www.facebook.com/EurocodeApplied"><svg class="icon icon-facebook-official"><use xlink:href="/images/icons001.svg#icon-facebook-official"></use></svg><span class="facebook-url">/EurocodeApplied</span></a></li>
+                </ul>
+            </div>
+            <div class="links">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/latest">Latest</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="/faq">FAQ</a></li>
+                    <li><a class="external ad" href="https://www.paypal.com/donate?hosted_button_id=6HWFQESZMRT6A" target="_blank" rel="nofollow noopener">Donate</a></li>
+                </ul>
+                <ul>
+                    <li><a href="/ads">Advertisements</a></li>
+                    <li><a href="/terms">Terms of Use</a></li>
+                    <li><a href="/privacy">Privacy Policy</a></li>
+                    <li><a href="/cookies">Cookie Info &amp; Preferences</a></li>
+                    <li><a target="_blank" href="/verification">Quality Assurance &amp; Verification</a></li>
+                </ul>
+                <ul>
+                    <li><a href="https://www.facebook.com/EurocodeApplied">Facebook/EurocodeApplied</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="section">
+            <div class="copyright">
+                <span>
+                    EurocodeApplied<small>.com</small>
+                </span>
+                <span>
+                    Copyright &copy; 2017-2026. All rights reserved.
+                </span>
+            </div>
+        </div>
+    </footer>
+
+
+    <div id="site-scripts">
+        
+
+    <script>
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/design/menu-options');
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                var target = document.getElementById('design-options-ajax-target');
+                target.innerHTML += xhr.responseText;
+                target.className += " done";
+                if (window.eaHelper && window.eaHelper.createDesignSearchSelect2) window.eaHelper.createDesignSearchSelect2();
+            }
+        };
+        xhr.send();
+    </script>
+
+    
+
+    
+        <!--[if lt IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <![endif]-->
+        <!--[if IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <![endif]-->
+        <!--[if (gt IE 9) | (!IE)]><!-->
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <!--<![endif]-->
+
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/loadjs/4.2.0/loadjs.min.js"></script>
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+
+        <script defer src="https://cdn.eurocodeapplied.com/js/site037.min.js"></script>
+
+        <script>
+        var func1 = function () {
+           loadjs([
+                "https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js",
+                "https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"
+            ], {
+                async: false
+            });
+        };
+
+        var func2 = function () {
+            loadjs([
+                "https://cdnjs.cloudflare.com/ajax/libs/jqPlot/1.0.9/jquery.jqplot.min.js",
+                "https://cdnjs.cloudflare.com/ajax/libs/jqPlot/1.0.9/plugins/jqplot.canvasTextRenderer.min.js",
+                "https://cdnjs.cloudflare.com/ajax/libs/jqPlot/1.0.9/plugins/jqplot.canvasAxisLabelRenderer.min.js",
+                "https://cdnjs.cloudflare.com/ajax/libs/jqPlot/1.0.9/plugins/jqplot.canvasAxisTickRenderer.min.js",
+                "https://cdnjs.cloudflare.com/ajax/libs/jqPlot/1.0.9/plugins/jqplot.highlighter.min.js",
+                "https://cdnjs.cloudflare.com/ajax/libs/jqPlot/1.0.9/plugins/jqplot.cursor.min.js",
+                "https://cdnjs.cloudflare.com/ajax/libs/jqPlot/1.0.9/plugins/jqplot.pointLabels.min.js",
+                "https://cdnjs.cloudflare.com/ajax/libs/jqPlot/1.0.9/plugins/jqplot.barRenderer.min.js",
+                "https://cdnjs.cloudflare.com/ajax/libs/jqPlot/1.0.9/plugins/jqplot.categoryAxisRenderer.min.js",
+                "https://cdnjs.cloudflare.com/ajax/libs/jqPlot/1.0.9/plugins/jqplot.canvasOverlay.min.js"
+            ], {
+                async: false
+            });
+        };
+
+        var func3 = function () {
+           loadjs([
+                "https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.4/jquery.rateyo.min.js"
+           ], {
+               success: function () { window.eaHelper.enableStarRating() },
+               async: true
+            });
+        };
+
+        var func4 = function () {
+           loadjs([
+                "https://cdnjs.cloudflare.com/ajax/libs/svgxuse/1.2.6/svgxuse.min.js"
+           ], {
+               async: true
+            });
+        };
+
+
+        var func5 = function () {
+           loadjs([
+                "https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"
+           ], {
+               async: true
+            });
+        };
+       
+
+        if (window.jQuery && window.eaHelper) {
+            $(document).ready(func1);
+            $(document).ready(func2);
+            $(document).ready(func3);
+            $(document).ready(func4);
+            $(document).ready(func5);
+        }
+        else {
+            if (!window.deferedInlineScripts) window.deferedInlineScripts = [];
+            window.deferedInlineScripts.push(func1);
+            window.deferedInlineScripts.push(func2);
+            window.deferedInlineScripts.push(func3);
+            window.deferedInlineScripts.push(func4);
+            window.deferedInlineScripts.push(func5);
+        }
+        </script>
+    
+
+
+
+        
+
+
+        
+    <script>
+        var func1 = function () {
+            $("select#Calculation_ReinforcementLaw").change(function () {
+                var law = $(this).children("option:selected").text().toLowerCase();
+                if (law != "custom") {
+                    $("#Calculation_HardeningRatio").parents(".field").addClass("hidden");
+                    $("#Calculation_epsilonuk").parents(".field").addClass("hidden");
+                }
+                else // default
+                {
+                    $("#Calculation_HardeningRatio").parents(".field").removeClass("hidden");
+                    $("#Calculation_epsilonuk").parents(".field").removeClass("hidden");
+                }
+            });
+            $("select#Calculation_ReinforcementLaw").change();
+        };
+
+        var func2 = function () {
+            $("select#Calculation_AnalysisType").change(function () {
+                var type = $(this).children("option:selected").text().toLowerCase();
+                if (type.startsWith("interaction")) {
+                    $("#Calculation_MEd").parents(".field").addClass("hidden");
+                    $("#Calculation_NEd").parents(".field").addClass("hidden");
+                    $("#Calculation_VariableReinforcementLayers").parents(".field").addClass("hidden");
+                }
+                else if (type.startsWith("required")) {
+                    $("#Calculation_MEd").parents(".field").removeClass("hidden");
+                    $("#Calculation_NEd").parents(".field").removeClass("hidden");
+                    $("#Calculation_VariableReinforcementLayers").parents(".field").removeClass("hidden");
+                }
+                else // default (MRd)
+                {
+                    $("#Calculation_MEd").parents(".field").addClass("hidden");
+                    $("#Calculation_NEd").parents(".field").removeClass("hidden");
+                    $("#Calculation_VariableReinforcementLayers").parents(".field").addClass("hidden");
+                }
+            });
+            $("select#Calculation_AnalysisType").change();
+        };
+
+        if (window.jQuery && window.eaHelper) {
+            $(document).ready(func1);
+            $(document).ready(func2);
+        }
+        else {
+            if (!window.deferedInlineScripts) window.deferedInlineScripts = [];
+            window.deferedInlineScripts.push(func1);
+            window.deferedInlineScripts.push(func2);
+        }
+    </script>
+
+        <script type="text/javascript">
+            var func = function () {
+                var name = "interaction-chart";
+                     var url = '/design/en1992/uls-design-rectangular-section/chart/interaction-chart';
+                     eaHelper.chart.downloadChart(name, url);
+            };
+
+            if (window.jQuery && window.eaHelper) {
+                $(document).ready(func);
+            }
+            else {
+                if (!window.deferedInlineScripts) window.deferedInlineScripts = [];
+                window.deferedInlineScripts.push(func);
+            }
+        </script>
+    
+
+
+        <script>
+                if ('serviceWorker' in navigator) {
+                    /**/
+                    navigator.serviceWorker.register('https://eurocodeapplied.com/service-worker.js');
+                /**/
+            }
+        </script>
+
+    </div>
+</body>
+</html>

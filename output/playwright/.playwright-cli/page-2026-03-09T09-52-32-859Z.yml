@@ -1,0 +1,822 @@
+- generic [ref=e3]:
+  - banner [ref=e6]:
+    - generic [ref=e9]:
+      - button "Deploy" [ref=e11] [cursor=pointer]:
+        - generic [ref=e13]: Deploy
+      - button "Main menu" [ref=e15] [cursor=pointer]:
+        - img [ref=e16]
+  - generic [ref=e19]:
+    - generic [ref=e25]:
+      - generic [ref=e26]:
+        - generic [ref=e27]: ДСТУ / ДБН
+        - heading "Розрахунок згину залізобетонного перерізу" [level=1] [ref=e29]:
+          - text: Розрахунок згину залізобетонного перерізу
+          - generic [ref=e30]:
+            - link "Link to heading":
+              - /url: "#rozrakhunok-zginu-zalizobetonnogo-pererizu"
+              - img
+        - paragraph [ref=e31]: "Інженерний застосунок для аналізу двошарового прямокутного перерізу з двома шарами арматури: від геометрії та підбору матеріалів до кривизни, несучої здатності та наочних результатів для перевірки й презентації."
+        - generic [ref=e32]:
+          - generic [ref=e33]: Двошаровий бетон
+          - generic [ref=e34]: Експорт в Excel
+          - generic [ref=e35]: Верифікація результатів
+      - complementary [ref=e36]:
+        - heading "Коротко про робочу зону" [level=2] [ref=e38]:
+          - text: Коротко про робочу зону
+          - generic [ref=e39]:
+            - link "Link to heading":
+              - /url: "#korotko-pro-robochu-zonu"
+              - img
+        - paragraph [ref=e40]: Сторінка поєднує нормативний розрахунок, графічну інтерпретацію перерізу та аналітичні таблиці без зміни розрахункової схеми.
+        - generic [ref=e41]:
+          - generic [ref=e42]:
+            - generic [ref=e43]: Нормативна база
+            - generic [ref=e44]: ДСТУ Б В.2.6-156:2010 та ДБН В.2.6-98:2009
+          - generic [ref=e45]:
+            - generic [ref=e46]: Призначення
+            - generic [ref=e47]: Оцінка M_Rd, кривизни та деформацій прямокутного залізобетонного перерізу.
+          - generic [ref=e48]:
+            - generic [ref=e49]: Формат роботи
+            - generic [ref=e50]: Інтерактивне введення параметрів, креслення та експорт розрахункових результатів.
+    - generic [ref=e55]:
+      - generic [ref=e56]: Робоча область
+      - heading "Параметри перерізу та армування" [level=2] [ref=e58]:
+        - text: Параметри перерізу та армування
+        - generic [ref=e59]:
+          - link "Link to heading":
+            - /url: "#parametri-pererizu-ta-armuvannya"
+            - img
+      - paragraph [ref=e60]: Задайте геометрію, класи бетону й арматури та перевірте, як зміна параметрів впливає на розрахунковий стан.
+    - generic [ref=e62]:
+      - heading "Введення геометрії та армування" [level=3] [ref=e67]:
+        - text: Введення геометрії та армування
+        - generic [ref=e68]:
+          - link "Link to heading":
+            - /url: "#vvedennya-geometriyi-ta-armuvannya"
+            - img
+      - generic [ref=e70]:
+        - generic [ref=e72]:
+          - generic [ref=e74]:
+            - paragraph [ref=e78]: Висота перерізу h, мм
+            - generic [ref=e79]:
+              - spinbutton "Висота перерізу h, мм" [ref=e82]: "500.00"
+              - generic [ref=e83]:
+                - button [ref=e84] [cursor=pointer]:
+                  - img [ref=e85]
+                - button [ref=e87] [cursor=pointer]:
+                  - img [ref=e88]
+          - generic [ref=e91]:
+            - paragraph [ref=e95]: Ширина перерізу b, мм
+            - generic [ref=e96]:
+              - spinbutton "Ширина перерізу b, мм" [ref=e99]: "500.00"
+              - generic [ref=e100]:
+                - button [ref=e101] [cursor=pointer]:
+                  - img [ref=e102]
+                - button [ref=e104] [cursor=pointer]:
+                  - img [ref=e105]
+        - generic [ref=e108]:
+          - generic [ref=e110]:
+            - paragraph [ref=e114]: Клас бетону верхнього шару
+            - generic [ref=e116]:
+              - generic [ref=e117]:
+                - generic [ref=e118]: C30/35
+                - combobox "Selected C30/35. Клас бетону верхнього шару" [ref=e120]
+              - img "open" [ref=e122]
+          - generic [ref=e125]:
+            - paragraph [ref=e129]: Клас бетону нижнього шару
+            - generic [ref=e131]:
+              - generic [ref=e132]:
+                - generic [ref=e133]: C20/25
+                - combobox "Selected C20/25. Клас бетону нижнього шару" [ref=e135]
+              - img "open" [ref=e137]
+          - generic [ref=e140]:
+            - paragraph [ref=e144]: Товщина верхнього шару бетону h1, мм
+            - generic [ref=e145]:
+              - spinbutton "Товщина верхнього шару бетону h1, мм" [ref=e148]: "200.00"
+              - generic [ref=e149]:
+                - button [ref=e150] [cursor=pointer]:
+                  - img [ref=e151]
+                - button [ref=e153] [cursor=pointer]:
+                  - img [ref=e154]
+          - generic [ref=e158]:
+            - paragraph [ref=e161]: Похідна товщина нижнього шару бетону h2, мм
+            - paragraph [ref=e164]: "300.0"
+          - paragraph [ref=e169]: "Бі-бетонний прямокутний елемент: ширина перерізу b є сталою для обох шарів бетону."
+      - heading "Шари арматури" [level=3] [ref=e174]:
+        - text: Шари арматури
+        - generic [ref=e175]:
+          - link "Link to heading":
+            - /url: "#shari-armaturi"
+            - img
+      - paragraph [ref=e180]: "Для нормативного сценарію передбачено рівно два шари арматури: верхній і нижній."
+      - generic [ref=e182]:
+        - generic [ref=e186]:
+          - paragraph [ref=e190]: Грань шару арматури 1
+          - generic [ref=e192]:
+            - generic [ref=e193]:
+              - generic [ref=e194]: Верхня
+              - combobox "Selected Верхня. Грань шару арматури 1" [ref=e196]
+            - img "open" [ref=e198]
+        - generic [ref=e203]:
+          - paragraph [ref=e207]: Відстань a1, мм
+          - generic [ref=e208]:
+            - spinbutton "Відстань a1, мм" [ref=e211]: "30.00"
+            - generic [ref=e212]:
+              - button [ref=e213] [cursor=pointer]:
+                - img [ref=e214]
+              - button [ref=e216] [cursor=pointer]:
+                - img [ref=e217]
+        - generic [ref=e222]:
+          - paragraph [ref=e226]: Кількість n1, шт.
+          - generic [ref=e227]:
+            - spinbutton "Кількість n1, шт." [ref=e230]: "7"
+            - generic [ref=e231]:
+              - button [ref=e232] [cursor=pointer]:
+                - img [ref=e233]
+              - button [ref=e235] [cursor=pointer]:
+                - img [ref=e236]
+        - generic [ref=e241]:
+          - paragraph [ref=e245]: Діаметр d1, мм
+          - generic [ref=e247]:
+            - generic [ref=e248]:
+              - generic [ref=e249]: "28"
+              - combobox "Selected 28. Діаметр d1, мм" [ref=e251]
+            - img "open" [ref=e253]
+        - generic [ref=e258]:
+          - paragraph [ref=e262]: Клас арматури 1
+          - generic [ref=e264]:
+            - generic [ref=e265]:
+              - generic [ref=e266]: A400C
+              - combobox "Selected A400C. Клас арматури 1" [ref=e268]
+            - img "open" [ref=e270]
+        - generic [ref=e277]:
+          - paragraph [ref=e278]:
+            - strong [ref=e279]: z = a
+          - paragraph [ref=e280]:
+            - code [ref=e281]: z = 30.0 мм
+      - generic [ref=e283]:
+        - generic [ref=e287]:
+          - paragraph [ref=e291]: Грань шару арматури 2
+          - generic [ref=e293]:
+            - generic [ref=e294]:
+              - generic [ref=e295]: Нижня
+              - combobox "Selected Нижня. Грань шару арматури 2" [ref=e297]
+            - img "open" [ref=e299]
+        - generic [ref=e304]:
+          - paragraph [ref=e308]: Відстань a2, мм
+          - generic [ref=e309]:
+            - spinbutton "Відстань a2, мм" [ref=e312]: "30.00"
+            - generic [ref=e313]:
+              - button [ref=e314] [cursor=pointer]:
+                - img [ref=e315]
+              - button [ref=e317] [cursor=pointer]:
+                - img [ref=e318]
+        - generic [ref=e323]:
+          - paragraph [ref=e327]: Кількість n2, шт.
+          - generic [ref=e328]:
+            - spinbutton "Кількість n2, шт." [ref=e331]: "7"
+            - generic [ref=e332]:
+              - button [ref=e333] [cursor=pointer]:
+                - img [ref=e334]
+              - button [ref=e336] [cursor=pointer]:
+                - img [ref=e337]
+        - generic [ref=e342]:
+          - paragraph [ref=e346]: Діаметр d2, мм
+          - generic [ref=e348]:
+            - generic [ref=e349]:
+              - generic [ref=e350]: "28"
+              - combobox "Selected 28. Діаметр d2, мм" [ref=e352]
+            - img "open" [ref=e354]
+        - generic [ref=e359]:
+          - paragraph [ref=e363]: Клас арматури 2
+          - generic [ref=e365]:
+            - generic [ref=e366]:
+              - generic [ref=e367]: A400C
+              - combobox "Selected A400C. Клас арматури 2" [ref=e369]
+            - img "open" [ref=e371]
+        - generic [ref=e378]:
+          - paragraph [ref=e379]:
+            - strong [ref=e380]: z = h - a
+          - paragraph [ref=e381]:
+            - code [ref=e382]: z = 470.0 мм
+      - generic [ref=e384]:
+        - generic [ref=e386]:
+          - heading "Попередній перегляд геометрії" [level=3] [ref=e391]:
+            - text: Попередній перегляд геометрії
+            - generic [ref=e392]:
+              - link "Link to heading":
+                - /url: "#poperedniy-pereglyad-geometriyi"
+                - img
+          - generic [ref=e397]:
+            - button "Show/hide columns" [ref=e401] [cursor=pointer]:
+              - img [ref=e402]
+            - button "Download as CSV" [ref=e407] [cursor=pointer]:
+              - img [ref=e408]
+            - button "Search" [ref=e413] [cursor=pointer]:
+              - img [ref=e414]
+            - button "Fullscreen" [ref=e419] [cursor=pointer]:
+              - img [ref=e420]
+          - generic [ref=e435]:
+            - button "Show/hide columns" [ref=e439] [cursor=pointer]:
+              - img [ref=e440]
+            - button "Download as CSV" [ref=e445] [cursor=pointer]:
+              - img [ref=e446]
+            - button "Search" [ref=e451] [cursor=pointer]:
+              - img [ref=e452]
+            - button "Fullscreen" [ref=e457] [cursor=pointer]:
+              - img [ref=e458]
+        - generic [ref=e470]:
+          - heading "Стан чернетки" [level=3] [ref=e475]:
+            - text: Стан чернетки
+            - generic [ref=e476]:
+              - link "Link to heading":
+                - /url: "#stan-chernetki"
+                - img
+          - button "Перерахувати" [ref=e479] [cursor=pointer]:
+            - paragraph [ref=e483]: Перерахувати
+          - alert [ref=e486]:
+            - paragraph [ref=e491]: Показано актуальний застосований розрахунок.
+      - group [ref=e494]:
+        - generic "keyboard_arrow_right Ресурси для зовнішньої верифікації" [ref=e495] [cursor=pointer]:
+          - generic [ref=e496]:
+            - generic [ref=e498]: keyboard_arrow_right
+            - paragraph [ref=e501]: Ресурси для зовнішньої верифікації
+    - generic [ref=e504]:
+      - paragraph [ref=e508]: Розрахункова точка
+      - generic [ref=e509]:
+        - slider "Розрахункова точка" [ref=e513]:
+          - generic:
+            - generic:
+              - paragraph: "35"
+        - generic:
+          - generic:
+            - paragraph: "1"
+          - generic:
+            - paragraph: "37"
+    - generic [ref=e519]:
+      - generic [ref=e520]: Результати
+      - heading "Ключові показники та активна точка кривої" [level=2] [ref=e522]:
+        - text: Ключові показники та активна точка кривої
+        - generic [ref=e523]:
+          - link "Link to heading":
+            - /url: "#klyuchovi-pokazniki-ta-aktivna-tochka-krivoyi"
+            - img
+      - paragraph [ref=e524]: Після застосування змін система оновлює несучу здатність, кривизну та візуалізацію поточного стану перерізу.
+    - generic [ref=e526]:
+      - generic [ref=e531]:
+        - paragraph [ref=e534]: Несуча здатність M_Rd, кН·м
+        - paragraph [ref=e537]: "692.40"
+      - generic [ref=e542]:
+        - paragraph [ref=e545]: Кривизна κ_peak, 1/м
+        - paragraph [ref=e548]: "0.0486"
+    - generic [ref=e550]:
+      - generic [ref=e555]:
+        - generic [ref=e556]: Креслення перерізу
+        - heading "Переріз та активна розрахункова точка" [level=3] [ref=e558]:
+          - text: Переріз та активна розрахункова точка
+          - generic [ref=e559]:
+            - link "Link to heading":
+              - /url: "#pereriz-ta-aktivna-rozrakhunkova-tochka"
+              - img
+        - paragraph [ref=e560]: Креслення показує поточну геометрію та нейтральну вісь для обраної точки.
+        - generic [ref=e561]:
+          - article [ref=e562]:
+            - generic [ref=e563]: Геометрія
+            - generic [ref=e564]: 500.0 x 500.0 мм
+          - article [ref=e565]:
+            - generic [ref=e566]: Шари бетону
+            - generic [ref=e567]: C30/35 / C20/25
+          - article [ref=e568]:
+            - generic [ref=e569]: Нейтральна вісь
+            - generic [ref=e570]: x = 55.8 мм
+          - article [ref=e571]:
+            - generic [ref=e572]: Поточний крок
+            - generic [ref=e573]: "35"
+        - img "Креслення перерізу" [ref=e576]:
+          - generic [ref=e578]: Креслення перерізу
+          - generic [ref=e579]: Геометрія, шари матеріалів та активні розрахункові оверлеї
+          - generic [ref=e584]: b = 500.0 мм
+          - generic [ref=e585]: h = 500.0 мм
+          - generic [ref=e586]: h1 = 200.0 мм
+          - generic [ref=e587]: h2 = 300.0 мм
+          - generic [ref=e588]: z
+          - generic [ref=e590]: "B1: C30/35"
+          - generic [ref=e592]: "B2: C20/25"
+          - generic [ref=e595]: Стиснута зона
+          - generic [ref=e596]: Нейтральна вісь x = 55.8 мм
+          - generic [ref=e606]:
+            - generic [ref=e608]: "A1: 7 x 28, A400C"
+            - generic [ref=e609]: a1 = 30.0 мм; z1 = 30.0 мм
+          - generic [ref=e619]:
+            - generic [ref=e621]: "A2: 7 x 28, A400C"
+            - generic [ref=e622]: a2 = 30.0 мм; z2 = 470.0 мм
+      - heading "Поточна розрахункова точка" [level=3] [ref=e627]:
+        - text: Поточна розрахункова точка
+        - generic [ref=e628]:
+          - link "Link to heading":
+            - /url: "#potochna-rozrakhunkova-tochka"
+            - img
+      - generic [ref=e633]:
+        - article [ref=e634]:
+          - generic [ref=e635]: Крок
+          - generic [ref=e636]: "35"
+        - article [ref=e637]:
+          - generic [ref=e638]: M, кН·м
+          - generic [ref=e639]: "692.40"
+        - article [ref=e640]:
+          - generic [ref=e641]: κ, 1/м
+          - generic [ref=e642]: "0.0486"
+        - article [ref=e643]:
+          - generic [ref=e644]: x, мм
+          - generic [ref=e645]: "55.8"
+        - article [ref=e646]:
+          - generic [ref=e647]: ΣN, кН
+          - generic [ref=e648]: "0.2389"
+      - generic [ref=e653]: Робочі зусилля за шарами для обраної точки.
+      - generic [ref=e658]:
+        - article [ref=e659]:
+          - generic [ref=e660]: B1
+          - generic [ref=e661]:
+            - generic [ref=e662]:
+              - generic [ref=e663]: N, кН
+              - generic [ref=e664]: "433.47"
+            - generic [ref=e665]:
+              - generic [ref=e666]: ε, ‰
+              - generic [ref=e667]: "-2.152"
+            - generic [ref=e668]:
+              - generic [ref=e669]: σ, МПа
+              - generic [ref=e670]: "4.33"
+        - article [ref=e671]:
+          - generic [ref=e672]: B2
+          - generic [ref=e673]:
+            - generic [ref=e674]:
+              - generic [ref=e675]: N, кН
+              - generic [ref=e676]: "0.00"
+            - generic [ref=e677]:
+              - generic [ref=e678]: ε, ‰
+              - generic [ref=e679]: "-14.315"
+            - generic [ref=e680]:
+              - generic [ref=e681]: σ, МПа
+              - generic [ref=e682]: "0.00"
+        - article [ref=e683]:
+          - generic [ref=e684]: A1
+          - generic [ref=e685]:
+            - generic [ref=e686]:
+              - generic [ref=e687]: N, кН
+              - generic [ref=e688]: "1134.26"
+            - generic [ref=e689]:
+              - generic [ref=e690]: ε, ‰
+              - generic [ref=e691]: "1.253"
+            - generic [ref=e692]:
+              - generic [ref=e693]: σ, МПа
+              - generic [ref=e694]: "263.13"
+        - article [ref=e695]:
+          - generic [ref=e696]: A2
+          - generic [ref=e697]:
+            - generic [ref=e698]:
+              - generic [ref=e699]: N, кН
+              - generic [ref=e700]: "-1567.49"
+            - generic [ref=e701]:
+              - generic [ref=e702]: ε, ‰
+              - generic [ref=e703]: "-20.153"
+            - generic [ref=e704]:
+              - generic [ref=e705]: σ, МПа
+              - generic [ref=e706]: "-363.64"
+    - generic [ref=e711]:
+      - generic [ref=e712]: Аналітика
+      - heading "Графіки, деформації та таблиці" [level=2] [ref=e714]:
+        - text: Графіки, деформації та таблиці
+        - generic [ref=e715]:
+          - link "Link to heading":
+            - /url: "#grafiki-deformatsiyi-ta-tablitsi"
+            - img
+      - paragraph [ref=e716]: Деталізований перегляд діаграми M-κ, розподілу деформацій та внутрішніх зусиль для обраної розрахункової точки.
+    - heading "Діаграма M-κ" [level=3] [ref=e721]:
+      - text: Діаграма M-κ
+      - generic [ref=e722]:
+        - link "Link to heading":
+          - /url: "#diagrama-m-k"
+          - img
+    - generic [ref=e725]:
+      - generic [ref=e727]:
+        - button "Show data" [ref=e730] [cursor=pointer]:
+          - img [ref=e731]
+        - button "Fullscreen" [ref=e736] [cursor=pointer]:
+          - img [ref=e737]
+      - generic [ref=e740]:
+        - generic "Vega visualization" [ref=e1555]:
+          - img [ref=e1556]:
+            - generic [ref=e1561]:
+              - generic "X-axis titled 'κ, 1/м' for a linear scale with values from 0.00 to 0.06" [ref=e1568]:
+                - generic [ref=e1570]:
+                  - generic:
+                    - generic: "0.000"
+                    - generic: "0.005"
+                    - generic: "0.010"
+                    - generic: "0.015"
+                    - generic: "0.020"
+                    - generic: "0.025"
+                    - generic: "0.030"
+                    - generic: "0.035"
+                    - generic: "0.040"
+                    - generic: "0.045"
+                    - generic: "0.050"
+                    - generic: "0.055"
+                  - generic:
+                    - generic: κ, 1/м
+              - generic "Y-axis titled 'M, кН·м' for a linear scale with values from 0 to 700" [ref=e1571]:
+                - generic [ref=e1573]:
+                  - generic:
+                    - generic: "0"
+                    - generic: "100"
+                    - generic: "200"
+                    - generic: "300"
+                    - generic: "400"
+                    - generic: "500"
+                    - generic: "600"
+                    - generic: "700"
+                  - generic:
+                    - generic: M, кН·м
+              - 'generic "κ, 1/м: 0.000501580963135; M, кН·м: 61.0982079031; Крок: 1; ε_c,top, 10^-5: 7.75; ε_c,bot, 10^-5: −17.3290481567" [ref=e1575]'
+              - generic [ref=e1576]:
+                - 'generic "κ, 1/м: 0.000501580963135; M, кН·м: 61.0982079031; Крок: 1; ε_c,top, 10^-5: 7.75; ε_c,bot, 10^-5: −17.3290481567" [ref=e1577]'
+                - 'generic "κ, 1/м: 0.000995652770996; M, кН·м: 120.720168782; Крок: 2; ε_c,top, 10^-5: 15.5; ε_c,bot, 10^-5: −34.2826385498" [ref=e1578]'
+                - 'generic "κ, 1/м: 0.00148059127808; M, кН·м: 178.792959721; Крок: 3; ε_c,top, 10^-5: 23.25; ε_c,bot, 10^-5: −50.7795639038" [ref=e1579]'
+                - 'generic "κ, 1/м: 0.00196087158203; M, кН·м: 235.62798699; Крок: 4; ε_c,top, 10^-5: 31; ε_c,bot, 10^-5: −67.0435791016" [ref=e1580]'
+                - 'generic "κ, 1/м: 0.00243181991577; M, кН·м: 290.949248824; Крок: 5; ε_c,top, 10^-5: 38.75; ε_c,bot, 10^-5: −82.8409957886" [ref=e1581]'
+                - 'generic "κ, 1/м: 0.00289640075684; M, кН·м: 344.971867036; Крок: 6; ε_c,top, 10^-5: 46.5; ε_c,bot, 10^-5: −98.3200378418" [ref=e1582]'
+                - 'generic "κ, 1/м: 0.00335607269287; M, кН·м: 397.834571493; Крок: 7; ε_c,top, 10^-5: 54.25; ε_c,bot, 10^-5: −113.553634644" [ref=e1583]'
+                - 'generic "κ, 1/м: 0.00380766784668; M, кН·м: 449.340488113; Крок: 8; ε_c,top, 10^-5: 62; ε_c,bot, 10^-5: −128.383392334" [ref=e1584]'
+                - 'generic "κ, 1/м: 0.00425264007568; M, кН·м: 499.606904653; Крок: 9; ε_c,top, 10^-5: 69.75; ε_c,bot, 10^-5: −142.882003784" [ref=e1585]'
+                - 'generic "κ, 1/м: 0.0046924621582; M, кН·м: 548.770589831; Крок: 10; ε_c,top, 10^-5: 77.5; ε_c,bot, 10^-5: −157.12310791" [ref=e1586]'
+                - 'generic "κ, 1/м: 0.00512550048828; M, кН·м: 596.748737805; Крок: 11; ε_c,top, 10^-5: 85.25; ε_c,bot, 10^-5: −171.025024414" [ref=e1587]'
+                - 'generic "κ, 1/м: 0.00555323730469; M, кН·м: 643.650835131; Крок: 12; ε_c,top, 10^-5: 93; ε_c,bot, 10^-5: −184.661865234" [ref=e1588]'
+                - 'generic "κ, 1/м: 0.00635762512207; M, кН·м: 666.496346442; Крок: 13; ε_c,top, 10^-5: 100.75; ε_c,bot, 10^-5: −217.131256104" [ref=e1589]'
+                - 'generic "κ, 1/м: 0.00751838867188; M, кН·м: 671.485606225; Крок: 14; ε_c,top, 10^-5: 108.5; ε_c,bot, 10^-5: −267.419433594" [ref=e1590]'
+                - 'generic "κ, 1/м: 0.00879354858398; M, кН·м: 675.409141542; Крок: 15; ε_c,top, 10^-5: 116.25; ε_c,bot, 10^-5: −323.427429199" [ref=e1591]'
+                - 'generic "κ, 1/м: 0.0101777246094; M, кН·м: 678.529683346; Крок: 16; ε_c,top, 10^-5: 124; ε_c,bot, 10^-5: −384.886230469" [ref=e1592]'
+                - 'generic "κ, 1/м: 0.0116654608154; M, кН·м: 681.044812177; Крок: 17; ε_c,top, 10^-5: 131.75; ε_c,bot, 10^-5: −451.523040771" [ref=e1593]'
+                - 'generic "κ, 1/м: 0.0132512255859; M, кН·м: 683.049208787; Крок: 18; ε_c,top, 10^-5: 139.5; ε_c,bot, 10^-5: −523.061279297" [ref=e1594]'
+                - 'generic "κ, 1/м: 0.014916607666; M, кН·м: 684.827418405; Крок: 19; ε_c,top, 10^-5: 147.25; ε_c,bot, 10^-5: −598.580383301" [ref=e1595]'
+                - 'generic "κ, 1/м: 0.0166686523437; M, кН·м: 686.24413132; Крок: 20; ε_c,top, 10^-5: 155; ε_c,bot, 10^-5: −678.432617188" [ref=e1596]'
+                - 'generic "κ, 1/м: 0.0185080407715; M, кН·м: 687.305836224; Крок: 21; ε_c,top, 10^-5: 162.75; ε_c,bot, 10^-5: −762.652038574" [ref=e1597]'
+                - 'generic "κ, 1/м: 0.0204096191406; M, кН·м: 688.218391363; Крок: 22; ε_c,top, 10^-5: 170.5; ε_c,bot, 10^-5: −849.980957031" [ref=e1598]'
+                - 'generic "κ, 1/м: 0.0223738415527; M, кН·м: 688.94261951; Крок: 23; ε_c,top, 10^-5: 178.25; ε_c,bot, 10^-5: −940.442077637" [ref=e1599]'
+                - 'generic "κ, 1/м: 0.0243751757812; M, кН·м: 689.670331278; Крок: 24; ε_c,top, 10^-5: 186; ε_c,bot, 10^-5: −1032.75878906" [ref=e1600]'
+                - 'generic "κ, 1/м: 0.0264399108887; M, кН·м: 690.123923111; Крок: 25; ε_c,top, 10^-5: 193.75; ε_c,bot, 10^-5: −1128.24554443" [ref=e1601]'
+                - 'generic "κ, 1/м: 0.0285554321289; M, кН·м: 690.554739301; Крок: 26; ε_c,top, 10^-5: 201.5; ε_c,bot, 10^-5: −1226.27160645" [ref=e1602]'
+                - 'generic "κ, 1/м: 0.0306958666992; M, кН·м: 690.835748668; Крок: 27; ε_c,top, 10^-5: 209.25; ε_c,bot, 10^-5: −1325.54333496" [ref=e1603]'
+                - 'generic "κ, 1/м: 0.032861328125; M, кН·м: 691.287798476; Крок: 28; ε_c,top, 10^-5: 217; ε_c,bot, 10^-5: −1426.06640625" [ref=e1604]'
+                - 'generic "κ, 1/м: 0.0350651123047; M, кН·м: 691.409807652; Крок: 29; ε_c,top, 10^-5: 224.75; ε_c,bot, 10^-5: −1528.50561523" [ref=e1605]'
+                - 'generic "κ, 1/м: 0.0373074462891; M, кН·м: 691.59925924; Крок: 30; ε_c,top, 10^-5: 232.5; ε_c,bot, 10^-5: −1632.87231445" [ref=e1606]'
+                - 'generic "κ, 1/м: 0.0395090087891; M, кН·м: 691.99337533; Крок: 31; ε_c,top, 10^-5: 240.25; ε_c,bot, 10^-5: −1735.20043945" [ref=e1607]'
+                - 'generic "κ, 1/м: 0.0418023046875; M, кН·м: 691.993566856; Крок: 32; ε_c,top, 10^-5: 248; ε_c,bot, 10^-5: −1842.11523437" [ref=e1608]'
+                - 'generic "κ, 1/м: 0.0440813452148; M, кН·м: 692.173842873; Крок: 33; ε_c,top, 10^-5: 255.75; ε_c,bot, 10^-5: −1948.31726074" [ref=e1609]'
+                - 'generic "κ, 1/м: 0.0463459033203; M, кН·м: 692.357026222; Крок: 34; ε_c,top, 10^-5: 263.5; ε_c,bot, 10^-5: −2053.79516602" [ref=e1610]'
+                - 'generic "κ, 1/м: 0.0486493896484; M, кН·м: 692.39765532; Крок: 35; ε_c,top, 10^-5: 271.25; ε_c,bot, 10^-5: −2161.21948242" [ref=e1611]'
+                - 'generic "κ, 1/м: 0.05099203125; M, кН·м: 692.385610742; Крок: 36; ε_c,top, 10^-5: 279; ε_c,bot, 10^-5: −2270.6015625" [ref=e1612]'
+                - 'generic "κ, 1/м: 0.0533201147461; M, кН·м: 692.39168441; Крок: 37; ε_c,top, 10^-5: 286.75; ε_c,bot, 10^-5: −2379.2557373" [ref=e1613]'
+              - 'generic "κ, 1/м: 0.0486493896484; M, кН·м: 692.39765532; Крок: 35; ε_c,top, 10^-5: 271.25; ε_c,bot, 10^-5: −2161.21948242" [ref=e1615]'
+        - group "Click to view actions":
+          - img [ref=e1617] [cursor=pointer]
+    - generic [ref=e811]:
+      - button "Download as CSV" [ref=e814] [cursor=pointer]:
+        - img [ref=e815]
+      - button "Search" [ref=e820] [cursor=pointer]:
+        - img [ref=e821]
+      - button "Fullscreen" [ref=e826] [cursor=pointer]:
+        - img [ref=e827]
+    - generic [ref=e839]:
+      - generic [ref=e841]:
+        - heading "Графік деформацій бетону" [level=3] [ref=e846]:
+          - text: Графік деформацій бетону
+          - generic [ref=e847]:
+            - link "Link to heading":
+              - /url: "#grafik-deformatsiy-betonu"
+              - img
+        - generic [ref=e850]:
+          - generic [ref=e852]:
+            - button "Show data" [ref=e855] [cursor=pointer]:
+              - img [ref=e856]
+            - button "Fullscreen" [ref=e861] [cursor=pointer]:
+              - img [ref=e862]
+          - generic [ref=e865]:
+            - generic "Vega visualization" [ref=e1621]:
+              - img [ref=e1622]:
+                - generic [ref=e1627]:
+                  - generic "X-axis titled 'ε_c, 10^-5' for a linear scale with values from −2,200 to 400" [ref=e1634]:
+                    - generic [ref=e1636]:
+                      - generic:
+                        - generic: −2,000
+                        - generic: −1,500
+                        - generic: −1,000
+                        - generic: −500
+                        - generic: "0"
+                      - generic:
+                        - generic: ε_c, 10^-5
+                  - generic "Y-axis titled 'z, мм' for a linear scale with values from 0 to 500" [ref=e1637]:
+                    - generic [ref=e1639]:
+                      - generic:
+                        - generic: "0"
+                        - generic: "100"
+                        - generic: "200"
+                        - generic: "300"
+                        - generic: "400"
+                        - generic: "500"
+                      - generic:
+                        - generic: z, мм
+                  - 'generic "ε_c, 10^-5: −2161.21948242; z, мм: 500" [ref=e1641]'
+                  - generic [ref=e1642]:
+                    - 'generic "ε_c, 10^-5: 271.25; z, мм: 0" [ref=e1643]'
+                    - 'generic "ε_c, 10^-5: 222.600610352; z, мм: 10" [ref=e1644]'
+                    - 'generic "ε_c, 10^-5: 173.951220703; z, мм: 20" [ref=e1645]'
+                    - 'generic "ε_c, 10^-5: 125.301831055; z, мм: 30" [ref=e1646]'
+                    - 'generic "ε_c, 10^-5: 76.6524414062; z, мм: 40" [ref=e1647]'
+                    - 'generic "ε_c, 10^-5: 28.0030517578; z, мм: 50" [ref=e1648]'
+                    - 'generic "ε_c, 10^-5: −20.6463378906; z, мм: 60" [ref=e1649]'
+                    - 'generic "ε_c, 10^-5: −69.2957275391; z, мм: 70" [ref=e1650]'
+                    - 'generic "ε_c, 10^-5: −117.945117188; z, мм: 80" [ref=e1651]'
+                    - 'generic "ε_c, 10^-5: −166.594506836; z, мм: 90" [ref=e1652]'
+                    - 'generic "ε_c, 10^-5: −215.243896484; z, мм: 100" [ref=e1653]'
+                    - 'generic "ε_c, 10^-5: −263.893286133; z, мм: 110" [ref=e1654]'
+                    - 'generic "ε_c, 10^-5: −312.542675781; z, мм: 120" [ref=e1655]'
+                    - 'generic "ε_c, 10^-5: −361.19206543; z, мм: 130" [ref=e1656]'
+                    - 'generic "ε_c, 10^-5: −409.841455078; z, мм: 140" [ref=e1657]'
+                    - 'generic "ε_c, 10^-5: −458.490844727; z, мм: 150" [ref=e1658]'
+                    - 'generic "ε_c, 10^-5: −507.140234375; z, мм: 160" [ref=e1659]'
+                    - 'generic "ε_c, 10^-5: −555.789624023; z, мм: 170" [ref=e1660]'
+                    - 'generic "ε_c, 10^-5: −604.439013672; z, мм: 180" [ref=e1661]'
+                    - 'generic "ε_c, 10^-5: −653.08840332; z, мм: 190" [ref=e1662]'
+                    - 'generic "ε_c, 10^-5: −701.737792969; z, мм: 200" [ref=e1663]'
+                    - 'generic "ε_c, 10^-5: −750.387182617; z, мм: 210" [ref=e1664]'
+                    - 'generic "ε_c, 10^-5: −799.036572266; z, мм: 220" [ref=e1665]'
+                    - 'generic "ε_c, 10^-5: −847.685961914; z, мм: 230" [ref=e1666]'
+                    - 'generic "ε_c, 10^-5: −896.335351562; z, мм: 240" [ref=e1667]'
+                    - 'generic "ε_c, 10^-5: −944.984741211; z, мм: 250" [ref=e1668]'
+                    - 'generic "ε_c, 10^-5: −993.634130859; z, мм: 260" [ref=e1669]'
+                    - 'generic "ε_c, 10^-5: −1042.28352051; z, мм: 270" [ref=e1670]'
+                    - 'generic "ε_c, 10^-5: −1090.93291016; z, мм: 280" [ref=e1671]'
+                    - 'generic "ε_c, 10^-5: −1139.5822998; z, мм: 290" [ref=e1672]'
+                    - 'generic "ε_c, 10^-5: −1188.23168945; z, мм: 300" [ref=e1673]'
+                    - 'generic "ε_c, 10^-5: −1236.8810791; z, мм: 310" [ref=e1674]'
+                    - 'generic "ε_c, 10^-5: −1285.53046875; z, мм: 320" [ref=e1675]'
+                    - 'generic "ε_c, 10^-5: −1334.1798584; z, мм: 330" [ref=e1676]'
+                    - 'generic "ε_c, 10^-5: −1382.82924805; z, мм: 340" [ref=e1677]'
+                    - 'generic "ε_c, 10^-5: −1431.4786377; z, мм: 350" [ref=e1678]'
+                    - 'generic "ε_c, 10^-5: −1480.12802734; z, мм: 360" [ref=e1679]'
+                    - 'generic "ε_c, 10^-5: −1528.77741699; z, мм: 370" [ref=e1680]'
+                    - 'generic "ε_c, 10^-5: −1577.42680664; z, мм: 380" [ref=e1681]'
+                    - 'generic "ε_c, 10^-5: −1626.07619629; z, мм: 390" [ref=e1682]'
+                    - 'generic "ε_c, 10^-5: −1674.72558594; z, мм: 400" [ref=e1683]'
+                    - 'generic "ε_c, 10^-5: −1723.37497559; z, мм: 410" [ref=e1684]'
+                    - 'generic "ε_c, 10^-5: −1772.02436523; z, мм: 420" [ref=e1685]'
+                    - 'generic "ε_c, 10^-5: −1820.67375488; z, мм: 430" [ref=e1686]'
+                    - 'generic "ε_c, 10^-5: −1869.32314453; z, мм: 440" [ref=e1687]'
+                    - 'generic "ε_c, 10^-5: −1917.97253418; z, мм: 450" [ref=e1688]'
+                    - 'generic "ε_c, 10^-5: −1966.62192383; z, мм: 460" [ref=e1689]'
+                    - 'generic "ε_c, 10^-5: −2015.27131348; z, мм: 470" [ref=e1690]'
+                    - 'generic "ε_c, 10^-5: −2063.92070312; z, мм: 480" [ref=e1691]'
+                    - 'generic "ε_c, 10^-5: −2112.57009277; z, мм: 490" [ref=e1692]'
+                    - 'generic "ε_c, 10^-5: −2161.21948242; z, мм: 500" [ref=e1693]'
+            - group "Click to view actions":
+              - img [ref=e1695] [cursor=pointer]
+        - generic [ref=e948]:
+          - button "Download as CSV" [ref=e951] [cursor=pointer]:
+            - img [ref=e952]
+          - button "Search" [ref=e957] [cursor=pointer]:
+            - img [ref=e958]
+          - button "Fullscreen" [ref=e963] [cursor=pointer]:
+            - img [ref=e964]
+      - generic [ref=e976]:
+        - heading "Момент-деформація верхньої арматури" [level=3] [ref=e981]:
+          - text: Момент-деформація верхньої арматури
+          - generic [ref=e982]:
+            - link "Link to heading":
+              - /url: "#moment-deformatsiya-verkhnoyi-armaturi"
+              - img
+        - paragraph [ref=e987]: A1, z = 30.0 мм
+        - generic [ref=e990]:
+          - generic [ref=e992]:
+            - button "Show data" [ref=e995] [cursor=pointer]:
+              - img [ref=e996]
+            - button "Fullscreen" [ref=e1001] [cursor=pointer]:
+              - img [ref=e1002]
+          - generic [ref=e1005]:
+            - generic "Vega visualization" [ref=e1699]:
+              - img [ref=e1700]:
+                - generic [ref=e1705]:
+                  - generic "X-axis titled 'ε_s, 10^-5' for a linear scale with values from 0 to 130" [ref=e1712]:
+                    - generic [ref=e1714]:
+                      - generic:
+                        - generic: "0"
+                        - generic: "20"
+                        - generic: "40"
+                        - generic: "60"
+                        - generic: "80"
+                        - generic: "100"
+                        - generic: "120"
+                      - generic:
+                        - generic: ε_s, 10^-5
+                  - generic "Y-axis titled 'M, кН·м' for a linear scale with values from 0 to 700" [ref=e1715]:
+                    - generic [ref=e1717]:
+                      - generic:
+                        - generic: "0"
+                        - generic: "100"
+                        - generic: "200"
+                        - generic: "300"
+                        - generic: "400"
+                        - generic: "500"
+                        - generic: "600"
+                        - generic: "700"
+                      - generic:
+                        - generic: M, кН·м
+                  - 'generic "ε_s, 10^-5: 6.2452571106; M, кН·м: 61.0982079031; Крок: 1" [ref=e1719]'
+                  - generic [ref=e1720]:
+                    - 'generic "ε_s, 10^-5: 6.2452571106; M, кН·м: 61.0982079031; Крок: 1" [ref=e1721]'
+                    - 'generic "ε_s, 10^-5: 12.513041687; M, кН·м: 120.720168782; Крок: 2" [ref=e1722]'
+                    - 'generic "ε_s, 10^-5: 18.8082261658; M, кН·м: 178.792959721; Крок: 3" [ref=e1723]'
+                    - 'generic "ε_s, 10^-5: 25.1173852539; M, кН·м: 235.62798699; Крок: 4" [ref=e1724]'
+                    - 'generic "ε_s, 10^-5: 31.4545402527; M, кН·м: 290.949248824; Крок: 5" [ref=e1725]'
+                    - 'generic "ε_s, 10^-5: 37.8107977295; M, кН·м: 344.971867036; Крок: 6" [ref=e1726]'
+                    - 'generic "ε_s, 10^-5: 44.1817819214; M, кН·м: 397.834571493; Крок: 7" [ref=e1727]'
+                    - 'generic "ε_s, 10^-5: 50.57699646; M, кН·м: 449.340488113; Крок: 8" [ref=e1728]'
+                    - 'generic "ε_s, 10^-5: 56.9920797729; M, кН·м: 499.606904653; Крок: 9" [ref=e1729]'
+                    - 'generic "ε_s, 10^-5: 63.4226135254; M, кН·м: 548.770589831; Крок: 10" [ref=e1730]'
+                    - 'generic "ε_s, 10^-5: 69.8734985352; M, кН·м: 596.748737805; Крок: 11" [ref=e1731]'
+                    - 'generic "ε_s, 10^-5: 76.3402880859; M, кН·м: 643.650835131; Крок: 12" [ref=e1732]'
+                    - 'generic "ε_s, 10^-5: 81.6771246338; M, кН·м: 666.496346442; Крок: 13" [ref=e1733]'
+                    - 'generic "ε_s, 10^-5: 85.9448339844; M, кН·м: 671.485606225; Крок: 14" [ref=e1734]'
+                    - 'generic "ε_s, 10^-5: 89.869354248; M, кН·м: 675.409141542; Крок: 15" [ref=e1735]'
+                    - 'generic "ε_s, 10^-5: 93.4668261719; M, кН·м: 678.529683346; Крок: 16" [ref=e1736]'
+                    - 'generic "ε_s, 10^-5: 96.7536175537; M, кН·м: 681.044812177; Крок: 17" [ref=e1737]'
+                    - 'generic "ε_s, 10^-5: 99.7463232422; M, кН·м: 683.049208787; Крок: 18" [ref=e1738]'
+                    - 'generic "ε_s, 10^-5: 102.500177002; M, кН·м: 684.827418405; Крок: 19" [ref=e1739]'
+                    - 'generic "ε_s, 10^-5: 104.994042969; M, кН·м: 686.24413132; Крок: 20" [ref=e1740]'
+                    - 'generic "ε_s, 10^-5: 107.225877686; M, кН·м: 687.305836224; Крок: 21" [ref=e1741]'
+                    - 'generic "ε_s, 10^-5: 109.271142578; M, кН·м: 688.218391363; Крок: 22" [ref=e1742]'
+                    - 'generic "ε_s, 10^-5: 111.128475342; M, кН·м: 688.94261951; Крок: 23" [ref=e1743]'
+                    - 'generic "ε_s, 10^-5: 112.874472656; M, кН·м: 689.670331278; Крок: 24" [ref=e1744]'
+                    - 'generic "ε_s, 10^-5: 114.430267334; M, кН·м: 690.123923111; Крок: 25" [ref=e1745]'
+                    - 'generic "ε_s, 10^-5: 115.833703613; M, кН·м: 690.554739301; Крок: 26" [ref=e1746]'
+                    - 'generic "ε_s, 10^-5: 117.162399902; M, кН·м: 690.835748668; Крок: 27" [ref=e1747]'
+                    - 'generic "ε_s, 10^-5: 118.416015625; M, кН·м: 691.287798476; Крок: 28" [ref=e1748]'
+                    - 'generic "ε_s, 10^-5: 119.554663086; M, кН·м: 691.409807652; Крок: 29" [ref=e1749]'
+                    - 'generic "ε_s, 10^-5: 120.577661133; M, кН·м: 691.59925924; Крок: 30" [ref=e1750]'
+                    - 'generic "ε_s, 10^-5: 121.722973633; M, кН·м: 691.99337533; Крок: 31" [ref=e1751]'
+                    - 'generic "ε_s, 10^-5: 122.593085938; M, кН·м: 691.993566856; Крок: 32" [ref=e1752]'
+                    - 'generic "ε_s, 10^-5: 123.505964355; M, кН·м: 692.173842873; Крок: 33" [ref=e1753]'
+                    - 'generic "ε_s, 10^-5: 124.462290039; M, кН·м: 692.357026222; Крок: 34" [ref=e1754]'
+                    - 'generic "ε_s, 10^-5: 125.301831055; M, кН·м: 692.39765532; Крок: 35" [ref=e1755]'
+                    - 'generic "ε_s, 10^-5: 126.02390625; M, кН·м: 692.385610742; Крок: 36" [ref=e1756]'
+                    - 'generic "ε_s, 10^-5: 126.789655762; M, кН·м: 692.39168441; Крок: 37" [ref=e1757]'
+                  - 'generic "ε_s, 10^-5: 125.301831055; M, кН·м: 692.39765532; Крок: 35" [ref=e1759]'
+            - group "Click to view actions":
+              - img [ref=e1761] [cursor=pointer]
+      - generic [ref=e1073]:
+        - heading "Момент-деформація нижньої арматури" [level=3] [ref=e1078]:
+          - text: Момент-деформація нижньої арматури
+          - generic [ref=e1079]:
+            - link "Link to heading":
+              - /url: "#moment-deformatsiya-nizhnoyi-armaturi"
+              - img
+        - paragraph [ref=e1084]: A2, z = 470.0 мм
+        - generic [ref=e1087]:
+          - generic [ref=e1089]:
+            - button "Show data" [ref=e1092] [cursor=pointer]:
+              - img [ref=e1093]
+            - button "Fullscreen" [ref=e1098] [cursor=pointer]:
+              - img [ref=e1099]
+          - generic [ref=e1102]:
+            - generic "Vega visualization" [ref=e1765]:
+              - img [ref=e1766]:
+                - generic [ref=e1771]:
+                  - generic "X-axis titled 'ε_s, 10^-5' for a linear scale with values from −2,400 to 0" [ref=e1778]:
+                    - generic [ref=e1780]:
+                      - generic:
+                        - generic: −2,400
+                        - generic: −2,200
+                        - generic: −2,000
+                        - generic: −1,800
+                        - generic: −1,600
+                        - generic: −1,400
+                        - generic: −1,200
+                        - generic: −1,000
+                        - generic: −800
+                        - generic: −600
+                        - generic: −400
+                        - generic: −200
+                        - generic: "0"
+                      - generic:
+                        - generic: ε_s, 10^-5
+                  - generic "Y-axis titled 'M, кН·м' for a linear scale with values from 0 to 700" [ref=e1781]:
+                    - generic [ref=e1783]:
+                      - generic:
+                        - generic: "0"
+                        - generic: "100"
+                        - generic: "200"
+                        - generic: "300"
+                        - generic: "400"
+                        - generic: "500"
+                        - generic: "600"
+                        - generic: "700"
+                      - generic:
+                        - generic: M, кН·м
+                  - 'generic "ε_s, 10^-5: −2219.29539307; M, кН·м: 692.39168441; Крок: 37" [ref=e1785]'
+                  - generic [ref=e1786]:
+                    - 'generic "ε_s, 10^-5: −15.8243052673; M, кН·м: 61.0982079031; Крок: 1" [ref=e1787]'
+                    - 'generic "ε_s, 10^-5: −31.2956802368; M, кН·м: 120.720168782; Крок: 2" [ref=e1788]'
+                    - 'generic "ε_s, 10^-5: −46.3377900696; M, кН·м: 178.792959721; Крок: 3" [ref=e1789]'
+                    - 'generic "ε_s, 10^-5: −61.1609643555; M, кН·м: 235.62798699; Крок: 4" [ref=e1790]'
+                    - 'generic "ε_s, 10^-5: −75.5455360413; M, кН·м: 290.949248824; Крок: 5" [ref=e1791]'
+                    - 'generic "ε_s, 10^-5: −89.6308355713; M, кН·м: 344.971867036; Крок: 6" [ref=e1792]'
+                    - 'generic "ε_s, 10^-5: −103.485416565; M, кН·м: 397.834571493; Крок: 7" [ref=e1793]'
+                    - 'generic "ε_s, 10^-5: −116.960388794; M, кН·м: 449.340488113; Крок: 8" [ref=e1794]'
+                    - 'generic "ε_s, 10^-5: −130.124083557; M, кН·м: 499.606904653; Крок: 9" [ref=e1795]'
+                    - 'generic "ε_s, 10^-5: −143.045721436; M, кН·м: 548.770589831; Крок: 10" [ref=e1796]'
+                    - 'generic "ε_s, 10^-5: −155.648522949; M, кН·м: 596.748737805; Крок: 11" [ref=e1797]'
+                    - 'generic "ε_s, 10^-5: −168.00215332; M, кН·м: 643.650835131; Крок: 12" [ref=e1798]'
+                    - 'generic "ε_s, 10^-5: −198.058380737; M, кН·м: 666.496346442; Крок: 13" [ref=e1799]'
+                    - 'generic "ε_s, 10^-5: −244.864267578; M, кН·м: 671.485606225; Крок: 14" [ref=e1800]'
+                    - 'generic "ε_s, 10^-5: −297.046783447; M, кН·м: 675.409141542; Крок: 15" [ref=e1801]'
+                    - 'generic "ε_s, 10^-5: −354.353056641; M, кН·м: 678.529683346; Крок: 16" [ref=e1802]'
+                    - 'generic "ε_s, 10^-5: −416.526658325; M, кН·м: 681.044812177; Крок: 17" [ref=e1803]'
+                    - 'generic "ε_s, 10^-5: −483.307602539; M, кН·м: 683.049208787; Крок: 18" [ref=e1804]'
+                    - 'generic "ε_s, 10^-5: −553.830560303; M, кН·м: 684.827418405; Крок: 19" [ref=e1805]'
+                    - 'generic "ε_s, 10^-5: −628.426660156; M, кН·м: 686.24413132; Крок: 20" [ref=e1806]'
+                    - 'generic "ε_s, 10^-5: −707.12791626; M, кН·м: 687.305836224; Крок: 21" [ref=e1807]'
+                    - 'generic "ε_s, 10^-5: −788.752099609; M, кН·м: 688.218391363; Крок: 22" [ref=e1808]'
+                    - 'generic "ε_s, 10^-5: −873.320552979; M, кН·м: 688.94261951; Крок: 23" [ref=e1809]'
+                    - 'generic "ε_s, 10^-5: −959.633261719; M, кН·м: 689.670331278; Крок: 24" [ref=e1810]'
+                    - 'generic "ε_s, 10^-5: −1048.92581177; M, кН·м: 690.123923111; Крок: 25" [ref=e1811]'
+                    - 'generic "ε_s, 10^-5: −1140.60531006; M, кН·м: 690.554739301; Крок: 26" [ref=e1812]'
+                    - 'generic "ε_s, 10^-5: −1233.45573486; M, кН·м: 690.835748668; Крок: 27" [ref=e1813]'
+                    - 'generic "ε_s, 10^-5: −1327.48242188; M, кН·м: 691.287798476; Крок: 28" [ref=e1814]'
+                    - 'generic "ε_s, 10^-5: −1423.31027832; M, кН·м: 691.409807652; Крок: 29" [ref=e1815]'
+                    - 'generic "ε_s, 10^-5: −1520.94997559; M, кН·м: 691.59925924; Крок: 30" [ref=e1816]'
+                    - 'generic "ε_s, 10^-5: −1616.67341309; M, кН·м: 691.99337533; Крок: 31" [ref=e1817]'
+                    - 'generic "ε_s, 10^-5: −1716.70832031; M, кН·м: 691.993566856; Крок: 32" [ref=e1818]'
+                    - 'generic "ε_s, 10^-5: −1816.0732251; M, кН·м: 692.173842873; Крок: 33" [ref=e1819]'
+                    - 'generic "ε_s, 10^-5: −1914.75745605; M, кН·м: 692.357026222; Крок: 34" [ref=e1820]'
+                    - 'generic "ε_s, 10^-5: −2015.27131348; M, кН·м: 692.39765532; Крок: 35" [ref=e1821]'
+                    - 'generic "ε_s, 10^-5: −2117.62546875; M, кН·м: 692.385610742; Крок: 36" [ref=e1822]'
+                    - 'generic "ε_s, 10^-5: −2219.29539307; M, кН·м: 692.39168441; Крок: 37" [ref=e1823]'
+                  - 'generic "ε_s, 10^-5: −2015.27131348; M, кН·м: 692.39765532; Крок: 35" [ref=e1825]'
+            - group "Click to view actions":
+              - img [ref=e1827] [cursor=pointer]
+    - heading "Проміжні результати" [level=3] [ref=e1173]:
+      - text: Проміжні результати
+      - generic [ref=e1174]:
+        - link "Link to heading":
+          - /url: "#promizhni-rezultati"
+          - img
+    - generic [ref=e1179]:
+      - button "Download as CSV" [ref=e1182] [cursor=pointer]:
+        - img [ref=e1183]
+      - button "Search" [ref=e1188] [cursor=pointer]:
+        - img [ref=e1189]
+      - button "Fullscreen" [ref=e1194] [cursor=pointer]:
+        - img [ref=e1195]
+    - heading "Зусилля в шарах для обраної точки" [level=3] [ref=e1210]:
+      - text: Зусилля в шарах для обраної точки
+      - generic [ref=e1211]:
+        - link "Link to heading":
+          - /url: "#zusillya-v-sharakh-dlya-obranoyi-tochki"
+          - img
+    - generic [ref=e1216]:
+      - button "Download as CSV" [ref=e1219] [cursor=pointer]:
+        - img [ref=e1220]
+      - button "Search" [ref=e1225] [cursor=pointer]:
+        - img [ref=e1226]
+      - button "Fullscreen" [ref=e1231] [cursor=pointer]:
+        - img [ref=e1232]
+    - button "Завантажити результати у XLSX" [ref=e1245] [cursor=pointer]:
+      - paragraph [ref=e1249]: Завантажити результати у XLSX
+    - generic [ref=e1254]:
+      - generic [ref=e1255]: Команда
+      - heading "Автори проєкту" [level=2] [ref=e1257]:
+        - text: Автори проєкту
+        - generic [ref=e1258]:
+          - link "Link to heading":
+            - /url: "#avtori-proyektu"
+            - img
+      - paragraph [ref=e1259]: Короткий авторський блок для презентаційного подання розрахункового застосунку та його інженерної інтерпретації.
+      - generic [ref=e1260]:
+        - article [ref=e1261]:
+          - generic [ref=e1262]: Автор проєкту.
+          - heading "Іванейко М.М." [level=3] [ref=e1264]:
+            - text: Іванейко М.М.
+            - generic [ref=e1265]:
+              - link "Link to heading":
+                - /url: "#ivaneyko-m-m"
+                - img
+          - paragraph [ref=e1266]: Співавтор концепції застосунку та структури подання розрахункової методики.
+        - article [ref=e1267]:
+          - generic [ref=e1268]: Автор проєкту.
+          - heading "Іванейко В.М." [level=3] [ref=e1270]:
+            - text: Іванейко В.М.
+            - generic [ref=e1271]:
+              - link "Link to heading":
+                - /url: "#ivaneyko-v-m"
+                - img
+          - paragraph [ref=e1272]: Співавтор прикладного сценарію використання та інженерної інтерпретації результатів.
+    - paragraph [ref=e1278]: Презентаційний інтерфейс для нормативного аналізу згину залізобетонного перерізу з візуалізацією, таблицями та експортом у XLSX.

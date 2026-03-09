@@ -1,0 +1,2 @@
+[     396ms] [ERROR] The script resource is behind a redirect, which is disallowed. @ :0
+[     537ms] Failed to register a ServiceWorker for scope ('https://eurocodeapplied.com/') with script ('https://eurocodeapplied.com/service-worker.js'): The script resource is behind a redirect, which is disallowed.

@@ -1,0 +1,1397 @@
+- generic [ref=e1]:
+  - generic [ref=e2]: I IΙ IΙ I
+  - banner [ref=e3]:
+    - generic [ref=e5]:
+      - navigation [ref=e6]:
+        - list [ref=e7]:
+          - listitem [ref=e8]:
+            - link "Eurocode 1" [ref=e9] [cursor=pointer]:
+              - /url: /design/en1991
+          - listitem [ref=e10]:
+            - link "Eurocode 2" [ref=e11] [cursor=pointer]:
+              - /url: /design/en1992
+          - listitem [ref=e12]:
+            - link "Eurocode 3" [ref=e13] [cursor=pointer]:
+              - /url: /design/en1993
+          - listitem [ref=e14]:
+            - link "Eurocode 8" [ref=e15] [cursor=pointer]:
+              - /url: /design/en1998
+      - generic [ref=e16]:
+        - text: "NDPs:"
+        - combobox [ref=e17]
+        - combobox "CEN default" [ref=e20] [cursor=pointer]:
+          - textbox "CEN default" [ref=e21]:
+            - generic [ref=e466]: CEN default
+      - generic [ref=e24]:
+        - img [ref=e25]
+        - combobox [ref=e27]
+        - combobox "search..." [ref=e30] [cursor=pointer]:
+          - textbox [ref=e31]
+      - navigation [ref=e32]:
+        - list:
+          - listitem [ref=e33]:
+            - link "Home" [ref=e34] [cursor=pointer]:
+              - /url: /
+              - img [ref=e35]
+              - text: Home
+          - listitem [ref=e37]:
+            - link "Contact" [ref=e38] [cursor=pointer]:
+              - /url: /contact
+              - img [ref=e39]
+              - text: Contact
+          - listitem [ref=e41]:
+            - link "FAQ" [ref=e42] [cursor=pointer]:
+              - /url: /faq
+              - img [ref=e43]
+              - text: FAQ
+          - listitem [ref=e45]:
+            - link "Donate" [ref=e46] [cursor=pointer]:
+              - /url: https://www.paypal.com/donate?hosted_button_id=6HWFQESZMRT6A
+              - img [ref=e47]
+              - text: Donate
+    - generic [ref=e49]:
+      - link "Eurocode Applied.com" [ref=e51] [cursor=pointer]:
+        - /url: /
+        - paragraph [ref=e53]:
+          - text: Eurocode
+          - generic [ref=e54]: Applied.com
+      - link "Donate to support our website" [ref=e56] [cursor=pointer]:
+        - /url: https://www.paypal.com/donate?hosted_button_id=6HWFQESZMRT6A
+        - img "Donate to support our website" [ref=e57]
+      - link "Cookie Preferences" [ref=e69] [cursor=pointer]:
+        - /url: /cookies
+        - img [ref=e70]
+  - generic [ref=e72]:
+    - banner [ref=e73]:
+      - heading "Eurocode 2 ULS design of rectangular reinforced concrete cross-section for bending and axial force" [level=1] [ref=e74]:
+        - generic [ref=e75]: Eurocode 2
+        - generic [ref=e76]: ULS design of rectangular reinforced concrete cross-section for bending and axial force
+      - generic [ref=e77]:
+        - term [ref=e78]: "Description:"
+        - definition [ref=e79]: ULS design of rectangular reinforced concrete cross-section for bending and axial force (calculation of required reinforcement for given bending moment / axial force, maximum moment resistance MRd for given axial force, or complete M-N interaction diagram for given reinforcement layout)
+        - term [ref=e80]: "According to:"
+        - definition [ref=e81]: EN 1992-1-1:2004+AC2:2010 Section 6.1
+        - term [ref=e82]: "Applicable for:"
+        - definition [ref=e83]: Uniaxial bending
+        - term [ref=e84]: "Supported National Annexes:"
+        - definition [ref=e85]: Nationally Defined Parameters (NDPs) automatically filled for supported countries
+    - navigation:
+      - generic [ref=e88]:
+        - definition [ref=e89]:
+          - link "Input" [ref=e90] [cursor=pointer]:
+            - /url: "#input"
+            - img [ref=e91]
+            - text: Input
+        - definition [ref=e93]:
+          - link "NDP" [ref=e94] [cursor=pointer]:
+            - /url: "#ndp"
+            - img [ref=e95]
+            - text: NDP
+        - definition [ref=e97]:
+          - link "Results" [ref=e98] [cursor=pointer]:
+            - /url: "#results"
+            - img [ref=e99]
+            - text: Results
+        - definition [ref=e101]:
+          - link "Notes" [ref=e102]:
+            - /url: "#notes"
+            - img [ref=e103]
+            - text: Notes
+        - definition [ref=e105]:
+          - link "Charts" [ref=e106]:
+            - /url: "#charts"
+            - img [ref=e107]
+            - text: Charts
+        - definition [ref=e109]:
+          - link "Tables" [ref=e110]:
+            - /url: "#tables"
+            - img [ref=e111]
+            - text: Tables
+        - definition [ref=e113]:
+          - link "Details" [ref=e114]:
+            - /url: "#details"
+            - img [ref=e115]
+            - text: Details
+    - generic [ref=e117]:
+      - button "Save" [ref=e118]:
+        - img [ref=e119]
+        - text: Save
+      - button "Load" [ref=e121]:
+        - img [ref=e122]
+        - text: Load
+      - button "Print-PDF" [ref=e124]:
+        - img [ref=e125]
+        - text: Print-PDF
+      - link "All Calculations" [ref=e127] [cursor=pointer]:
+        - /url: /design
+        - generic [ref=e128]:
+          - img [ref=e129]
+          - text: All Calculations
+      - generic [ref=e131]:
+        - generic [ref=e132]:
+          - generic [ref=e133]: "Rate this calculation:"
+          - generic [ref=e135] [cursor=pointer]:
+            - generic [ref=e136]:
+              - img [ref=e137]
+              - img [ref=e139]
+              - img [ref=e141]
+              - img [ref=e143]
+              - img [ref=e145]
+            - generic:
+              - img [ref=e147]
+              - img [ref=e149]
+              - img [ref=e151]
+              - img [ref=e153]
+              - img [ref=e155]
+        - link "Share" [ref=e157] [cursor=pointer]:
+          - /url: https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Feurocodeapplied.com%2Fdesign%2Fen1992%2Fuls-design-rectangular-section
+          - img [ref=e158]
+          - text: Share
+        - link "Share" [ref=e160] [cursor=pointer]:
+          - /url: https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Feurocodeapplied.com%2Fdesign%2Fen1992%2Fuls-design-rectangular-section&title=&summary=&source=
+          - img [ref=e161]
+          - text: Share
+    - generic [ref=e164]:
+      - group "Input" [ref=e165]:
+        - generic [ref=e166] [cursor=pointer]:
+          - img [ref=e167]
+          - text: Input
+          - img [ref=e170]
+        - generic [ref=e172]:
+          - generic [ref=e173]:
+            - generic [ref=e174]: Concrete characteristic strength
+            - generic [ref=e175]:
+              - generic [ref=e176]:
+                - text: f
+                - subscript [ref=e177]: ck
+              - text: =
+            - textbox "Concrete characteristic strength fck" [ref=e179]: "25"
+            - generic [ref=e181]: MPa
+            - generic [ref=e183] [cursor=pointer]:
+              - text: e.g. 30 MPa for concrete class C30/37. For a list of concrete classes see
+              - link "Table of Concrete Design Properties" [ref=e184]:
+                - /url: /design/en1992/concrete-design-properties
+          - generic [ref=e185]:
+            - generic [ref=e186]: Steel characteristic yield strength
+            - generic [ref=e187]:
+              - generic [ref=e188]:
+                - text: f
+                - subscript [ref=e189]: yk
+              - text: =
+            - textbox "Steel characteristic yield strength fyk" [ref=e191]: "500"
+            - generic [ref=e193]: MPa
+          - generic [ref=e196]:
+            - generic [ref=e197]: Type of reinforcement stress-strain law
+            - generic [ref=e198]: =
+            - combobox "Type of reinforcement stress-strain law" [ref=e200]:
+              - option "No hardening (Perfectly plastic)" [selected]
+              - option "With hardening (Class A)"
+              - option "With hardening (Class B)"
+              - option "With hardening (Class C)"
+              - option "Custom"
+            - generic [ref=e204] [cursor=pointer]: The elastic-perfectly plastic model (no hardening) is permitted in EN1992-1-1 §3.2.7(2) with unlimited strain. A strain limit of 75‰ is consider in this calculation for numerical reasons. Alternatively stress-strain laws with hardening and limited strains may be considered according to the ductility classes A, B or C specified in EN1992-1-1 Annex C.
+          - text: = =
+          - separator [ref=e205]
+          - generic [ref=e206]:
+            - generic [ref=e207]: Height of cross-section
+            - generic [ref=e208]: h =
+            - textbox "Height of cross-section h" [ref=e210]: "0.5"
+            - generic [ref=e212]: m
+          - generic [ref=e215]:
+            - generic [ref=e216]: Width of cross-section
+            - generic [ref=e217]: b =
+            - textbox "Width of cross-section b" [ref=e219]: "0.3"
+            - generic [ref=e221]: m
+          - separator [ref=e224]
+          - paragraph [ref=e225]: "Initial reinforcement: When the required reinforcement is requested the initial reinforcement will be modified accordingly."
+          - generic [ref=e226]:
+            - generic [ref=e227]: Number of bars of bottom reinforcement layer 1
+            - generic [ref=e228]:
+              - generic [ref=e229]:
+                - text: "n"
+                - subscript [ref=e230]: bars,1
+              - text: =
+            - textbox "Number of bars of bottom reinforcement layer 1 nbars,1" [ref=e232]: "2"
+            - generic [ref=e236] [cursor=pointer]: Enter 0 to disable the bottom reinforcement layer. Non-integer values are handled by suitable modification of bar cross-sectional area.
+          - generic [ref=e237]:
+            - generic [ref=e238]: Diameter of bars of bottom reinforcement layer 1
+            - generic [ref=e239]:
+              - generic [ref=e240]:
+                - text: Φ
+                - subscript [ref=e241]: "1"
+              - text: =
+            - textbox "Diameter of bars of bottom reinforcement layer 1 Φ1" [ref=e243]: "20"
+            - generic [ref=e245]: mm
+          - generic [ref=e248]:
+            - generic [ref=e249]: Distance from centroid of bottom reinforcement layer 1 to bottom concrete edge
+            - generic [ref=e250]:
+              - generic [ref=e251]:
+                - text: c'
+                - subscript [ref=e252]: "1"
+              - text: =
+            - textbox "Distance from centroid of bottom reinforcement layer 1 to bottom concrete edge c'1" [ref=e254]: "0.04"
+            - generic [ref=e256]: m
+          - separator [ref=e259]
+          - generic [ref=e260]:
+            - generic [ref=e261]: Number of bars of top reinforcement layer 2
+            - generic [ref=e262]:
+              - generic [ref=e263]:
+                - text: "n"
+                - subscript [ref=e264]: bars,2
+              - text: =
+            - textbox "Number of bars of top reinforcement layer 2 nbars,2" [ref=e266]: "2"
+            - generic [ref=e270] [cursor=pointer]: Enter 0 to disable the top reinforcement layer. Non-integer values are handled by suitable modification of bar cross-sectional area.
+          - generic [ref=e271]:
+            - generic [ref=e272]: Diameter of bars of top reinforcement layer 2
+            - generic [ref=e273]:
+              - generic [ref=e274]:
+                - text: Φ
+                - subscript [ref=e275]: "2"
+              - text: =
+            - textbox "Diameter of bars of top reinforcement layer 2 Φ2" [ref=e277]: "20"
+            - generic [ref=e279]: mm
+          - generic [ref=e282]:
+            - generic [ref=e283]: Distance from centroid of top reinforcement layer 2 to top concrete edge
+            - generic [ref=e284]:
+              - generic [ref=e285]:
+                - text: c'
+                - subscript [ref=e286]: "2"
+              - text: =
+            - textbox "Distance from centroid of top reinforcement layer 2 to top concrete edge c'2" [ref=e288]: "0.04"
+            - generic [ref=e290]: m
+            - generic [ref=e292] [cursor=pointer]: Distance from bar centroid of top reinforcement layer to concrete edge
+          - separator [ref=e293]
+          - generic [ref=e294]:
+            - generic [ref=e296]: Number of bars of side reinforcement layer 3 per side
+            - generic [ref=e297]:
+              - generic [ref=e298]:
+                - text: "n"
+                - subscript [ref=e299]: bars,3
+              - text: =
+            - textbox "Number of bars of side reinforcement layer 3 per side nbars,3" [ref=e301]: "0"
+            - generic [ref=e305] [cursor=pointer]: Enter 0 to disable the side reinforcement layer. Non-integer values are handled by suitable modification of bar cross-sectional area.
+          - generic [ref=e306]:
+            - generic [ref=e307]: Diameter of bars of side reinforcement layer 3
+            - generic [ref=e308]:
+              - generic [ref=e309]:
+                - text: Φ
+                - subscript [ref=e310]: "3"
+              - text: =
+            - textbox "Diameter of bars of side reinforcement layer 3 Φ3" [ref=e312]: "16"
+            - generic [ref=e314]: mm
+          - separator [ref=e317]
+          - generic [ref=e318]:
+            - generic [ref=e319]: Type of analysis
+            - generic [ref=e320]: =
+            - combobox "Type of analysis" [ref=e322]:
+              - option "Required reinforcement As"
+              - option "Bending resistance MRd" [selected]
+              - option "Interaction diagram M-N"
+          - text: =
+          - generic [ref=e338]:
+            - generic [ref=e339]: Design value of the axial force - ULS factored loads (compression negative)
+            - generic [ref=e340]:
+              - generic [ref=e341]:
+                - text: "N"
+                - subscript [ref=e342]: Ed
+              - text: =
+            - textbox "Design value of the axial force - ULS factored loads (compression negative) NEd" [ref=e344]: "0"
+            - generic [ref=e346]: kN
+            - generic [ref=e348] [cursor=pointer]: The design value of the axial force at the ULS combination for which the maximum bending moment resistance of the cross-section will be calculated
+          - text: =
+          - generic [ref=e358]:
+            - img "Rectangular concrete cross-section" [ref=e360]
+            - heading "Rectangular concrete cross-section" [level=6] [ref=e361]
+      - group "Nationally Defined Parameters" [ref=e362]:
+        - generic [ref=e363] [cursor=pointer]:
+          - img [ref=e364]
+          - text: Nationally Defined Parameters
+          - img [ref=e367]
+        - generic [ref=e369]:
+          - generic [ref=e370]:
+            - generic [ref=e371]: Coefficient taking account of long term effects and loading effects on the compressive strength of concrete (for bending)
+            - generic [ref=e372]:
+              - generic [ref=e373]:
+                - text: α
+                - subscript [ref=e374]: cc
+              - text: =
+            - textbox "Coefficient taking account of long term effects and loading effects on the compressive strength of concrete (for bending) αcc" [ref=e376]: "0.85"
+            - generic [ref=e380] [cursor=pointer]: According to EN1992-1-1 §3.1.6(1)P and the National Annex.
+          - generic [ref=e381]:
+            - generic [ref=e382]: Concrete partial material safety factor
+            - generic [ref=e383]:
+              - generic [ref=e384]:
+                - text: γ
+                - subscript [ref=e385]: c
+              - text: =
+            - textbox "Concrete partial material safety factor γc" [ref=e387]: "1.25"
+            - generic [ref=e391] [cursor=pointer]: According to EN1992-1-1 §2.4.2.4 and the National Annex.
+          - generic [ref=e392]:
+            - generic [ref=e393]: Reinforcement steel partial material safety factor
+            - generic [ref=e394]:
+              - generic [ref=e395]:
+                - text: γ
+                - subscript [ref=e396]: s
+              - text: =
+            - textbox "Reinforcement steel partial material safety factor γs" [ref=e398]: "1.2"
+            - generic [ref=e402] [cursor=pointer]: According to EN1992-1-1 §2.4.2.4 and the National Annex.
+          - generic [ref=e403]:
+            - generic [ref=e404]: Design value of reinforcement ultimate strain
+            - generic [ref=e405]:
+              - generic [ref=e406]:
+                - text: ε
+                - subscript [ref=e407]: ud
+              - text: =
+            - combobox "Design value of reinforcement ultimate strain εud" [ref=e409]:
+              - option "1.0εuk"
+              - option "0.9εuk"
+              - option "0.85εuk"
+              - option "0.8εuk"
+              - option "2.5%"
+              - option "2.0%"
+              - option "1.0%" [selected]
+              - option "εyd"
+            - generic [ref=e413] [cursor=pointer]: According to EN1992-1-1 §3.2.7(2) and the National Annex.
+          - generic [ref=e415]:
+            - strong [ref=e416]: "Note:"
+            - text: Always verify the validity of the Nationally Defined Parameters (NDPs). Please inform us of any discrepancy using our
+            - link "Contact Form" [ref=e417] [cursor=pointer]:
+              - /url: /contact
+            - text: . The NDP value is left blank for all NDPs that we do not have this information available. Interested users who have access to the corresponding NDPs can notify us using our
+            - link "Contact Form" [ref=e418] [cursor=pointer]:
+              - /url: /contact
+            - text: to fill-in the missing information.
+      - button "Finished" [active] [ref=e467] [cursor=pointer]:
+        - generic [ref=e468]:
+          - img [ref=e469]
+          - text: Finished
+    - generic [ref=e471]:
+      - generic:
+        - list
+      - group "Results" [ref=e472]:
+        - generic [ref=e473] [cursor=pointer]:
+          - img [ref=e474]
+          - text: Results
+          - img [ref=e477]
+        - generic [ref=e479]:
+          - generic:
+            - generic [ref=e480]: Maximum positive design bending moment resistance for given design axial force
+            - generic [ref=e481]:
+              - generic [ref=e482]:
+                - text: M
+                - subscript [ref=e483]: Rd,plus
+              - text: =
+            - generic [ref=e484]: 113.16 kNm
+          - generic:
+            - generic [ref=e487]: Maximum negative design bending moment resistance for given design axial force
+            - generic [ref=e488]:
+              - generic [ref=e489]:
+                - text: M
+                - subscript [ref=e490]: Rd,minus
+              - text: =
+            - generic [ref=e491]: "-113.16 kNm"
+          - separator [ref=e495]
+          - generic:
+            - generic [ref=e496]: Reinforcement - Layer 1 (bottom)
+            - generic [ref=e497]:
+              - generic [ref=e498]:
+                - text: A
+                - subscript [ref=e499]: s,1
+              - text: =
+            - generic [ref=e501]:
+              - text: 6.28 cm
+              - superscript [ref=e502]: "2"
+          - generic:
+            - generic [ref=e505]: Reinforcement - Layer 2 (top)
+            - generic [ref=e506]:
+              - generic [ref=e507]:
+                - text: A
+                - subscript [ref=e508]: s,2
+              - text: =
+            - generic [ref=e510]:
+              - text: 6.28 cm
+              - superscript [ref=e511]: "2"
+          - generic:
+            - generic [ref=e514]: Reinforcement - Layer 3 (sides)
+            - generic [ref=e515]:
+              - generic [ref=e516]:
+                - text: A
+                - subscript [ref=e517]: s,3
+              - text: =
+            - generic [ref=e519]:
+              - text: 0.00 cm
+              - superscript [ref=e520]: "2"
+          - generic:
+            - generic [ref=e523]: Reinforcement - Total
+            - generic [ref=e524]:
+              - generic [ref=e525]:
+                - text: A
+                - subscript [ref=e526]: s,tot
+              - text: =
+            - generic [ref=e528]:
+              - text: 12.57 cm
+              - superscript [ref=e529]: "2"
+              - text: (0.84%)
+          - separator [ref=e533]
+          - generic:
+            - generic [ref=e534]: Check of total axial force convergence
+            - generic [ref=e535]:
+              - generic [ref=e536]: "|ΔN|"
+              - text: =
+            - generic [ref=e538]:
+              - text: 0.00 N ≤ 1 N ⇒ ok
+              - img [ref=e539]
+          - generic:
+            - generic [ref=e543]: Check of bending moment convergence
+            - generic [ref=e544]:
+              - generic [ref=e545]: "|ΔM|"
+              - text: =
+            - generic [ref=e547]:
+              - text: 0.00 Nm ≤ 1 Nm ⇒ ok
+              - img [ref=e548]
+      - group "Notes" [ref=e552]:
+        - generic [ref=e553] [cursor=pointer]:
+          - img [ref=e554]
+          - text: Notes
+          - img [ref=e557]
+        - list [ref=e560]:
+          - listitem [ref=e561]: Positive bending moment produces tension at the bottom side. Negative bending moment produces tension at the top side.
+          - listitem [ref=e562]:
+            - generic [ref=e563]:
+              - text: According to EN1992-1-1 § 6.1(4) when the axial force N
+              - subscript [ref=e564]: Ed
+              - text: is compressive the absolute value of the design bending moment should be at least |M
+              - subscript [ref=e565]: Ed
+              - text: "| ≥ e"
+              - subscript [ref=e566]: "0"
+              - text: × |N
+              - subscript [ref=e567]: Ed
+              - text: "| where e"
+              - subscript [ref=e568]: "0"
+              - text: is the minimum assumed eccentricity of the compressive load which is equal to e
+              - subscript [ref=e569]: "0"
+              - text: = max( h/30, 20 mm), where h is the total depth of the cross-section.
+      - group "Charts" [ref=e570]:
+        - generic [ref=e571] [cursor=pointer]:
+          - img [ref=e572]
+          - text: Charts
+          - img [ref=e575]
+        - generic [ref=e578]:
+          - generic [ref=e579]: Cross-section (hover=value, drag=zoom, double-click=reset)
+          - table [ref=e612]:
+            - row "External boundary (y, z not in same scale)" [ref=e613]:
+              - cell [ref=e614]
+              - cell "External boundary (y, z not in same scale)" [ref=e617]
+            - row "Reinforcement (size not in scale)" [ref=e618]:
+              - cell [ref=e619]
+              - cell "Reinforcement (size not in scale)" [ref=e622]
+      - group "Tables" [ref=e628]:
+        - generic [ref=e629] [cursor=pointer]:
+          - img [ref=e630]
+          - text: Tables
+          - img [ref=e633]
+        - generic [ref=e636]:
+          - button "Copy to Clipboard" [ref=e637]
+          - generic [ref=e638]: Internal equilibrium state of cross-section
+          - table "Internal equilibrium state of cross-section" [ref=e640]:
+            - rowgroup [ref=e641]:
+              - row "N-M interaction Lever arm & neutral axis Curvature & strains Stresses Internal forces & moments Effective stiffness" [ref=e642]:
+                - columnheader [ref=e643]
+                - columnheader "N-M interaction" [ref=e644]
+                - columnheader "Lever arm & neutral axis" [ref=e645]
+                - columnheader "Curvature & strains" [ref=e646]
+                - columnheader "Stresses" [ref=e647]
+                - columnheader "Internal forces & moments" [ref=e648]
+                - columnheader "Effective stiffness" [ref=e649]
+              - row [ref=e650]:
+                - columnheader "#" [ref=e651]
+                - columnheader "Design axial force resistance NRd [kN]" [ref=e652]:
+                  - text: Design axial force resistance
+                  - text: "N"
+                  - subscript [ref=e653]: Rd
+                  - text: "[kN]"
+                - columnheader "Design bending moment resistance MRd [kNm]" [ref=e654]:
+                  - text: Design bending moment resistance
+                  - text: M
+                  - subscript [ref=e655]: Rd
+                  - text: "[kNm]"
+                - columnheader "Location of neutral axis from centroid yn [m]" [ref=e656]:
+                  - text: Location of neutral axis from centroid
+                  - text: "y"
+                  - subscript [ref=e657]: "n"
+                  - text: "[m]"
+                - columnheader "Lever arm of internal forces z [m]" [ref=e658]:
+                  - text: Lever arm of internal forces
+                  - text: z [m]
+                - columnheader "Normalized level arm z/d [-]" [ref=e659]:
+                  - text: Normalized level arm
+                  - text: z/d [-]
+                - columnheader "Depth of compressive zone x [m]" [ref=e660]:
+                  - text: Depth of compressive zone
+                  - text: x [m]
+                - columnheader "Normalized depth of compressive zone x/d [-]" [ref=e661]:
+                  - text: Normalized depth of compressive zone
+                  - text: x/d [-]
+                - columnheader "Area of compressive zone AC [m2]" [ref=e662]:
+                  - text: Area of compressive zone
+                  - text: A
+                  - subscript [ref=e663]: C
+                  - text: "[m"
+                  - superscript [ref=e664]: "2"
+                  - text: "]"
+                - columnheader "Curvature φ [×10−3 m−1]" [ref=e665]:
+                  - text: Curvature
+                  - text: φ [×10
+                  - superscript [ref=e666]: −3
+                  - text: m
+                  - superscript [ref=e667]: −1
+                  - text: "]"
+                - columnheader "Strain at centroid ε0 [‰]" [ref=e668]:
+                  - text: Strain at centroid
+                  - text: ε
+                  - subscript [ref=e669]: "0"
+                  - text: "[‰]"
+                - columnheader "Top concrete strain εc,top [‰]" [ref=e670]:
+                  - text: Top concrete strain
+                  - text: ε
+                  - subscript [ref=e671]: c,top
+                  - text: "[‰]"
+                - columnheader "Bottom concrete strain εc,bot [‰]" [ref=e672]:
+                  - text: Bottom concrete strain
+                  - text: ε
+                  - subscript [ref=e673]: c,bot
+                  - text: "[‰]"
+                - columnheader "Maximum reinforcement strain εs,max [‰]" [ref=e674]:
+                  - text: Maximum reinforcement strain
+                  - text: ε
+                  - subscript [ref=e675]: s,max
+                  - text: "[‰]"
+                - columnheader "Minimum reinforcement strain εs,min [‰]" [ref=e676]:
+                  - text: Minimum reinforcement strain
+                  - text: ε
+                  - subscript [ref=e677]: s,min
+                  - text: "[‰]"
+                - columnheader "Reinforcement yield in tension" [ref=e678]
+                - columnheader "Reinforcement yield in compression" [ref=e679]
+                - columnheader "Maximum concrete stress σc,max [MPa]" [ref=e680]:
+                  - text: Maximum concrete stress
+                  - text: σ
+                  - subscript [ref=e681]: c,max
+                  - text: "[MPa]"
+                - columnheader "Minimum concrete stress σc,min [MPa]" [ref=e682]:
+                  - text: Minimum concrete stress
+                  - text: σ
+                  - subscript [ref=e683]: c,min
+                  - text: "[MPa]"
+                - columnheader "Average concrete stress σc,ave [MPa]" [ref=e684]:
+                  - text: Average concrete stress
+                  - text: σ
+                  - subscript [ref=e685]: c,ave
+                  - text: "[MPa]"
+                - columnheader "Maximum reinforcement stress σs,max [MPa]" [ref=e686]:
+                  - text: Maximum reinforcement stress
+                  - text: σ
+                  - subscript [ref=e687]: s,max
+                  - text: "[MPa]"
+                - columnheader "Minimum reinforcement stress σs,min [MPa]" [ref=e688]:
+                  - text: Minimum reinforcement stress
+                  - text: σ
+                  - subscript [ref=e689]: s,min
+                  - text: "[MPa]"
+                - columnheader "Internal compression force FC [kN]" [ref=e690]:
+                  - text: Internal compression force
+                  - text: F
+                  - subscript [ref=e691]: C
+                  - text: "[kN]"
+                - columnheader "Internal tension force FT [kN]" [ref=e692]:
+                  - text: Internal tension force
+                  - text: F
+                  - subscript [ref=e693]: T
+                  - text: "[kN]"
+                - columnheader "Internal compression moment MC [kNm]" [ref=e694]:
+                  - text: Internal compression moment
+                  - text: M
+                  - subscript [ref=e695]: C
+                  - text: "[kNm]"
+                - columnheader "Internal tension moment MT [kNm]" [ref=e696]:
+                  - text: Internal tension moment
+                  - text: M
+                  - subscript [ref=e697]: T
+                  - text: "[kNm]"
+                - columnheader "Effective bending stiffness (EI)eff [kNm2]" [ref=e698]:
+                  - text: Effective bending stiffness
+                  - text: (EI)
+                  - subscript [ref=e699]: eff
+                  - text: "[kNm"
+                  - superscript [ref=e700]: "2"
+                  - text: "]"
+                - columnheader "Effective bending stiffness ratio (EI)eff / (EI)gross [-]" [ref=e701]:
+                  - text: Effective bending stiffness ratio
+                  - text: (EI)
+                  - subscript [ref=e702]: eff
+                  - text: / (EI)
+                  - subscript [ref=e703]: gross
+                  - text: "[-]"
+            - rowgroup [ref=e704]:
+              - row "1 0.00 113.16 0.187 0.432 0.940 0.063 0.137 0.0188 25.200 4.71 -1.59 11.01 10.00 -0.58 yes no 0.00 -16.29 -10.05 416.7 -116.8 -261.80 261.80 58.19 54.98 4491 0.0457" [ref=e705]:
+                - rowheader "1" [ref=e706]
+                - cell "0.00" [ref=e707]
+                - cell "113.16" [ref=e708]
+                - cell "0.187" [ref=e709]
+                - cell "0.432" [ref=e710]
+                - cell "0.940" [ref=e711]
+                - cell "0.063" [ref=e712]
+                - cell "0.137" [ref=e713]
+                - cell "0.0188" [ref=e714]
+                - cell "25.200" [ref=e715]
+                - cell "4.71" [ref=e716]
+                - cell "-1.59" [ref=e717]
+                - cell "11.01" [ref=e718]
+                - cell "10.00" [ref=e719]
+                - cell "-0.58" [ref=e720]
+                - cell "yes" [ref=e721]
+                - cell "no" [ref=e722]
+                - cell "0.00" [ref=e723]
+                - cell "-16.29" [ref=e724]
+                - cell "-10.05" [ref=e725]
+                - cell "416.7" [ref=e726]
+                - cell "-116.8" [ref=e727]
+                - cell "-261.80" [ref=e728]
+                - cell "261.80" [ref=e729]
+                - cell "58.19" [ref=e730]
+                - cell "54.98" [ref=e731]
+                - cell "4491" [ref=e732]
+                - cell "0.0457" [ref=e733]
+              - row "2 0.00 -113.16 -0.187 0.432 0.940 0.063 0.137 0.0188 -25.200 4.71 11.01 -1.59 10.00 -0.58 yes no 0.00 -16.29 -10.05 416.7 -116.8 -261.80 261.80 -58.19 -54.98 4491 0.0457" [ref=e734]:
+                - rowheader "2" [ref=e735]
+                - cell "0.00" [ref=e736]
+                - cell "-113.16" [ref=e737]
+                - cell "-0.187" [ref=e738]
+                - cell "0.432" [ref=e739]
+                - cell "0.940" [ref=e740]
+                - cell "0.063" [ref=e741]
+                - cell "0.137" [ref=e742]
+                - cell "0.0188" [ref=e743]
+                - cell "-25.200" [ref=e744]
+                - cell "4.71" [ref=e745]
+                - cell "11.01" [ref=e746]
+                - cell "-1.59" [ref=e747]
+                - cell "10.00" [ref=e748]
+                - cell "-0.58" [ref=e749]
+                - cell "yes" [ref=e750]
+                - cell "no" [ref=e751]
+                - cell "0.00" [ref=e752]
+                - cell "-16.29" [ref=e753]
+                - cell "-10.05" [ref=e754]
+                - cell "416.7" [ref=e755]
+                - cell "-116.8" [ref=e756]
+                - cell "-261.80" [ref=e757]
+                - cell "261.80" [ref=e758]
+                - cell "-58.19" [ref=e759]
+                - cell "-54.98" [ref=e760]
+                - cell "4491" [ref=e761]
+                - cell "0.0457" [ref=e762]
+      - group "Details" [ref=e763]:
+        - generic [ref=e764] [cursor=pointer]:
+          - img [ref=e765]
+          - text: Details
+          - img [ref=e768]
+        - generic [ref=e771]:
+          - heading "Input Data" [level=2] [ref=e772]
+          - list [ref=e773]:
+            - listitem [ref=e774]:
+              - text: "Concrete characteristic strength:"
+              - generic [ref=e775]:
+                - text: f
+                - subscript [ref=e776]: ck
+              - text: = 25 MPa
+            - listitem [ref=e777]:
+              - text: "Steel characteristic yield strength:"
+              - generic [ref=e778]:
+                - text: f
+                - subscript [ref=e779]: yk
+              - text: = 500 MPa
+            - listitem [ref=e780]:
+              - text: "Type of reinforcement stress-strain law:"
+              - text: = No hardening (Perfectly plastic)
+            - listitem [ref=e781]:
+              - text: "Ratio of characteristic ultimate strength to characteristic yield strength:"
+              - generic [ref=e782]:
+                - text: (f
+                - subscript [ref=e783]: t
+                - text: /f
+                - subscript [ref=e784]: "y"
+                - text: )
+                - subscript [ref=e785]: k
+              - text: = 1
+            - listitem [ref=e786]:
+              - text: "Characteristic value of ultimate strain:"
+              - generic [ref=e787]:
+                - text: ε
+                - subscript [ref=e788]: uk
+              - text: = 75 ‰
+            - listitem [ref=e789]: "Height of cross-section: h = 0.5 m"
+            - listitem [ref=e790]: "Width of cross-section: b = 0.3 m"
+            - listitem [ref=e791]:
+              - text: "Number of bars of bottom reinforcement layer 1:"
+              - generic [ref=e792]:
+                - text: "n"
+                - subscript [ref=e793]: bars,1
+              - text: = 2
+            - listitem [ref=e794]:
+              - text: "Diameter of bars of bottom reinforcement layer 1:"
+              - generic [ref=e795]:
+                - text: Φ
+                - subscript [ref=e796]: "1"
+              - text: = 20 mm
+            - listitem [ref=e797]:
+              - text: "Distance from centroid of bottom reinforcement layer 1 to bottom concrete edge:"
+              - generic [ref=e798]:
+                - text: c'
+                - subscript [ref=e799]: "1"
+              - text: = 0.04 m
+            - listitem [ref=e800]:
+              - text: "Number of bars of top reinforcement layer 2:"
+              - generic [ref=e801]:
+                - text: "n"
+                - subscript [ref=e802]: bars,2
+              - text: = 2
+            - listitem [ref=e803]:
+              - text: "Diameter of bars of top reinforcement layer 2:"
+              - generic [ref=e804]:
+                - text: Φ
+                - subscript [ref=e805]: "2"
+              - text: = 20 mm
+            - listitem [ref=e806]:
+              - text: "Distance from centroid of top reinforcement layer 2 to top concrete edge:"
+              - generic [ref=e807]:
+                - text: c'
+                - subscript [ref=e808]: "2"
+              - text: = 0.04 m
+            - listitem [ref=e809]:
+              - generic [ref=e810]: Number of bars of side reinforcement layer 3 per side
+              - text: ":"
+              - generic [ref=e811]:
+                - text: "n"
+                - subscript [ref=e812]: bars,3
+              - text: = 0
+            - listitem [ref=e813]:
+              - text: "Diameter of bars of side reinforcement layer 3:"
+              - generic [ref=e814]:
+                - text: Φ
+                - subscript [ref=e815]: "3"
+              - text: = 16 mm
+            - listitem [ref=e816]:
+              - text: "Type of analysis:"
+              - text: = Bending resistance MRd
+            - listitem [ref=e817]:
+              - text: "Design value of the bending moment - ULS factored loads (positive when tension at bottom side):"
+              - generic [ref=e818]:
+                - text: M
+                - subscript [ref=e819]: Ed
+              - text: = 2000 kNm
+            - listitem [ref=e820]:
+              - text: "Design value of the axial force - ULS factored loads (compression negative):"
+              - generic [ref=e821]:
+                - text: "N"
+                - subscript [ref=e822]: Ed
+              - text: = 0 kN
+            - listitem [ref=e823]:
+              - text: "Variable reinforcement layers to be modified:"
+              - text: = Layer 1
+          - heading "Nationally Defined Parameters" [level=2] [ref=e824]
+          - list [ref=e825]:
+            - listitem [ref=e826]:
+              - text: "Coefficient taking account of long term effects and loading effects on the compressive strength of concrete (for bending):"
+              - generic [ref=e827]:
+                - text: α
+                - subscript [ref=e828]: cc
+              - text: = 0.85
+            - listitem [ref=e829]:
+              - text: "Concrete partial material safety factor:"
+              - generic [ref=e830]:
+                - text: γ
+                - subscript [ref=e831]: c
+              - text: = 1.25
+            - listitem [ref=e832]:
+              - text: "Reinforcement steel partial material safety factor:"
+              - generic [ref=e833]:
+                - text: γ
+                - subscript [ref=e834]: s
+              - text: = 1.2
+            - listitem [ref=e835]:
+              - text: "Design value of reinforcement ultimate strain:"
+              - generic [ref=e836]:
+                - text: ε
+                - subscript [ref=e837]: ud
+              - text: = 1.0%
+          - separator [ref=e838]
+          - heading "Properties of rectangular concrete cross-section" [level=2] [ref=e839]
+          - paragraph [ref=e840]: The following geometric properties are obtained from basic theory of mechanics. The values of the reinforcement areas, reinforcement ratios and axial resistances of the cross-section correspond to the final reinforcement if different than the initially specified reinforcement.
+          - list [ref=e841]:
+            - listitem [ref=e842]:
+              - text: "Area of gross cross-section: A = 0.1500 m"
+              - superscript [ref=e843]:
+                - text: "2"
+                - superscript
+            - listitem [ref=e844]:
+              - text: "Second moment of the area of gross cross-section: I = 0.003125 m"
+              - superscript [ref=e845]:
+                - text: "4"
+                - superscript
+            - listitem [ref=e846]: "Total height of cross-section: h = 0.500 m"
+            - listitem [ref=e847]:
+              - text: "Location of centroid of gross cross-section (from top): z"
+              - subscript [ref=e848]: cm
+              - text: = 0.250 m
+            - listitem [ref=e849]:
+              - text: "Total area of longitudinal reinforcement: A"
+              - subscript [ref=e850]: s,tot
+              - text: = 12.57 cm
+              - superscript [ref=e851]: "2"
+            - listitem [ref=e852]:
+              - text: "Geometric reinforcement ratio: ρ"
+              - subscript [ref=e853]: l
+              - text: = A
+              - subscript [ref=e854]: s,tot
+              - text: / A = 0.0084 = 0.84 %
+            - listitem [ref=e855]:
+              - text: "Mechanical reinforcement ratio: ω = ρ"
+              - subscript [ref=e856]: l
+              - text: ⋅ f
+              - subscript [ref=e857]: yd
+              - text: / f
+              - subscript [ref=e858]: cd
+              - text: = 0.2053
+            - listitem [ref=e859]:
+              - text: "Compressive axial force resistance (ULS): N"
+              - subscript [ref=e860]: Rd,compression
+              - text: = -3052.65 kN
+            - listitem [ref=e861]:
+              - text: "Tensile axial force resistance (ULS): N"
+              - subscript [ref=e862]: Rd,tension
+              - text: = 523.60 kN
+          - paragraph
+          - heading "Stress-strain law at the Ultimate Limit State (ULS)" [level=2] [ref=e863]
+          - heading "Assumptions" [level=3] [ref=e864]
+          - paragraph [ref=e865]:
+            - text: The design ULS bending moment resistance M
+            - subscript [ref=e866]: Rd
+            - text: of reinforced concrete cross-section is covered in EN1992-1-1 §6.1. This analysis is applicable for undisturbed regions of beams, columns, slabs and other similar types of members for which sections remain plane before and after loading. Discontinuity regions are not covered in this calculation, see EN 1992-1-1 §6.5 instead.
+          - paragraph [ref=e867]: "The following assumptions are made in EN1992-1-1 §6.1(2)P:"
+          - list [ref=e868]:
+            - listitem [ref=e869]: Plane sections remain plane after loading.
+            - listitem [ref=e870]: The strain in bonded reinforcement or bonded prestressing tendons, whether in tension or in compression, is the same as that in the surrounding concrete.
+            - listitem [ref=e871]: The tensile strength of the concrete is ignored.
+            - listitem [ref=e872]: The initial strain in prestressing tendons is taken into account when assessing the stresses in the tendons.
+          - paragraph
+          - heading "Stress-strain relation for concrete" [level=3] [ref=e873]
+          - paragraph [ref=e874]:
+            - text: The stresses in the concrete in compression σ
+            - subscript [ref=e875]: c
+            - text: are obtained from the design curves in EN1992-1-1 §3.1.7 and EN1992-1-1 Figure 3.3 as a function of the concrete strain ε
+            - subscript [ref=e876]: c
+            - text: ":"
+          - paragraph [ref=e877]:
+            - text: σ
+            - subscript [ref=e878]: c
+            - text: = 0 for tensile strain
+            - text: σ
+            - subscript [ref=e879]: c
+            - text: = f
+            - subscript [ref=e880]: cd
+            - text: ⋅[1 - (1 - ε
+            - subscript [ref=e881]: c
+            - text: / ε
+            - subscript [ref=e882]: c2
+            - text: )
+            - superscript [ref=e883]: "n"
+            - text: "] for compressive strain 0 ≤ ε"
+            - subscript [ref=e884]: c
+            - text: ≤ ε
+            - subscript [ref=e885]: c2
+            - text: σ
+            - subscript [ref=e886]: c
+            - text: = f
+            - subscript [ref=e887]: cd
+            - text: for compressive strain ε
+            - subscript [ref=e888]: c2
+            - text: < ε
+            - subscript [ref=e889]: c
+            - text: ≤ ε
+            - subscript [ref=e890]: cu2
+          - paragraph [ref=e891]:
+            - text: The value of the design compressive strength of concrete f
+            - subscript [ref=e892]: cd
+            - text: "is calculated as specified in EN1992-1-1 §3.1.6(1)P:"
+          - paragraph [ref=e893]:
+            - text: f
+            - subscript [ref=e894]: cd
+            - text: = α
+            - subscript [ref=e895]: cc
+            - text: ⋅ f
+            - subscript [ref=e896]: ck
+            - text: / γ
+            - subscript [ref=e897]: C
+            - text: = 0.85 ⋅ 25.00 MPa / 1.25 = 17.00 MPa
+          - paragraph [ref=e898]:
+            - text: The strains ε
+            - subscript [ref=e899]: c2
+            - text: ", ε"
+            - subscript [ref=e900]: cu2
+            - text: and the exponent n are defined in EN1992-1-1 Table 3.1 depending on the concrete class. For characteristic strength f
+            - subscript [ref=e901]: ck
+            - text: = 25.00 MPa the corresponding values are ε
+            - subscript [ref=e902]: c2
+            - text: = 2.00 ‰, ε
+            - subscript [ref=e903]: cu2
+            - text: = 3.50 ‰ and n = 2.00.
+          - heading "Stress-strain relation for reinforcement steel" [level=3] [ref=e904]
+          - paragraph [ref=e905]:
+            - text: The stresses in reinforcement steel σ
+            - subscript [ref=e906]: s
+            - text: are obtained from the design curves in EN1992-1-1 §3.2.7 and EN1992-1-1 Figure 3.8 as a function of the steel strain ε
+            - subscript [ref=e907]: s
+            - text: ":"
+          - paragraph [ref=e908]:
+            - text: σ
+            - subscript [ref=e909]: s
+            - text: = E⋅ε
+            - subscript [ref=e910]: s
+            - text: for strains below the design yield point -ε
+            - subscript [ref=e911]: yd
+            - text: ≤ ε
+            - subscript [ref=e912]: s
+            - text: ≤ ε
+            - subscript [ref=e913]: yd
+            - text: σ
+            - subscript [ref=e914]: s
+            - text: = +f
+            - subscript [ref=e915]: yd
+            - text: ⋅[1 + ((f
+            - subscript [ref=e916]: t
+            - text: /f
+            - subscript [ref=e917]: "y"
+            - text: )
+            - subscript [ref=e918]: k
+            - text: "- 1) ⋅ (ε"
+            - subscript [ref=e919]: s
+            - text: "- ε"
+            - subscript [ref=e920]: yd
+            - text: ) / (ε
+            - subscript [ref=e921]: uk
+            - text: "- ε"
+            - subscript [ref=e922]: yd
+            - text: ) ] for tensile strain ε
+            - subscript [ref=e923]: yd
+            - text: < ε
+            - subscript [ref=e924]: s
+            - text: ≤ ε
+            - subscript [ref=e925]: ud
+            - text: σ
+            - subscript [ref=e926]: s
+            - text: = -f
+            - subscript [ref=e927]: yd
+            - text: ⋅[1 + ((f
+            - subscript [ref=e928]: t
+            - text: /f
+            - subscript [ref=e929]: "y"
+            - text: )
+            - subscript [ref=e930]: k
+            - text: "- 1) ⋅ (|ε"
+            - subscript [ref=e931]: s
+            - text: "| - ε"
+            - subscript [ref=e932]: yd
+            - text: ) / (ε
+            - subscript [ref=e933]: uk
+            - text: "- ε"
+            - subscript [ref=e934]: yd
+            - text: ) ] for compressive strain ε
+            - subscript [ref=e935]: s
+            - text: < -ε
+            - subscript [ref=e936]: yd
+          - paragraph [ref=e937]:
+            - text: The value of the design yield strength of reinforcement steel f
+            - subscript [ref=e938]: yd
+            - text: "is calculated as specified in EN1992-1-1 §3.2:"
+          - paragraph [ref=e939]:
+            - text: f
+            - subscript [ref=e940]: yd
+            - text: = f
+            - subscript [ref=e941]: yk
+            - text: / γ
+            - subscript [ref=e942]: S
+            - text: = 500.0 MPa / 1.20 = 416.67 MPa
+          - paragraph [ref=e943]:
+            - text: The design yield strain of the reinforcement steel ε
+            - subscript [ref=e944]: yd
+            - text: "is calculated based on the modulus of elasticity specified in EN1992-1-1 §3.2.7(4):"
+          - paragraph [ref=e945]:
+            - text: ε
+            - subscript [ref=e946]: yd
+            - text: = f
+            - subscript [ref=e947]: yd
+            - text: / E = 416.67 MPa / 200000 MPa = 2.08 ‰
+          - paragraph [ref=e948]:
+            - text: The characteristic values of the ultimate strain ε
+            - subscript [ref=e949]: uk
+            - text: and the ratio (f
+            - subscript [ref=e950]: t
+            - text: /f
+            - subscript [ref=e951]: "y"
+            - text: )
+            - subscript [ref=e952]: k
+            - text: are defined in EN1992-1-1 Annex C depending on the steel ductility class. The design ultimate strain ε
+            - subscript [ref=e953]: ud
+            - text: is specified in EN1992-1-1 §3.2.7(2) and the National Annex.
+          - paragraph [ref=e954]: "According to EN1992-1-1 §3.2.7(2) the stress-strain law of reinforcement steel can be approximated by either of the following:"
+          - list [ref=e955]:
+            - listitem [ref=e956]:
+              - text: An inclined top branch with a strain limit of ε
+              - subscript [ref=e957]: ud
+              - text: and a maximum stress of (f
+              - subscript [ref=e958]: t
+              - text: /f
+              - subscript [ref=e959]: "y"
+              - text: )
+              - subscript [ref=e960]: k
+              - text: ⋅(f
+              - subscript [ref=e961]: yk
+              - text: / γ
+              - subscript [ref=e962]: S
+              - text: ) at ε
+              - subscript [ref=e963]: uk
+              - text: ","
+            - listitem [ref=e964]:
+              - text: A horizontal top branch (i.e. (f
+              - subscript [ref=e965]: t
+              - text: /f
+              - subscript [ref=e966]: "y"
+              - text: )
+              - subscript [ref=e967]: k
+              - text: = 1) without the need to check the strain limit.
+          - paragraph
+          - paragraph [ref=e968]:
+            - text: In this calculation the stress-strain law for reinforcement steel is considered with a horizontal top branch (i.e. (f
+            - subscript [ref=e969]: t
+            - text: /f
+            - subscript [ref=e970]: "y"
+            - text: )
+            - subscript [ref=e971]: k
+            - text: = 1). According to EN1992-1-1 §3.2.7(2) for this case there is no need to check the strain limit. For numerical reasons the design value of the tensile strain limit ε
+            - subscript [ref=e972]: ud
+            - text: = 10.00 ‰ is assumed in the calculations.
+          - paragraph [ref=e973]: "The following values are assumed:"
+          - list [ref=e974]:
+            - listitem [ref=e975]:
+              - text: "Characteristic tensile strain limit: ε"
+              - subscript [ref=e976]: uk
+              - text: = 75.00 ‰.
+            - listitem [ref=e977]:
+              - text: "Design tensile strain limit: ε"
+              - subscript [ref=e978]: ud
+              - text: = 10.00 ‰
+            - listitem [ref=e979]:
+              - text: "Characteristic ratio of ultimate strength to yield strength: (f"
+              - subscript [ref=e980]: t
+              - text: /f
+              - subscript [ref=e981]: "y"
+              - text: )
+              - subscript [ref=e982]: k
+              - text: = 1.00
+          - paragraph
+          - heading "Permitted range of strain distributions" [level=3] [ref=e983]
+          - paragraph [ref=e984]: "The permitted range of strain distributions is shown in EN1992-1-1 Figure 6.1. The range of permitted strain distributions correspond to linear strain profiles that are defined by the following rules:"
+          - list [ref=e985]:
+            - listitem [ref=e986]:
+              - text: Limitation of tensile strain in reinforcement steel to ε
+              - subscript [ref=e987]: ud
+              - text: = 10.00 ‰
+            - listitem [ref=e988]:
+              - text: Limitation of compressive strain in concrete edges to ε
+              - subscript [ref=e989]: cu2
+              - text: = 3.50 ‰
+            - listitem [ref=e990]:
+              - text: Limitation of compressive strain in concrete central region to ε
+              - subscript [ref=e991]: c2
+              - text: = 2.00 ‰
+          - paragraph
+          - paragraph [ref=e992]: "For a cross-section subjected to bending moment inducing tension at the bottom edge and if d is the static depth from most distant reinforcement to the upper concrete edge then the following strain distribution ranges are established:"
+          - list [ref=e993]:
+            - listitem [ref=e994]:
+              - text: "Range 1: Constant tensile strain ε"
+              - subscript [ref=e995]: ud
+              - text: at reinforcement level (z=d). Varying strain at top edge (z=0) from ε
+              - subscript [ref=e996]: ud
+              - text: to -ε
+              - subscript [ref=e997]: cu2
+              - text: .
+            - listitem [ref=e998]:
+              - text: "Range 2: Constant compressive strain -ε"
+              - subscript [ref=e999]: cu2
+              - text: at top edge (z=0). Varying strain at lower part from ε
+              - subscript [ref=e1000]: ud
+              - text: at level z=d to 0 at level z=h.
+            - listitem [ref=e1001]:
+              - text: "Range 3: Constant compressive strain -ε"
+              - subscript [ref=e1002]: c2
+              - text: at level z = (1 - ε
+              - subscript [ref=e1003]: c2
+              - text: / ε
+              - subscript [ref=e1004]: cu2
+              - text: )⋅h. Varying strain at bottom edge (z=h) from 0 to -ε
+              - subscript [ref=e1005]: c2
+              - text: .
+          - text: Where h is the full height of the cross-section and d is the static depth from most distant reinforcement to the upper concrete edge.
+          - paragraph
+          - paragraph [ref=e1006]: For a cross-section subjected to bending moment inducing tension at the top edge the aforementioned ranges are similar with the top and bottom edges swapped.
+          - paragraph [ref=e1007]: The permitted range of strain distributions are shown in the following figure (reproduced from EN 1992-1-1 Figure 6.1).
+          - generic [ref=e1008]:
+            - img "Permitted range of strain distributions for ULS design of concrete cross-sections" [ref=e1010]
+            - heading "Permitted range of strain distributions for ULS design of concrete cross-sections (according to EN 1992-1-1 Figure 6.1)" [level=6] [ref=e1011]
+          - paragraph [ref=e1012]: The depth of the compressive zone x is determined from depth where the strain profile becomes zero.
+          - paragraph [ref=e1013]:
+            - text: x = h ⋅ ε
+            - subscript [ref=e1014]: c,top
+            - text: / (ε
+            - subscript [ref=e1015]: c,top
+            - text: "- ε"
+            - subscript [ref=e1016]: c,bot
+            - text: )
+          - paragraph [ref=e1017]: "The curvature of the cross-section φ corresponding to the strain profile is:"
+          - paragraph [ref=e1018]:
+            - text: φ = (ε
+            - subscript [ref=e1019]: c,bot
+            - text: "- ε"
+            - subscript [ref=e1020]: c,top
+            - text: ) / h
+          - paragraph [ref=e1021]:
+            - text: where ε
+            - subscript [ref=e1022]: c,top
+            - text: ", ε"
+            - subscript [ref=e1023]: c,bot
+            - text: are the strains of the concrete at the top edge and bottom edge respectively (assuming that the bending moment induces tension on the bottom side).
+          - heading "Calculation of internal forces and moments" [level=2] [ref=e1024]
+          - heading "Discretization of concrete and steel areas" [level=3] [ref=e1025]
+          - paragraph [ref=e1026]:
+            - text: The concrete part of the cross-section is discretized in 200 horizontal strips with each strip having height dh = h / 200, where h the full height of the examined cross-section. The width of the i-th strip b
+            - subscript [ref=e1027]: i
+            - text: is established from geometry of the outer boundary and the inner boundaries of the cross-section. The area of the strip A
+            - subscript [ref=e1028]: i
+            - text: is equal to A
+            - subscript [ref=e1029]: i
+            - text: = b
+            - subscript [ref=e1030]: i
+            - text: ⋅ dh. The area of reinforcement bars within the concrete strip height is not subtracted from the area of the concrete strip in order to simplify calculations. This leads to a small discrepancy that is generally acceptable. For each strip the strain ε
+            - subscript [ref=e1031]: i
+            - text: is assumed constant and taken equal to the corresponding strain at mid-height of the strip, as established from the examined linear strain profile.
+          - paragraph [ref=e1032]:
+            - text: The rebars are considered as concentrated point forces at their center. The area of each rebar is A
+            - subscript [ref=e1033]: i
+            - text: = π Φ
+            - subscript [ref=e1034]: i
+            - superscript [ref=e1035]: "2"
+            - text: /4. When non-integer number of bars is specified the next integer number of bars is applied with a suitably reduced area for each rebar.
+          - paragraph [ref=e1036]:
+            - text: The force F
+            - subscript [ref=e1037]: i
+            - text: of each component of the cross-section (concrete strip or rebar) is F
+            - subscript [ref=e1038]: i
+            - text: = A
+            - subscript [ref=e1039]: i
+            - text: ⋅σ
+            - subscript [ref=e1040]: i
+            - text: ", where σ"
+            - subscript [ref=e1041]: i
+            - text: the stress at the center of the component that corresponds to the relevant strain ε
+            - subscript [ref=e1042]: i
+            - text: . The total axial force N is the summation of all force components F
+            - subscript [ref=e1043]: i
+            - text: .
+          - paragraph [ref=e1044]:
+            - text: The moment M
+            - subscript [ref=e1045]: i
+            - text: of each component of the cross-section (concrete strip or rebar) is M
+            - subscript [ref=e1046]: i
+            - text: = F
+            - subscript [ref=e1047]: i
+            - text: ⋅ (z
+            - subscript [ref=e1048]: i
+            - text: "- z"
+            - subscript [ref=e1049]: cm
+            - text: ), where z
+            - subscript [ref=e1050]: i
+            - text: is the location of the center of the component (measured from top) and z
+            - subscript [ref=e1051]: cm
+            - text: the location of the centroid of the gross cross-section. The total bending moment M is the summation of all moment components M
+            - subscript [ref=e1052]: i
+            - text: .
+          - heading "Pair of internal forces" [level=3] [ref=e1053]
+          - paragraph [ref=e1054]:
+            - text: The total force of the cross-section is divided in a tensile component F
+            - subscript [ref=e1055]: T
+            - text: (from rebars in tension) and a compressive component F
+            - subscript [ref=e1056]: C
+            - text: (from concrete in compression and rebars in compression). The internal force components are located at depths z
+            - subscript [ref=e1057]: T
+            - text: and z
+            - subscript [ref=e1058]: C
+            - text: respectively. The internal moment components are M
+            - subscript [ref=e1059]: T
+            - text: = F
+            - subscript [ref=e1060]: T
+            - text: ⋅ (z
+            - subscript [ref=e1061]: T
+            - text: "- z"
+            - subscript [ref=e1062]: cm
+            - text: ) and M
+            - subscript [ref=e1063]: C
+            - text: = F
+            - subscript [ref=e1064]: C
+            - text: ⋅ (z
+            - subscript [ref=e1065]: C
+            - text: "- z"
+            - subscript [ref=e1066]: cm
+            - text: "). The lever arm z of the internal forces is:"
+          - paragraph [ref=e1067]:
+            - text: z = z
+            - subscript [ref=e1068]: T
+            - text: "- z"
+            - subscript [ref=e1069]: C
+          - heading "Effective bending stiffness of cross-section" [level=3] [ref=e1070]
+          - paragraph [ref=e1071]:
+            - text: The effective bending stiffness of the cross-section (EI)
+            - subscript [ref=e1072]: eff
+            - text: for a given axial force N = N
+            - subscript [ref=e1073]: Ed
+            - text: is the cracked secant stiffness obtained when the bending moment is equal to moment resistance M = M
+            - subscript [ref=e1074]: Rd
+            - text: .
+          - paragraph [ref=e1075]:
+            - text: (EI)
+            - subscript [ref=e1076]: eff
+            - text: = M / φ
+          - paragraph [ref=e1077]:
+            - text: The uncracked bending stiffness of the gross cross-section (EI)
+            - subscript [ref=e1078]: gross
+            - text: "is:"
+          - paragraph [ref=e1079]:
+            - text: (EI)
+            - subscript [ref=e1080]: gross
+            - text: = E
+            - subscript [ref=e1081]: cm
+            - text: ⋅ I
+          - paragraph [ref=e1082]:
+            - text: where E
+            - subscript [ref=e1083]: cm
+            - text: is the secant modulus of elasticity of concrete in accordance with EN1992-1-1 Table 3.1 and I is the second moment of the area of gross cross-section.
+          - heading "Calculation of cross-section resistance" [level=2] [ref=e1084]
+          - heading "Calculation of bending moment resistance MRd for given axial force NEd and given reinforcement layout" [level=3] [ref=e1085]:
+            - text: Calculation of bending moment resistance M
+            - subscript [ref=e1086]: Rd
+            - text: for given axial force N
+            - subscript [ref=e1087]: Ed
+            - text: and given reinforcement layout
+          - paragraph [ref=e1088]:
+            - text: The bending moment resistance M
+            - subscript [ref=e1089]: Rd
+            - text: for given axial force N
+            - subscript [ref=e1090]: Ed
+            - text: and reinforcement layout is calculated by finding the strain diagram where the internal axial force N becomes equal to N
+            - subscript [ref=e1091]: Ed
+            - text: ". The appropriate strain profile is obtained by the method of bisection until the required convergence is achieved. The solution method proceeds as follows:"
+          - list [ref=e1092]:
+            - listitem [ref=e1093]: The axial force at the ends of each strain range are evaluated and the correct strain range is identified.
+            - listitem [ref=e1094]: The variation of the strain profile is considered by considering the variable strain at a suitable depth of the cross-section as a single unknown variable.
+            - listitem [ref=e1095]: Three values of the variable strain are considered at start, center, and end of the examined strain range, separating the examined stress range in two halves.
+            - listitem [ref=e1096]: The axial force is estimated from the strain profile that corresponds to the three values of the variable strain.
+            - listitem [ref=e1097]: The target axial force is compared with the estimated axial force at the start, center and end of the examined strain range. The correct half of the examined strain range is identified.
+            - listitem [ref=e1098]: The examined strain range is set to the correct half and the algorithm is repeated from step 3 until the difference between the determined axial force and the target axial force is smaller than the desired tolerance.
+          - paragraph
+          - heading "Calculation of M - N interaction diagram" [level=3] [ref=e1099]
+          - paragraph [ref=e1100]: The interaction diagram between bending moment M and axial force N (M - N interaction) is calculated by examining all the permitted strain distributions with sufficient discretization in each strain range. For each strain range the variation of the strain profile is considered by considering the variable strain at a suitable depth of the cross-section. The number of the considered intermediate strain profiles is 20 for strain ranges 1, 3 and 100 for strain range 2.
+          - heading "Calculation of required reinforcement for given for given bending moment MEd and axial force NEd" [level=3] [ref=e1101]:
+            - text: Calculation of required reinforcement for given for given bending moment M
+            - subscript [ref=e1102]: Ed
+            - text: and axial force N
+            - subscript [ref=e1103]: Ed
+          - paragraph [ref=e1104]:
+            - text: The required reinforcement area A
+            - subscript [ref=e1105]: s
+            - text: is calculated in order to obtain a bending moment resistance M
+            - subscript [ref=e1106]: Rd
+            - text: at least equal to the bending moment M
+            - subscript [ref=e1107]: Ed
+            - text: for given and axial force N
+            - subscript [ref=e1108]: Ed
+            - text: . A common factor is calculated that multiplies the reinforcement areas of the selected reinforcement layers. The rest of the reinforcement layers are not affected. The value of the multiplication factor is obtained by a root finding algorithm based on the ITP method so that the bending moment resistance M
+            - subscript [ref=e1109]: Rd
+            - text: becomes equal to the specified bending moment M
+            - subscript [ref=e1110]: Ed
+            - text: for given and axial force N
+            - subscript [ref=e1111]: Ed
+            - text: .
+          - paragraph [ref=e1112]: It is noted that when two or more layers are modified to obtain the required reinforcement the resulting reinforcement distribution may not be the optimal (i.e. corresponding to the least amount of reinforcement). This is because the variable reinforcement layers are all multiplied by a common factor.
+      - link "Back to top ^" [ref=e1114] [cursor=pointer]:
+        - /url: "#"
+  - contentinfo [ref=e424]:
+    - generic:
+      - link "Eurocode Applied.com" [ref=e426] [cursor=pointer]:
+        - /url: /
+        - paragraph [ref=e428]:
+          - text: Eurocode
+          - generic [ref=e429]: Applied.com
+      - list [ref=e431]:
+        - listitem [ref=e432]:
+          - link "/EurocodeApplied" [ref=e433] [cursor=pointer]:
+            - /url: https://www.facebook.com/EurocodeApplied
+            - img [ref=e434]
+            - text: /EurocodeApplied
+      - generic [ref=e436]:
+        - list [ref=e437]:
+          - listitem [ref=e438]:
+            - link "Home" [ref=e439] [cursor=pointer]:
+              - /url: /
+          - listitem [ref=e440]:
+            - text: •
+            - link "Latest" [ref=e441] [cursor=pointer]:
+              - /url: /latest
+          - listitem [ref=e442]:
+            - text: •
+            - link "Contact" [ref=e443] [cursor=pointer]:
+              - /url: /contact
+          - listitem [ref=e444]:
+            - text: •
+            - link "FAQ" [ref=e445] [cursor=pointer]:
+              - /url: /faq
+          - listitem [ref=e446]:
+            - text: •
+            - link "Donate" [ref=e447] [cursor=pointer]:
+              - /url: https://www.paypal.com/donate?hosted_button_id=6HWFQESZMRT6A
+        - list [ref=e448]:
+          - listitem [ref=e449]:
+            - link "Advertisements" [ref=e450] [cursor=pointer]:
+              - /url: /ads
+          - listitem [ref=e451]:
+            - text: •
+            - link "Terms of Use" [ref=e452] [cursor=pointer]:
+              - /url: /terms
+          - listitem [ref=e453]:
+            - text: •
+            - link "Privacy Policy" [ref=e454] [cursor=pointer]:
+              - /url: /privacy
+          - listitem [ref=e455]:
+            - text: •
+            - link "Cookie Info & Preferences" [ref=e456] [cursor=pointer]:
+              - /url: /cookies
+          - listitem [ref=e457]:
+            - text: •
+            - link "Quality Assurance & Verification" [ref=e458] [cursor=pointer]:
+              - /url: /verification
+        - list [ref=e459]:
+          - listitem [ref=e460]:
+            - link "Facebook/EurocodeApplied" [ref=e461] [cursor=pointer]:
+              - /url: https://www.facebook.com/EurocodeApplied
+    - generic [ref=e463]:
+      - generic [ref=e464]: EurocodeApplied.com
+      - text: Copyright © 2017-2026. All rights reserved.

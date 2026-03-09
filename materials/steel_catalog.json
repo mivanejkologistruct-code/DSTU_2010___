@@ -1,0 +1,44 @@
+[
+  {
+    "steel_class": "A240C",
+    "f_yk_mpa": 240.0,
+    "gamma_s": 1.05,
+    "e_s_mpa": 210000.0,
+    "epsilon_ud": 0.025
+  },
+  {
+    "steel_class": "Vr-I",
+    "f_yk_mpa": 405.0,
+    "gamma_s": 1.25,
+    "e_s_mpa": 210000.0,
+    "epsilon_ud": 0.025
+  },
+  {
+    "steel_class": "A400C",
+    "f_yk_mpa": 400.0,
+    "gamma_s": 1.1,
+    "e_s_mpa": 210000.0,
+    "epsilon_ud": 0.025
+  },
+  {
+    "steel_class": "A500C",
+    "f_yk_mpa": 500.0,
+    "gamma_s": 1.15,
+    "e_s_mpa": 200000.0,
+    "epsilon_ud": 0.02
+  },
+  {
+    "steel_class": "A500C_large",
+    "f_yk_mpa": 500.0,
+    "gamma_s": 1.2,
+    "e_s_mpa": 200000.0,
+    "epsilon_ud": 0.02
+  },
+  {
+    "steel_class": "B500",
+    "f_yk_mpa": 500.0,
+    "gamma_s": 1.2,
+    "e_s_mpa": 190000.0,
+    "epsilon_ud": 0.012
+  }
+]

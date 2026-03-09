@@ -1,0 +1,428 @@
+- generic [ref=e1]:
+  - generic [ref=e2]: I IΙ IΙ I
+  - banner [ref=e3]:
+    - generic [ref=e5]:
+      - navigation [ref=e6]:
+        - list [ref=e7]:
+          - listitem [ref=e8]:
+            - link "Eurocode 1" [ref=e9] [cursor=pointer]:
+              - /url: /design/en1991
+          - listitem [ref=e10]:
+            - link "Eurocode 2" [ref=e11] [cursor=pointer]:
+              - /url: /design/en1992
+          - listitem [ref=e12]:
+            - link "Eurocode 3" [ref=e13] [cursor=pointer]:
+              - /url: /design/en1993
+          - listitem [ref=e14]:
+            - link "Eurocode 8" [ref=e15] [cursor=pointer]:
+              - /url: /design/en1998
+      - generic [ref=e16]:
+        - text: "NDPs:"
+        - combobox [ref=e17]
+        - combobox "CEN default" [ref=e20] [cursor=pointer]:
+          - textbox "CEN default" [ref=e21]:
+            - generic [ref=e466]: CEN default
+      - generic [ref=e24]:
+        - img [ref=e25]
+        - combobox [ref=e27]
+        - combobox "search..." [ref=e30] [cursor=pointer]:
+          - textbox [ref=e31]
+      - navigation [ref=e32]:
+        - list:
+          - listitem [ref=e33]:
+            - link "Home" [ref=e34] [cursor=pointer]:
+              - /url: /
+              - img [ref=e35]
+              - text: Home
+          - listitem [ref=e37]:
+            - link "Contact" [ref=e38] [cursor=pointer]:
+              - /url: /contact
+              - img [ref=e39]
+              - text: Contact
+          - listitem [ref=e41]:
+            - link "FAQ" [ref=e42] [cursor=pointer]:
+              - /url: /faq
+              - img [ref=e43]
+              - text: FAQ
+          - listitem [ref=e45]:
+            - link "Donate" [ref=e46] [cursor=pointer]:
+              - /url: https://www.paypal.com/donate?hosted_button_id=6HWFQESZMRT6A
+              - img [ref=e47]
+              - text: Donate
+    - generic [ref=e49]:
+      - link "Eurocode Applied.com" [ref=e51] [cursor=pointer]:
+        - /url: /
+        - paragraph [ref=e53]:
+          - text: Eurocode
+          - generic [ref=e54]: Applied.com
+      - link "Donate to support our website" [ref=e56] [cursor=pointer]:
+        - /url: https://www.paypal.com/donate?hosted_button_id=6HWFQESZMRT6A
+        - img "Donate to support our website" [ref=e57]
+      - link "Cookie Preferences" [ref=e69] [cursor=pointer]:
+        - /url: /cookies
+        - img [ref=e70]
+  - generic [ref=e72]:
+    - banner [ref=e73]:
+      - heading "Eurocode 2 ULS design of rectangular reinforced concrete cross-section for bending and axial force" [level=1] [ref=e74]:
+        - generic [ref=e75]: Eurocode 2
+        - generic [ref=e76]: ULS design of rectangular reinforced concrete cross-section for bending and axial force
+      - generic [ref=e77]:
+        - term [ref=e78]: "Description:"
+        - definition [ref=e79]: ULS design of rectangular reinforced concrete cross-section for bending and axial force (calculation of required reinforcement for given bending moment / axial force, maximum moment resistance MRd for given axial force, or complete M-N interaction diagram for given reinforcement layout)
+        - term [ref=e80]: "According to:"
+        - definition [ref=e81]: EN 1992-1-1:2004+AC2:2010 Section 6.1
+        - term [ref=e82]: "Applicable for:"
+        - definition [ref=e83]: Uniaxial bending
+        - term [ref=e84]: "Supported National Annexes:"
+        - definition [ref=e85]: Nationally Defined Parameters (NDPs) automatically filled for supported countries
+    - navigation:
+      - generic [ref=e88]:
+        - definition [ref=e89]:
+          - link "Input" [ref=e90] [cursor=pointer]:
+            - /url: "#input"
+            - img [ref=e91]
+            - text: Input
+        - definition [ref=e93]:
+          - link "NDP" [ref=e94] [cursor=pointer]:
+            - /url: "#ndp"
+            - img [ref=e95]
+            - text: NDP
+        - definition [ref=e97]:
+          - link "Results" [ref=e98] [cursor=pointer]:
+            - /url: "#results"
+            - img [ref=e99]
+            - text: Results
+        - definition [ref=e101]:
+          - link "Notes" [ref=e102]:
+            - /url: "#notes"
+            - img [ref=e103]
+            - text: Notes
+        - definition [ref=e105]:
+          - link "Charts" [ref=e106]:
+            - /url: "#charts"
+            - img [ref=e107]
+            - text: Charts
+        - definition [ref=e109]:
+          - link "Tables" [ref=e110]:
+            - /url: "#tables"
+            - img [ref=e111]
+            - text: Tables
+        - definition [ref=e113]:
+          - link "Details" [ref=e114]:
+            - /url: "#details"
+            - img [ref=e115]
+            - text: Details
+    - generic [ref=e117]:
+      - button "Save" [ref=e118]:
+        - img [ref=e119]
+        - text: Save
+      - button "Load" [ref=e121]:
+        - img [ref=e122]
+        - text: Load
+      - button "Print-PDF" [ref=e124]:
+        - img [ref=e125]
+        - text: Print-PDF
+      - link "All Calculations" [ref=e127] [cursor=pointer]:
+        - /url: /design
+        - generic [ref=e128]:
+          - img [ref=e129]
+          - text: All Calculations
+      - generic [ref=e131]:
+        - generic [ref=e132]:
+          - generic [ref=e133]: "Rate this calculation:"
+          - generic [ref=e135] [cursor=pointer]:
+            - generic [ref=e136]:
+              - img [ref=e137]
+              - img [ref=e139]
+              - img [ref=e141]
+              - img [ref=e143]
+              - img [ref=e145]
+            - generic:
+              - img [ref=e147]
+              - img [ref=e149]
+              - img [ref=e151]
+              - img [ref=e153]
+              - img [ref=e155]
+        - link "Share" [ref=e157] [cursor=pointer]:
+          - /url: https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Feurocodeapplied.com%2Fdesign%2Fen1992%2Fuls-design-rectangular-section
+          - img [ref=e158]
+          - text: Share
+        - link "Share" [ref=e160] [cursor=pointer]:
+          - /url: https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Feurocodeapplied.com%2Fdesign%2Fen1992%2Fuls-design-rectangular-section&title=&summary=&source=
+          - img [ref=e161]
+          - text: Share
+    - generic [ref=e164]:
+      - group "Input" [ref=e165]:
+        - generic [ref=e166] [cursor=pointer]:
+          - img [ref=e167]
+          - text: Input
+          - img [ref=e170]
+        - generic [ref=e172]:
+          - generic [ref=e173]:
+            - generic [ref=e174]: Concrete characteristic strength
+            - generic [ref=e175]:
+              - generic [ref=e176]:
+                - text: f
+                - subscript [ref=e177]: ck
+              - text: =
+            - textbox "Concrete characteristic strength fck" [ref=e179]: "25"
+            - generic [ref=e181]: MPa
+            - generic [ref=e183] [cursor=pointer]:
+              - text: e.g. 30 MPa for concrete class C30/37. For a list of concrete classes see
+              - link "Table of Concrete Design Properties" [ref=e184]:
+                - /url: /design/en1992/concrete-design-properties
+          - generic [ref=e185]:
+            - generic [ref=e186]: Steel characteristic yield strength
+            - generic [ref=e187]:
+              - generic [ref=e188]:
+                - text: f
+                - subscript [ref=e189]: yk
+              - text: =
+            - textbox "Steel characteristic yield strength fyk" [ref=e191]: "500"
+            - generic [ref=e193]: MPa
+          - generic [ref=e196]:
+            - generic [ref=e197]: Type of reinforcement stress-strain law
+            - generic [ref=e198]: =
+            - combobox "Type of reinforcement stress-strain law" [ref=e200]:
+              - option "No hardening (Perfectly plastic)" [selected]
+              - option "With hardening (Class A)"
+              - option "With hardening (Class B)"
+              - option "With hardening (Class C)"
+              - option "Custom"
+            - generic [ref=e204] [cursor=pointer]: The elastic-perfectly plastic model (no hardening) is permitted in EN1992-1-1 §3.2.7(2) with unlimited strain. A strain limit of 75‰ is consider in this calculation for numerical reasons. Alternatively stress-strain laws with hardening and limited strains may be considered according to the ductility classes A, B or C specified in EN1992-1-1 Annex C.
+          - text: = =
+          - separator [ref=e205]
+          - generic [ref=e206]:
+            - generic [ref=e207]: Height of cross-section
+            - generic [ref=e208]: h =
+            - textbox "Height of cross-section h" [ref=e210]: "0.5"
+            - generic [ref=e212]: m
+          - generic [ref=e215]:
+            - generic [ref=e216]: Width of cross-section
+            - generic [ref=e217]: b =
+            - textbox "Width of cross-section b" [ref=e219]: "0.3"
+            - generic [ref=e221]: m
+          - separator [ref=e224]
+          - paragraph [ref=e225]: "Initial reinforcement: When the required reinforcement is requested the initial reinforcement will be modified accordingly."
+          - generic [ref=e226]:
+            - generic [ref=e227]: Number of bars of bottom reinforcement layer 1
+            - generic [ref=e228]:
+              - generic [ref=e229]:
+                - text: "n"
+                - subscript [ref=e230]: bars,1
+              - text: =
+            - textbox "Number of bars of bottom reinforcement layer 1 nbars,1" [ref=e232]: "2"
+            - generic [ref=e236] [cursor=pointer]: Enter 0 to disable the bottom reinforcement layer. Non-integer values are handled by suitable modification of bar cross-sectional area.
+          - generic [ref=e237]:
+            - generic [ref=e238]: Diameter of bars of bottom reinforcement layer 1
+            - generic [ref=e239]:
+              - generic [ref=e240]:
+                - text: Φ
+                - subscript [ref=e241]: "1"
+              - text: =
+            - textbox "Diameter of bars of bottom reinforcement layer 1 Φ1" [ref=e243]: "20"
+            - generic [ref=e245]: mm
+          - generic [ref=e248]:
+            - generic [ref=e249]: Distance from centroid of bottom reinforcement layer 1 to bottom concrete edge
+            - generic [ref=e250]:
+              - generic [ref=e251]:
+                - text: c'
+                - subscript [ref=e252]: "1"
+              - text: =
+            - textbox "Distance from centroid of bottom reinforcement layer 1 to bottom concrete edge c'1" [ref=e254]: "0.04"
+            - generic [ref=e256]: m
+          - separator [ref=e259]
+          - generic [ref=e260]:
+            - generic [ref=e261]: Number of bars of top reinforcement layer 2
+            - generic [ref=e262]:
+              - generic [ref=e263]:
+                - text: "n"
+                - subscript [ref=e264]: bars,2
+              - text: =
+            - textbox "Number of bars of top reinforcement layer 2 nbars,2" [ref=e266]: "2"
+            - generic [ref=e270] [cursor=pointer]: Enter 0 to disable the top reinforcement layer. Non-integer values are handled by suitable modification of bar cross-sectional area.
+          - generic [ref=e271]:
+            - generic [ref=e272]: Diameter of bars of top reinforcement layer 2
+            - generic [ref=e273]:
+              - generic [ref=e274]:
+                - text: Φ
+                - subscript [ref=e275]: "2"
+              - text: =
+            - textbox "Diameter of bars of top reinforcement layer 2 Φ2" [ref=e277]: "20"
+            - generic [ref=e279]: mm
+          - generic [ref=e282]:
+            - generic [ref=e283]: Distance from centroid of top reinforcement layer 2 to top concrete edge
+            - generic [ref=e284]:
+              - generic [ref=e285]:
+                - text: c'
+                - subscript [ref=e286]: "2"
+              - text: =
+            - textbox "Distance from centroid of top reinforcement layer 2 to top concrete edge c'2" [ref=e288]: "0.04"
+            - generic [ref=e290]: m
+            - generic [ref=e292] [cursor=pointer]: Distance from bar centroid of top reinforcement layer to concrete edge
+          - separator [ref=e293]
+          - generic [ref=e294]:
+            - generic [ref=e296]: Number of bars of side reinforcement layer 3 per side
+            - generic [ref=e297]:
+              - generic [ref=e298]:
+                - text: "n"
+                - subscript [ref=e299]: bars,3
+              - text: =
+            - textbox "Number of bars of side reinforcement layer 3 per side nbars,3" [active] [ref=e301]: "0"
+            - generic [ref=e305] [cursor=pointer]: Enter 0 to disable the side reinforcement layer. Non-integer values are handled by suitable modification of bar cross-sectional area.
+          - generic [ref=e306]:
+            - generic [ref=e307]: Diameter of bars of side reinforcement layer 3
+            - generic [ref=e308]:
+              - generic [ref=e309]:
+                - text: Φ
+                - subscript [ref=e310]: "3"
+              - text: =
+            - textbox "Diameter of bars of side reinforcement layer 3 Φ3" [ref=e312]: "16"
+            - generic [ref=e314]: mm
+          - separator [ref=e317]
+          - generic [ref=e318]:
+            - generic [ref=e319]: Type of analysis
+            - generic [ref=e320]: =
+            - combobox "Type of analysis" [ref=e322]:
+              - option "Required reinforcement As"
+              - option "Bending resistance MRd" [selected]
+              - option "Interaction diagram M-N"
+          - text: =
+          - generic [ref=e338]:
+            - generic [ref=e339]: Design value of the axial force - ULS factored loads (compression negative)
+            - generic [ref=e340]:
+              - generic [ref=e341]:
+                - text: "N"
+                - subscript [ref=e342]: Ed
+              - text: =
+            - textbox "Design value of the axial force - ULS factored loads (compression negative) NEd" [ref=e344]: "-1000"
+            - generic [ref=e346]: kN
+            - generic [ref=e348] [cursor=pointer]: The design value of the axial force at the ULS combination for which the maximum bending moment resistance of the cross-section will be calculated
+          - text: =
+          - generic [ref=e358]:
+            - img "Rectangular concrete cross-section" [ref=e360]
+            - heading "Rectangular concrete cross-section" [level=6] [ref=e361]
+      - group "Nationally Defined Parameters" [ref=e362]:
+        - generic [ref=e363] [cursor=pointer]:
+          - img [ref=e364]
+          - text: Nationally Defined Parameters
+          - img [ref=e367]
+        - generic [ref=e369]:
+          - generic [ref=e370]:
+            - generic [ref=e371]: Coefficient taking account of long term effects and loading effects on the compressive strength of concrete (for bending)
+            - generic [ref=e372]:
+              - generic [ref=e373]:
+                - text: α
+                - subscript [ref=e374]: cc
+              - text: =
+            - textbox "Coefficient taking account of long term effects and loading effects on the compressive strength of concrete (for bending) αcc" [ref=e376]: "1"
+            - generic [ref=e380] [cursor=pointer]: According to EN1992-1-1 §3.1.6(1)P and the National Annex.
+          - generic [ref=e381]:
+            - generic [ref=e382]: Concrete partial material safety factor
+            - generic [ref=e383]:
+              - generic [ref=e384]:
+                - text: γ
+                - subscript [ref=e385]: c
+              - text: =
+            - textbox "Concrete partial material safety factor γc" [ref=e387]: "1.5"
+            - generic [ref=e391] [cursor=pointer]: According to EN1992-1-1 §2.4.2.4 and the National Annex.
+          - generic [ref=e392]:
+            - generic [ref=e393]: Reinforcement steel partial material safety factor
+            - generic [ref=e394]:
+              - generic [ref=e395]:
+                - text: γ
+                - subscript [ref=e396]: s
+              - text: =
+            - textbox "Reinforcement steel partial material safety factor γs" [ref=e398]: "1.15"
+            - generic [ref=e402] [cursor=pointer]: According to EN1992-1-1 §2.4.2.4 and the National Annex.
+          - generic [ref=e403]:
+            - generic [ref=e404]: Design value of reinforcement ultimate strain
+            - generic [ref=e405]:
+              - generic [ref=e406]:
+                - text: ε
+                - subscript [ref=e407]: ud
+              - text: =
+            - combobox "Design value of reinforcement ultimate strain εud" [ref=e409]:
+              - option "1.0εuk"
+              - option "0.9εuk" [selected]
+              - option "0.85εuk"
+              - option "0.8εuk"
+              - option "2.5%"
+              - option "2.0%"
+              - option "1.0%"
+              - option "εyd"
+            - generic [ref=e413] [cursor=pointer]: According to EN1992-1-1 §3.2.7(2) and the National Annex.
+          - generic [ref=e415]:
+            - strong [ref=e416]: "Note:"
+            - text: Always verify the validity of the Nationally Defined Parameters (NDPs). Please inform us of any discrepancy using our
+            - link "Contact Form" [ref=e417] [cursor=pointer]:
+              - /url: /contact
+            - text: . The NDP value is left blank for all NDPs that we do not have this information available. Interested users who have access to the corresponding NDPs can notify us using our
+            - link "Contact Form" [ref=e418] [cursor=pointer]:
+              - /url: /contact
+            - text: to fill-in the missing information.
+      - button "Calculate" [ref=e420]:
+        - generic [ref=e421]:
+          - img [ref=e422]
+          - text: Calculate
+  - contentinfo [ref=e424]:
+    - generic:
+      - link "Eurocode Applied.com" [ref=e426] [cursor=pointer]:
+        - /url: /
+        - paragraph [ref=e428]:
+          - text: Eurocode
+          - generic [ref=e429]: Applied.com
+      - list [ref=e431]:
+        - listitem [ref=e432]:
+          - link "/EurocodeApplied" [ref=e433] [cursor=pointer]:
+            - /url: https://www.facebook.com/EurocodeApplied
+            - img [ref=e434]
+            - text: /EurocodeApplied
+      - generic [ref=e436]:
+        - list [ref=e437]:
+          - listitem [ref=e438]:
+            - link "Home" [ref=e439] [cursor=pointer]:
+              - /url: /
+          - listitem [ref=e440]:
+            - text: •
+            - link "Latest" [ref=e441] [cursor=pointer]:
+              - /url: /latest
+          - listitem [ref=e442]:
+            - text: •
+            - link "Contact" [ref=e443] [cursor=pointer]:
+              - /url: /contact
+          - listitem [ref=e444]:
+            - text: •
+            - link "FAQ" [ref=e445] [cursor=pointer]:
+              - /url: /faq
+          - listitem [ref=e446]:
+            - text: •
+            - link "Donate" [ref=e447] [cursor=pointer]:
+              - /url: https://www.paypal.com/donate?hosted_button_id=6HWFQESZMRT6A
+        - list [ref=e448]:
+          - listitem [ref=e449]:
+            - link "Advertisements" [ref=e450] [cursor=pointer]:
+              - /url: /ads
+          - listitem [ref=e451]:
+            - text: •
+            - link "Terms of Use" [ref=e452] [cursor=pointer]:
+              - /url: /terms
+          - listitem [ref=e453]:
+            - text: •
+            - link "Privacy Policy" [ref=e454] [cursor=pointer]:
+              - /url: /privacy
+          - listitem [ref=e455]:
+            - text: •
+            - link "Cookie Info & Preferences" [ref=e456] [cursor=pointer]:
+              - /url: /cookies
+          - listitem [ref=e457]:
+            - text: •
+            - link "Quality Assurance & Verification" [ref=e458] [cursor=pointer]:
+              - /url: /verification
+        - list [ref=e459]:
+          - listitem [ref=e460]:
+            - link "Facebook/EurocodeApplied" [ref=e461] [cursor=pointer]:
+              - /url: https://www.facebook.com/EurocodeApplied
+    - generic [ref=e463]:
+      - generic [ref=e464]: EurocodeApplied.com
+      - text: Copyright © 2017-2026. All rights reserved.
