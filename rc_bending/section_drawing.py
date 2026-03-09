@@ -4,6 +4,11 @@ from rc_bending.materials import MaterialCatalog
 from rc_bending.models import BendingResult, CurvePoint, SectionDiagramState, SectionInput
 from rc_bending.solver import build_section_diagram_state, find_comparison_curve_point
 
+FORM_TITLES = {
+    "first": "1-ша форма рівноваги",
+    "second": "2-га форма рівноваги",
+}
+
 
 def _escape_text(value: str) -> str:
     return value.replace("&", "&amp;").replace("<", "&lt;")
@@ -136,19 +141,87 @@ def _horizontal_dimension(x1: float, x2: float, y: float, text: str, *, data_rol
                 marker_end="arrow-end",
                 data_role=data_role,
             ),
-            _text(mid_x, y - 16.0, text, css_class="dim-text", anchor="middle"),
+            _dimension_label_chip(mid_x, y - 16.0, text),
         ]
     )
 
 
-def _vertical_dimension(x: float, y1: float, y2: float, text: str, *, data_role: str = "") -> str:
+def _dimension_label_chip(
+    x: float,
+    y: float,
+    text: str,
+    *,
+    anchor: str = "middle",
+    data_role: str = "dimension-label-chip",
+) -> str:
+    width = max(84.0, 24.0 + len(text) * 7.1)
+    height = 24.0
+    if anchor == "start":
+        chip_x = x
+    elif anchor == "end":
+        chip_x = x - width
+    else:
+        chip_x = x - width / 2.0
+    return "".join(
+        [
+            f'<g data-role="{data_role}">',
+            _rect(chip_x, y - height / 2.0, width, height, css_class="dim-chip", rx=12.0, ry=12.0),
+            _text(chip_x + width / 2.0, y + 4.0, text, css_class="dim-chip-text", anchor="middle"),
+            "</g>",
+        ]
+    )
+
+
+def _vertical_dimension(
+    x: float,
+    y1: float,
+    y2: float,
+    text: str,
+    *,
+    data_role: str = "",
+    label_chip: bool = False,
+    label_x: float | None = None,
+    label_anchor: str = "end",
+) -> str:
     mid_y = (y1 + y2) / 2.0
     return "".join(
         [
             _line(x + 22.0, y1, x - 8.0, y1, css_class="dim-extension"),
             _line(x + 22.0, y2, x - 8.0, y2, css_class="dim-extension"),
             _line(x, y1, x, y2, css_class="dim-line", marker_start="arrow-end", marker_end="arrow-end", data_role=data_role),
-            _text(x - 14.0, mid_y, text, css_class="dim-text", anchor="end"),
+            (
+                _dimension_label_chip(label_x if label_x is not None else x - 14.0, mid_y, text, anchor=label_anchor)
+                if label_chip
+                else _text(x - 14.0, mid_y, text, css_class="dim-text", anchor="end")
+            ),
+        ]
+    )
+
+
+def _vertical_dimension_lane(
+    x: float,
+    y1: float,
+    y2: float,
+    text: str,
+    *,
+    lane_role: str,
+    line_role: str,
+    label_x: float = -28.0,
+) -> str:
+    return "".join(
+        [
+            f'<g data-role="{lane_role}" transform="translate({x:.1f} 0)">',
+            _vertical_dimension(
+                0.0,
+                y1,
+                y2,
+                text,
+                data_role=line_role,
+                label_chip=True,
+                label_x=label_x,
+                label_anchor="middle",
+            ),
+            "</g>",
         ]
     )
 
@@ -265,6 +338,23 @@ def _build_panel_scale_limits(states: tuple[SectionDiagramState | None, SectionD
     return max(concrete_stress_max, 1.0), max(steel_stress_max, 1.0), max(strain_max, 0.0001)
 
 
+def _build_panel_entries(
+    active_state: SectionDiagramState | None,
+    comparison_state: SectionDiagramState | None,
+) -> list[tuple[str, SectionDiagramState | None]]:
+    if active_state is None and comparison_state is None:
+        return [(FORM_TITLES["first"], None), (FORM_TITLES["second"], None)]
+
+    if active_state is not None and active_state.form == "second" and comparison_state is None:
+        return [(FORM_TITLES["second"], active_state)]
+
+    states_by_form: dict[str, SectionDiagramState | None] = {"first": None, "second": None}
+    for state in (active_state, comparison_state):
+        if state is not None:
+            states_by_form[state.form] = state
+    return [(FORM_TITLES["first"], states_by_form["first"]), (FORM_TITLES["second"], states_by_form["second"])]
+
+
 def _build_form_panel(
     title: str,
     state: SectionDiagramState | None,
@@ -331,17 +421,18 @@ def _build_form_panel(
     body_height = height - top_margin - bottom_margin
     scale_y = body_height / max(section_height_mm, 1.0)
     diagram_y = lambda z_mm: top_margin + z_mm * scale_y
-    note_width = 108.0
+    expanded_layout = width >= 760.0
+    note_width = 126.0 if expanded_layout else 108.0
     left_note_x = 22.0
     right_note_x = width - note_width - 22.0
     stress_zone_left = left_note_x + note_width + 14.0
-    stress_zone_right = stress_zone_left + 176.0
+    stress_zone_right = stress_zone_left + (212.0 if expanded_layout else 176.0)
     concrete_zone_left = stress_zone_left + 6.0
-    concrete_zone_width = 66.0
+    concrete_zone_width = 76.0 if expanded_layout else 66.0
     concrete_zone_right = concrete_zone_left + concrete_zone_width
     concrete_zero_x = concrete_zone_left + 4.0
     concrete_pos_width = concrete_zone_right - concrete_zero_x - 4.0
-    stress_gap = 14.0
+    stress_gap = 16.0 if expanded_layout else 14.0
     steel_zone_left = concrete_zone_right + stress_gap
     steel_zone_right = stress_zone_right - 6.0
     steel_half_width = max((steel_zone_right - steel_zone_left) / 2.0, 1.0)
@@ -704,33 +795,61 @@ def build_section_drawing_svg(
     rebar_rows = list(derived["rebar_rows"])
 
     active_state, comparison_state = _resolve_form_states(section, materials, result, selected_point)
-    panel_states: dict[str, SectionDiagramState | None] = {"first": None, "second": None}
-    for state in (active_state, comparison_state):
-        if state is not None:
-            panel_states[state.form] = state
+    panel_entries = _build_panel_entries(active_state, comparison_state)
+    panel_states = tuple(state for _, state in panel_entries)
+    concrete_stress_abs_max_mpa, steel_stress_abs_max_mpa, strain_abs_max = _build_panel_scale_limits(panel_states)
 
-    concrete_stress_abs_max_mpa, steel_stress_abs_max_mpa, strain_abs_max = _build_panel_scale_limits((panel_states["first"], panel_states["second"]))
-
-    scale = min(388.0 / max(section_width_mm, 1.0), 420.0 / max(section_height_mm, 1.0))
-    drawing_width = section_width_mm * scale
-    drawing_height = section_height_mm * scale
-
-    left_margin = 164.0
-    top_margin = 146.0
-    section_x = left_margin
-    section_y = top_margin
-    callout_width = 184.0
-    callout_gap = 58.0
-    callout_x = section_x + drawing_width + 34.0
-    panel_x = callout_x + callout_width + 20.0
-    panel_width = 602.0
-    panel_height = 362.0
-    panel_gap = 24.0
-    first_panel_y = 104.0
-    second_panel_y = first_panel_y + panel_height + panel_gap
-    bottom_margin = 56.0
-    canvas_width = panel_x + panel_width + 26.0
-    canvas_height = max(section_y + drawing_height + 88.0, second_panel_y + panel_height + bottom_margin)
+    single_panel_mode = len(panel_entries) == 1
+    if single_panel_mode:
+        canvas_width = 1220.0
+        panel_x = 44.0
+        panel_width = canvas_width - panel_x * 2.0
+        panel_height = 348.0
+        panel_gap = 0.0
+        top_row_left = panel_x + 12.0
+        top_row_right = canvas_width - panel_x - 12.0
+        scale = min(540.0 / max(section_width_mm, 1.0), 156.0 / max(section_height_mm, 1.0))
+        drawing_width = section_width_mm * scale
+        drawing_height = section_height_mm * scale
+        section_x = (top_row_left + top_row_right - drawing_width) / 2.0
+        section_y = 146.0
+        callout_width = 176.0
+        callout_gap = 58.0
+        callout_x = top_row_right - callout_width
+        left_h_lane_x = section_x - 120.0
+        left_z1_lane_x = section_x - 76.0
+        left_z2_lane_x = section_x - 32.0
+        axis_x = section_x - 10.0
+        right_h1_lane_x = section_x + drawing_width + 40.0
+        right_h2_lane_x = section_x + drawing_width + 84.0
+        panel_y_values = [section_y + drawing_height + 28.0]
+        bottom_margin = 36.0
+        canvas_height = panel_y_values[-1] + panel_height + bottom_margin
+    else:
+        scale = min(388.0 / max(section_width_mm, 1.0), 420.0 / max(section_height_mm, 1.0))
+        drawing_width = section_width_mm * scale
+        drawing_height = section_height_mm * scale
+        section_x = 190.0
+        section_y = 146.0
+        callout_width = 176.0
+        callout_gap = 58.0
+        callout_x = section_x + drawing_width + 124.0
+        panel_x = callout_x + callout_width + 24.0
+        panel_width = 602.0
+        panel_height = 362.0
+        panel_gap = 24.0
+        left_h_lane_x = section_x - 116.0
+        left_z1_lane_x = section_x - 74.0
+        left_z2_lane_x = section_x - 32.0
+        axis_x = section_x - 10.0
+        right_h1_lane_x = section_x + drawing_width + 40.0
+        right_h2_lane_x = section_x + drawing_width + 82.0
+        top_row_left = left_h_lane_x - 20.0
+        top_row_right = callout_x + callout_width
+        panel_y_values = [104.0 + index * (panel_height + panel_gap) for index in range(len(panel_entries))]
+        bottom_margin = 56.0
+        canvas_width = panel_x + panel_width + 26.0
+        canvas_height = max(section_y + drawing_height + 92.0, panel_y_values[-1] + panel_height + bottom_margin)
 
     top_layer_height_mm = float(concrete_rows[0]["height_mm"])
     bottom_layer_height_mm = float(concrete_rows[1]["height_mm"])
@@ -761,6 +880,8 @@ def build_section_drawing_svg(
         ".chip-text{font:600 13px 'Trebuchet MS',Verdana,sans-serif;fill:#0f172a;}",
         ".small{font:13px 'Trebuchet MS',Verdana,sans-serif;fill:#44566c;}",
         ".dim-text{font:600 13px 'Trebuchet MS',Verdana,sans-serif;fill:#516275;}",
+        ".dim-chip{fill:#ffffff;stroke:#d6e0ea;stroke-width:1.0;}",
+        ".dim-chip-text{font:700 12px 'Trebuchet MS',Verdana,sans-serif;fill:#40566f;}",
         ".dim-line{stroke:#64748b;stroke-width:1.5;}",
         ".dim-extension{stroke:#b2bfd0;stroke-width:1.2;}",
         ".outline{stroke:#0f172a;stroke-width:2.6;fill:none;}",
@@ -829,15 +950,18 @@ def build_section_drawing_svg(
         ".metric-chip-value{font:700 12px 'Trebuchet MS',Verdana,sans-serif;fill:#0f172a;}",
         "</style>",
         _rect(18.0, 14.0, canvas_width - 36.0, canvas_height - 28.0, css_class="stage-bg", rx=30.0, ry=30.0, data_role="drawing-stage"),
-        _text(section_x, 44.0, "Креслення перерізу", css_class="title"),
-        _text(section_x, 70.0, "Переріз, епюри напружень бетону й арматури та контрольні параметри в масштабному креслярському аркуші.", css_class="subtitle"),
+        _text(72.0, 44.0, "Креслення перерізу", css_class="title"),
+        _text(72.0, 70.0, "Переріз, епюри напружень бетону й арматури та контрольні параметри в масштабному креслярському аркуші.", css_class="subtitle"),
         _line(42.0, 96.0, canvas_width - 42.0, 96.0, css_class="stage-accent"),
     ]
+    left_zone_fragments: list[str] = []
+    section_zone_fragments: list[str] = []
+    right_zone_fragments: list[str] = []
 
     if selected_point is not None:
         compression_depth_mm = max(0.0, min(section_height_mm, selected_point.neutral_axis_mm))
         if compression_depth_mm > 0.0:
-            fragments.append(
+            section_zone_fragments.append(
                 _rect(
                     section_x,
                     section_y,
@@ -848,12 +972,8 @@ def build_section_drawing_svg(
                 )
             )
 
-    fragments.extend(
+    section_zone_fragments.extend(
         [
-            _rect(section_x, section_y, drawing_width, top_layer_height, fill="#edf3fe"),
-            _rect(section_x, bottom_layer_y, drawing_width, max(section_height_mm - top_layer_height_mm, 0.0) * scale, fill="#dde8f8"),
-            _rect(section_x, section_y, drawing_width, drawing_height, css_class="outline", data_role="section-frame"),
-            _line(section_x, bottom_layer_y, section_x + drawing_width, bottom_layer_y, css_class="layer-split"),
             _horizontal_dimension(
                 section_x,
                 section_x + drawing_width,
@@ -861,25 +981,48 @@ def build_section_drawing_svg(
                 f"b = {_fmt_mm(section_width_mm)}",
                 data_role="section-width-dimension",
             ),
-            _vertical_dimension(section_x - 60.0, section_y, section_y + drawing_height, f"h = {_fmt_mm(section_height_mm)}"),
-            _vertical_dimension(
-                section_x + drawing_width + 54.0,
+            _rect(section_x, section_y, drawing_width, top_layer_height, fill="#edf3fe"),
+            _rect(section_x, bottom_layer_y, drawing_width, max(section_height_mm - top_layer_height_mm, 0.0) * scale, fill="#dde8f8"),
+            _rect(section_x, section_y, drawing_width, drawing_height, css_class="outline", data_role="section-frame"),
+            _line(section_x, bottom_layer_y, section_x + drawing_width, bottom_layer_y, css_class="layer-split"),
+            _chip(section_x + 18.0, section_y + 26.0, f"B1: {concrete_rows[0]['concrete_class']}", data_role="layer-chip"),
+            _chip(section_x + 18.0, bottom_layer_y + 26.0, f"B2: {concrete_rows[1]['concrete_class']}", data_role="layer-chip"),
+        ]
+    )
+
+    left_zone_fragments.extend(
+        [
+            _vertical_dimension_lane(
+                left_h_lane_x,
+                section_y,
+                section_y + drawing_height,
+                f"h = {_fmt_mm(section_height_mm)}",
+                lane_role="dimension-lane-left-h",
+                line_role="section-height-dimension",
+            ),
+            _line(axis_x, section_y, axis_x, section_y + drawing_height, css_class="axis"),
+            _text(axis_x - 8.0, section_y - 12.0, "z", css_class="label", anchor="middle"),
+        ]
+    )
+
+    right_zone_fragments.extend(
+        [
+            _vertical_dimension_lane(
+                right_h1_lane_x,
                 section_y,
                 bottom_layer_y,
                 f"h1 = {_fmt_mm(top_layer_height_mm)}",
-                data_role="layer-height-dimension",
+                lane_role="dimension-lane-right-h1",
+                line_role="layer-height-dimension",
             ),
-            _vertical_dimension(
-                section_x + drawing_width + 108.0,
+            _vertical_dimension_lane(
+                right_h2_lane_x,
                 bottom_layer_y,
                 section_y + drawing_height,
                 f"h2 = {_fmt_mm(bottom_layer_height_mm)}",
-                data_role="layer-height-dimension",
+                lane_role="dimension-lane-right-h2",
+                line_role="layer-height-dimension",
             ),
-            _line(section_x - 80.0, section_y, section_x - 80.0, section_y + drawing_height, css_class="axis"),
-            _text(section_x - 88.0, section_y - 12.0, "z", css_class="label", anchor="middle"),
-            _chip(section_x + 18.0, section_y + 26.0, f"B1: {concrete_rows[0]['concrete_class']}", data_role="layer-chip"),
-            _chip(section_x + 18.0, bottom_layer_y + 26.0, f"B2: {concrete_rows[1]['concrete_class']}", data_role="layer-chip"),
         ]
     )
 
@@ -900,11 +1043,11 @@ def build_section_drawing_svg(
         rebar_class = "rebar-warning" if layout_warning else "rebar"
 
         for center_x in _build_rebar_centers(section_x, drawing_width, count):
-            fragments.append(_circle(center_x, actual_y, radius, css_class=rebar_class))
+            section_zone_fragments.append(_circle(center_x, actual_y, radius, css_class=rebar_class))
 
-        leader_mid_x = section_x + drawing_width + 26.0
+        leader_mid_x = section_x + drawing_width + 18.0
         callout_mid_y = callout_top + 26.0
-        fragments.extend(
+        right_zone_fragments.extend(
             [
                 _polyline(
                     [
@@ -923,66 +1066,70 @@ def build_section_drawing_svg(
             ]
         )
         if layout_warning:
-            fragments.append(_text(16.0, 64.0, f"A{index}: n*d > b", css_class="layout-warning", data_role="layout-warning"))
-        fragments.append("</g>")
+            right_zone_fragments.append(_text(16.0, 64.0, f"A{index}: n*d > b", css_class="layout-warning", data_role="layout-warning"))
+        right_zone_fragments.append("</g>")
 
     top_rebar_row = min(rebar_rows, key=lambda row: float(row["z_mm"])) if rebar_rows else None
     bottom_rebar_row = max(rebar_rows, key=lambda row: float(row["z_mm"])) if rebar_rows else None
     if top_rebar_row is not None:
         top_z_mm = float(top_rebar_row["z_mm"])
         top_z_y = section_y + top_z_mm * scale
-        fragments.append(
-            _vertical_dimension(
-                section_x - 34.0,
+        left_zone_fragments.append(
+            _vertical_dimension_lane(
+                left_z1_lane_x,
                 section_y,
                 top_z_y,
                 f"z1 = {_fmt_mm(top_z_mm)}",
-                data_role="rebar-depth-dimension",
+                lane_role="dimension-lane-left-z1",
+                line_role="rebar-depth-dimension",
             )
         )
     if bottom_rebar_row is not None:
         bottom_z_mm = float(bottom_rebar_row["z_mm"])
         bottom_z_y = section_y + bottom_z_mm * scale
-        fragments.append(
-            _vertical_dimension(
-                section_x - 8.0,
+        left_zone_fragments.append(
+            _vertical_dimension_lane(
+                left_z2_lane_x,
                 section_y,
                 bottom_z_y,
                 f"z2 = {_fmt_mm(bottom_z_mm)}",
-                data_role="rebar-depth-dimension",
+                lane_role="dimension-lane-left-z2",
+                line_role="rebar-depth-dimension",
             )
         )
 
-    fragments.append(
-        _build_form_panel(
-            "1-ша форма рівноваги",
-            panel_states["first"],
-            x=panel_x,
-            y=first_panel_y,
-            width=panel_width,
-            height=panel_height,
-            section_height_mm=section_height_mm,
-            layer_split_mm=top_layer_height_mm,
-            concrete_stress_abs_max_mpa=concrete_stress_abs_max_mpa,
-            steel_stress_abs_max_mpa=steel_stress_abs_max_mpa,
-            strain_abs_max=strain_abs_max,
-        )
+    fragments.extend(
+        [
+            '<g data-role="top-row-layout">',
+            '<g data-role="left-dimension-zone">',
+            *left_zone_fragments,
+            "</g>",
+            '<g data-role="section-zone">',
+            *section_zone_fragments,
+            "</g>",
+            '<g data-role="right-detail-zone">',
+            *right_zone_fragments,
+            "</g>",
+            "</g>",
+        ]
     )
-    fragments.append(
-        _build_form_panel(
-            "2-га форма рівноваги",
-            panel_states["second"],
-            x=panel_x,
-            y=second_panel_y,
-            width=panel_width,
-            height=panel_height,
-            section_height_mm=section_height_mm,
-            layer_split_mm=top_layer_height_mm,
-            concrete_stress_abs_max_mpa=concrete_stress_abs_max_mpa,
-            steel_stress_abs_max_mpa=steel_stress_abs_max_mpa,
-            strain_abs_max=strain_abs_max,
+
+    for panel_index, (panel_title, panel_state) in enumerate(panel_entries):
+        fragments.append(
+            _build_form_panel(
+                panel_title,
+                panel_state,
+                x=panel_x,
+                y=panel_y_values[panel_index],
+                width=panel_width,
+                height=panel_height,
+                section_height_mm=section_height_mm,
+                layer_split_mm=top_layer_height_mm,
+                concrete_stress_abs_max_mpa=concrete_stress_abs_max_mpa,
+                steel_stress_abs_max_mpa=steel_stress_abs_max_mpa,
+                strain_abs_max=strain_abs_max,
+            )
         )
-    )
 
     fragments.append("</svg>")
     return "".join(fragments)

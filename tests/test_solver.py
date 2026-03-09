@@ -39,6 +39,25 @@ def test_solver_returns_nonempty_curve_and_small_axial_residual():
     assert result.strain_profile[-1].z_mm == pytest.approx(500.0)
 
 
+def test_solver_starts_curve_from_zero_strain_and_zero_moment():
+    result = solve_bending_capacity(make_case_a(), load_material_catalog())
+    first_point = result.curve_points[0]
+
+    assert first_point.step_index == 1
+    assert first_point.top_strain == pytest.approx(0.0)
+    assert first_point.bottom_strain == pytest.approx(0.0)
+    assert first_point.curvature_1_per_m == pytest.approx(0.0)
+    assert first_point.moment_kNm == pytest.approx(0.0)
+    assert first_point.axial_residual_kN == pytest.approx(0.0)
+
+
+def test_solver_respects_requested_outer_steps_until_early_stop():
+    result = solve_bending_capacity(make_case_a(), load_material_catalog(), outer_steps=12)
+
+    assert len(result.curve_points) <= 12
+    assert result.curve_points[-1].step_index == len(result.curve_points)
+
+
 def test_same_material_partition_is_invariant():
     base = make_case_a()
     repartitioned = replace(

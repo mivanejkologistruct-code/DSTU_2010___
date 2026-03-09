@@ -7,6 +7,27 @@ from rc_bending.solver import solve_bending_capacity
 from rc_bending.ui_helpers import build_section_input_from_draft, default_draft_inputs, derive_draft_geometry
 
 
+def _extract_viewbox(svg: str) -> tuple[float, float]:
+    match = re.search(r'viewBox="0 0 ([0-9.]+) ([0-9.]+)"', svg)
+    assert match is not None
+    return float(match.group(1)), float(match.group(2))
+
+
+def _extract_section_frame(svg: str) -> tuple[float, float, float, float]:
+    match = re.search(
+        r'<rect x="([0-9.]+)" y="([0-9.]+)" width="([0-9.]+)" height="([0-9.]+)" class="outline"[^>]*data-role="section-frame"',
+        svg,
+    )
+    assert match is not None
+    return tuple(float(value) for value in match.groups())
+
+
+def _extract_group_translate_x(svg: str, role: str) -> float:
+    match = re.search(rf'<g data-role="{re.escape(role)}" transform="translate\(([0-9.]+) 0\)">', svg)
+    assert match is not None
+    return float(match.group(1))
+
+
 def _with_first_form_comparison(result) -> BendingResult:
     template = result.curve_points[max(0, len(result.curve_points) // 3)]
     comparison_point = replace(
@@ -36,17 +57,17 @@ def test_build_section_drawing_svg_contains_geometry_dimensions_and_callouts():
     assert "<svg" in svg
     assert "Креслення перерізу" in svg
     assert "b = 500.0 мм" in svg
-    assert "h = 500.0 мм" in svg
-    assert "h1 = 200.0 мм" in svg
-    assert "h2 = 300.0 мм" in svg
-    assert "B1: C30/35" in svg
-    assert "B2: C20/25" in svg
-    assert "A1: 7 x 28" in svg
-    assert "a1 = 30.0 мм" in svg
-    assert "z1 = 30.0 мм" in svg
-    assert "A2: 7 x 28" in svg
-    assert "a2 = 30.0 мм" in svg
-    assert "z2 = 470.0 мм" in svg
+    assert "h = 120.0 мм" in svg
+    assert "h1 = 60.0 мм" in svg
+    assert "h2 = 60.0 мм" in svg
+    assert "B1: C40/50" in svg
+    assert "B2: C40/50" in svg
+    assert "A1: 4 x 8" in svg
+    assert "a1 = 40.0 мм" in svg
+    assert "z1 = 40.0 мм" in svg
+    assert "A2: 4 x 8" in svg
+    assert "a2 = 20.0 мм" in svg
+    assert "z2 = 100.0 мм" in svg
     assert 'data-role="section-width-dimension"' in svg
     assert svg.count('data-role="layer-height-dimension"') == 2
     assert svg.count('data-role="rebar-depth-dimension"') == 2
@@ -102,7 +123,7 @@ def test_build_section_drawing_svg_renders_active_and_comparison_forms_when_avai
     assert 'data-role="form-panel-badge"' in svg
 
 
-def test_build_section_drawing_svg_renders_placeholder_for_missing_comparison_form():
+def test_build_section_drawing_svg_hides_missing_first_form_when_active_point_is_second_form():
     from rc_bending.section_drawing import build_section_drawing_svg
 
     catalog = load_material_catalog()
@@ -121,9 +142,10 @@ def test_build_section_drawing_svg_renders_placeholder_for_missing_comparison_fo
 
     assert "Активна точка" in svg
     assert "2-га форма рівноваги" in svg
-    assert "1-ша форма рівноваги" in svg
-    assert "форма не реалізована для цього набору даних" in svg
-    assert svg.count('data-role="form-placeholder"') == 1
+    assert "1-ша форма рівноваги" not in svg
+    assert "форма не реалізована для цього набору даних" not in svg
+    assert svg.count('data-role="form-placeholder"') == 0
+    assert svg.count('data-role="form-panel"') == 1
 
 
 def test_build_section_drawing_svg_marks_rebar_layout_warning_when_bars_do_not_fit():
@@ -205,10 +227,49 @@ def test_build_section_drawing_svg_uses_compact_canvas_for_readability():
         materials=catalog,
         result=result,
     )
-    match = re.search(r'viewBox="0 0 ([0-9.]+) ([0-9.]+)"', svg)
+    viewbox_width, viewbox_height = _extract_viewbox(svg)
+    _, _, frame_width, _ = _extract_section_frame(svg)
 
-    assert match is not None
-    assert float(match.group(1)) <= 1450.0
+    assert frame_width >= 500.0
+    assert viewbox_width <= 1280.0
+    assert viewbox_height <= 700.0
+
+
+def test_build_section_drawing_svg_centers_single_panel_section_and_exposes_dimension_lanes():
+    from rc_bending.section_drawing import build_section_drawing_svg
+
+    catalog = load_material_catalog()
+    draft = default_draft_inputs()
+    derived = derive_draft_geometry(draft)
+    section = build_section_input_from_draft(draft, catalog)
+    result = solve_bending_capacity(section, catalog)
+
+    svg = build_section_drawing_svg(
+        derived,
+        selected_point=result.peak_point,
+        section=section,
+        materials=catalog,
+        result=result,
+    )
+
+    viewbox_width, _ = _extract_viewbox(svg)
+    frame_x, _, frame_width, _ = _extract_section_frame(svg)
+    frame_center_x = frame_x + frame_width / 2.0
+
+    left_h_x = _extract_group_translate_x(svg, "dimension-lane-left-h")
+    left_z1_x = _extract_group_translate_x(svg, "dimension-lane-left-z1")
+    left_z2_x = _extract_group_translate_x(svg, "dimension-lane-left-z2")
+    right_h1_x = _extract_group_translate_x(svg, "dimension-lane-right-h1")
+    right_h2_x = _extract_group_translate_x(svg, "dimension-lane-right-h2")
+
+    assert 'data-role="top-row-layout"' in svg
+    assert 'data-role="left-dimension-zone"' in svg
+    assert 'data-role="section-zone"' in svg
+    assert 'data-role="right-detail-zone"' in svg
+    assert svg.count('data-role="dimension-label-chip"') >= 5
+    assert abs(frame_center_x - viewbox_width / 2.0) <= 36.0
+    assert left_h_x < left_z1_x < left_z2_x < frame_x
+    assert frame_x + frame_width < right_h1_x < right_h2_x
 
 
 def test_build_section_drawing_svg_moves_metrics_into_legend_block():

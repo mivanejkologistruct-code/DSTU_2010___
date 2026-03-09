@@ -205,13 +205,29 @@ def classify_equilibrium_form(point: CurvePoint) -> str:
     return "first" if point.bottom_strain >= 0.0 else "second"
 
 
+def _is_initial_curve_point(point: CurvePoint) -> bool:
+    return (
+        abs(point.top_strain) <= 1e-12
+        and abs(point.bottom_strain) <= 1e-12
+        and abs(point.curvature_1_per_m) <= 1e-12
+        and abs(point.moment_kNm) <= 1e-9
+    )
+
+
 def find_comparison_curve_point(result: BendingResult, active_point: CurvePoint) -> CurvePoint | None:
+    if _is_initial_curve_point(active_point):
+        return None
+
     active_form = classify_equilibrium_form(active_point)
     opposite_form = "second" if active_form == "first" else "first"
     candidates = [
         point
         for point in result.curve_points
-        if point.step_index != active_point.step_index and classify_equilibrium_form(point) == opposite_form
+        if (
+            point.step_index != active_point.step_index
+            and not _is_initial_curve_point(point)
+            and classify_equilibrium_form(point) == opposite_form
+        )
     ]
     if not candidates:
         return None
@@ -383,15 +399,28 @@ def solve_bending_capacity(
     max_inner_iterations: int = 80,
 ) -> BendingResult:
     section.validate()
+    if outer_steps < 2:
+        raise ValueError("outer_steps must be at least 2.")
     fibers = _build_fibers(section.concrete_layers, materials, section.section_height_mm, fibers_per_section)
     max_top_strain = materials.concrete[section.concrete_layers[0].concrete_class].epsilon_cu1
     max_bottom_strain = max(materials.steel[layer.steel_class].epsilon_ud for layer in section.rebar_layers) * 0.99
 
-    curve_points: list[CurvePoint] = []
+    curve_points: list[CurvePoint] = [
+        CurvePoint(
+            step_index=1,
+            top_strain=0.0,
+            bottom_strain=0.0,
+            curvature_1_per_m=0.0,
+            neutral_axis_mm=section.section_height_mm,
+            axial_residual_kN=0.0,
+            moment_kNm=0.0,
+            state_label="whole_compression",
+        )
+    ]
     all_inner_iterations: list[InnerIterationRow] = []
 
-    for step_index in range(1, outer_steps + 1):
-        top_strain = max_top_strain * step_index / outer_steps
+    for step_index in range(2, outer_steps + 1):
+        top_strain = max_top_strain * (step_index - 1) / (outer_steps - 1)
         try:
             bottom_strain, residual, iterations = _solve_bottom_strain(
                 section,
@@ -403,7 +432,7 @@ def solve_bending_capacity(
                 max_bottom_strain,
             )
         except ValueError:
-            if curve_points:
+            if len(curve_points) > 1:
                 break
             raise
         axial_force_kN, moment_kNm = _section_response(section, materials, fibers, top_strain, bottom_strain)

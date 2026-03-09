@@ -26,35 +26,36 @@ def _is_draft_rebar_row(row: dict[str, object]) -> bool:
 
 def default_rebar_rows() -> list[dict[str, object]]:
     return [
-        {"z_mm": 30.0, "bar_count": 7, "diameter_mm": 28, "steel_class": "A400C"},
-        {"z_mm": 470.0, "bar_count": 7, "diameter_mm": 28, "steel_class": "A400C"},
+        {"z_mm": 40.0, "bar_count": 4, "diameter_mm": 8, "steel_class": "A500C"},
+        {"z_mm": 100.0, "bar_count": 4, "diameter_mm": 8, "steel_class": "A500C"},
     ]
 
 
 def default_draft_inputs() -> dict[str, object]:
     return {
-        "section_height_mm": 500.0,
+        "section_height_mm": 120.0,
         "section_width_mm": 500.0,
+        "outer_steps": 12,
         "concrete_layers": [
-            {"height_mm": 200.0, "concrete_class": "C30/35"},
-            {"concrete_class": "C20/25"},
+            {"height_mm": 60.0, "concrete_class": "C40/50"},
+            {"concrete_class": "C40/50"},
         ],
         "rebar_layers": [
             {
                 "id": "rebar_1",
                 "face": TOP_FACE,
-                "distance_mm": 30.0,
-                "bar_count": 7,
-                "diameter_mm": 28,
-                "steel_class": "A400C",
+                "distance_mm": 40.0,
+                "bar_count": 4,
+                "diameter_mm": 8,
+                "steel_class": "A500C",
             },
             {
                 "id": "rebar_2",
                 "face": BOTTOM_FACE,
-                "distance_mm": 30.0,
-                "bar_count": 7,
-                "diameter_mm": 28,
-                "steel_class": "A400C",
+                "distance_mm": 20.0,
+                "bar_count": 4,
+                "diameter_mm": 8,
+                "steel_class": "A500C",
             },
         ],
     }
@@ -164,11 +165,22 @@ def validate_draft_inputs(draft_inputs: dict[str, object], catalog: MaterialCata
     section_width_mm = float(derived["section_width_mm"])
     concrete_rows = list(derived["concrete_rows"])
     rebar_rows = list(derived["rebar_rows"])
+    outer_steps_raw = draft_inputs.get("outer_steps", 40)
 
     if section_height_mm <= 0:
         add_error("Висота перерізу h має бути додатною.")
     if section_width_mm <= 0:
         add_error("Ширина перерізу b має бути додатною.")
+    if isinstance(outer_steps_raw, bool):
+        add_error("Кількість кроків розрахунку має бути цілим числом у межах від 2 до 200.")
+    else:
+        try:
+            outer_steps = float(outer_steps_raw)
+        except (TypeError, ValueError):
+            add_error("Кількість кроків розрахунку має бути цілим числом у межах від 2 до 200.")
+        else:
+            if not outer_steps.is_integer() or not (2 <= int(outer_steps) <= 200):
+                add_error("Кількість кроків розрахунку має бути цілим числом у межах від 2 до 200.")
 
     if concrete_rows[0]["height_mm"] < 0 or concrete_rows[0]["height_mm"] > section_height_mm:
         add_error("Товщина верхнього шару бетону h1 має бути в межах від 0 до h.")

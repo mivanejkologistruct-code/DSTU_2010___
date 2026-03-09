@@ -106,12 +106,17 @@ def test_derive_draft_geometry_builds_expected_bottom_height_and_rebar_z():
     derived = derive_draft_geometry(draft)
 
     assert "use_layer_widths" not in draft
-    assert derived["concrete_rows"][0]["height_mm"] == pytest.approx(200.0)
+    assert draft["outer_steps"] == 12
+    assert derived["concrete_rows"][0]["height_mm"] == pytest.approx(60.0)
     assert derived["concrete_rows"][0]["width_mm"] == pytest.approx(500.0)
-    assert derived["concrete_rows"][1]["height_mm"] == pytest.approx(300.0)
+    assert derived["concrete_rows"][1]["height_mm"] == pytest.approx(60.0)
     assert derived["concrete_rows"][1]["width_mm"] == pytest.approx(500.0)
-    assert derived["rebar_rows"][0]["z_mm"] == pytest.approx(30.0)
-    assert derived["rebar_rows"][1]["z_mm"] == pytest.approx(470.0)
+    assert derived["concrete_rows"][0]["concrete_class"] == "C40/50"
+    assert derived["concrete_rows"][1]["concrete_class"] == "C40/50"
+    assert derived["rebar_rows"][0]["z_mm"] == pytest.approx(40.0)
+    assert derived["rebar_rows"][1]["z_mm"] == pytest.approx(100.0)
+    assert derived["rebar_rows"][0]["steel_class"] == "A500C"
+    assert derived["rebar_rows"][1]["steel_class"] == "A500C"
 
 
 def test_validate_draft_inputs_reports_invalid_top_height_and_cover():
@@ -132,8 +137,13 @@ def test_build_section_input_from_draft_matches_expected_section():
 
     section = build_section_input_from_draft(draft, catalog)
 
-    assert section.section_height_mm == pytest.approx(500.0)
+    assert section.section_height_mm == pytest.approx(120.0)
     assert section.concrete_layers[0].width_mm == pytest.approx(500.0)
-    assert section.concrete_layers[1].height_mm == pytest.approx(300.0)
-    assert section.rebar_layers[0].z_mm == pytest.approx(30.0)
-    assert section.rebar_layers[1].z_mm == pytest.approx(470.0)
+    assert section.concrete_layers[0].height_mm == pytest.approx(60.0)
+    assert section.concrete_layers[1].height_mm == pytest.approx(60.0)
+    assert section.concrete_layers[0].concrete_class == "C40/50"
+    assert section.concrete_layers[1].concrete_class == "C40/50"
+    assert section.rebar_layers[0].z_mm == pytest.approx(40.0)
+    assert section.rebar_layers[1].z_mm == pytest.approx(100.0)
+    assert section.rebar_layers[0].steel_class == "A500C"
+    assert section.rebar_layers[1].steel_class == "A500C"

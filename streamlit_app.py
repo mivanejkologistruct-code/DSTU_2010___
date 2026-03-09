@@ -9,7 +9,7 @@ import altair as alt
 from rc_bending.export import build_results_workbook_bytes
 from rc_bending.materials import load_material_catalog
 from rc_bending.section_drawing import build_section_drawing_svg
-from rc_bending.solver import build_layer_force_table, build_strain_profile_for_point, solve_bending_capacity
+from rc_bending.solver import build_layer_force_table, solve_bending_capacity
 from rc_bending.ui_helpers import (
     BOTTOM_FACE,
     TOP_FACE,
@@ -59,6 +59,17 @@ def _build_curve_chart_df(result) -> pd.DataFrame:
         }
     )
 
+
+def _build_concrete_moment_strain_df(result) -> pd.DataFrame:
+    return pd.DataFrame(
+        {
+            "Крок": [point.step_index for point in result.curve_points],
+            "M, кН·м": [point.moment_kNm for point in result.curve_points],
+            "ε_c,top, 10^-5": [_to_strain_e5(point.top_strain) for point in result.curve_points],
+        }
+    )
+
+
 def _build_concrete_strain_chart_df(selected_strain_profile) -> pd.DataFrame:
     return pd.DataFrame(
         {
@@ -96,11 +107,45 @@ def _build_rebar_moment_strain_df(section, result, *, rebar_index: int) -> pd.Da
     )
 
 
+def _build_analytics_summary_df(section, result) -> pd.DataFrame:
+    top_rebar, bottom_rebar = _pick_extreme_rebar_layers(section)
+    return pd.DataFrame(
+        {
+            "Крок": [point.step_index for point in result.curve_points],
+            "M, кН·м": [point.moment_kNm for point in result.curve_points],
+            "κ, 1/м": [point.curvature_1_per_m for point in result.curve_points],
+            "ε_c,top, 10^-5": [_to_strain_e5(point.top_strain) for point in result.curve_points],
+            "ε_s,top, 10^-5": [
+                _to_strain_e5(
+                    _strain_at_depth(
+                        point.top_strain,
+                        point.bottom_strain,
+                        top_rebar[1].z_mm,
+                        section.section_height_mm,
+                    )
+                )
+                for point in result.curve_points
+            ],
+            "ε_s,bot, 10^-5": [
+                _to_strain_e5(
+                    _strain_at_depth(
+                        point.top_strain,
+                        point.bottom_strain,
+                        bottom_rebar[1].z_mm,
+                        section.section_height_mm,
+                    )
+                )
+                for point in result.curve_points
+            ],
+        }
+    )
+
+
 def _is_draft_shape(candidate: object) -> bool:
     if not isinstance(candidate, dict):
         return False
 
-    required_keys = {"section_height_mm", "section_width_mm", "concrete_layers", "rebar_layers"}
+    required_keys = {"section_height_mm", "section_width_mm", "outer_steps", "concrete_layers", "rebar_layers"}
     if not required_keys.issubset(candidate):
         return False
 
@@ -336,6 +381,41 @@ def _build_custom_css() -> str:
         font-weight: 700;
         backdrop-filter: blur(8px);
     }
+    .hero-banner__authors {
+        margin-top: 1rem;
+        padding: 0.95rem 1rem;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        backdrop-filter: blur(10px);
+    }
+    .hero-banner__authors-title {
+        color: rgba(231, 241, 250, 0.82);
+        font-size: 0.76rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+    }
+    .hero-banner__author-list {
+        display: grid;
+        gap: 0.7rem;
+        margin-top: 0.75rem;
+    }
+    .hero-banner__author {
+        display: grid;
+        gap: 0.08rem;
+    }
+    .hero-banner__author-name {
+        color: #ffffff;
+        font-size: 1rem;
+        font-weight: 700;
+        line-height: 1.2;
+    }
+    .hero-banner__author-role {
+        color: rgba(239, 245, 250, 0.9);
+        font-size: 0.88rem;
+        line-height: 1.45;
+    }
     .hero-banner__panel {
         position: relative;
         padding: 1.2rem;
@@ -483,7 +563,7 @@ def _build_custom_css() -> str:
         display: block;
         margin: 0 auto;
         width: min(100%, 1340px);
-        min-width: 1200px;
+        min-width: 1040px;
         max-width: none;
         height: auto;
     }
@@ -644,7 +724,7 @@ def _build_custom_css() -> str:
             font-size: 1.35rem;
         }
         .cad-stage svg {
-            min-width: 1080px;
+            min-width: 920px;
         }
     }
     @media (max-width: 640px) {
@@ -691,6 +771,24 @@ def _build_hero_banner_html() -> str:
     fragments.extend(
         [
             "</div>",
+            '<section class="hero-banner__authors" data-role="hero-authors">',
+            '<div class="hero-banner__authors-title">Автори</div>',
+            '<div class="hero-banner__author-list" data-role="hero-author-list">',
+        ]
+    )
+    for profile in AUTHOR_PROFILES:
+        fragments.extend(
+            [
+                '<article class="hero-banner__author" data-role="hero-author-item">',
+                f'<div class="hero-banner__author-name">{escape(profile["name"])}</div>',
+                f'<div class="hero-banner__author-role">{escape(profile["role"])}</div>',
+                "</article>",
+            ]
+        )
+    fragments.extend(
+        [
+            "</div>",
+            "</section>",
             "</div>",
             '<aside class="hero-banner__panel">',
             '<h2 class="hero-banner__panel-title">Коротко про робочу зону</h2>',
@@ -862,7 +960,7 @@ def _get_select_index(options: list[object], current: object) -> int:
 
 def _build_active_state(active_inputs: dict[str, object], catalog) -> tuple[object, object]:
     section = build_section_input_from_draft(active_inputs, catalog)
-    result = solve_bending_capacity(section, catalog)
+    result = solve_bending_capacity(section, catalog, outer_steps=int(active_inputs.get("outer_steps", 40)))
     return section, result
 
 
@@ -905,6 +1003,14 @@ def main() -> None:
                 value=float(draft_inputs["section_width_mm"]),
                 step=10.0,
                 key="draft_section_width_mm",
+            )
+            draft_inputs["outer_steps"] = st.number_input(
+                "Кількість кроків розрахунку",
+                min_value=2,
+                max_value=200,
+                value=int(draft_inputs["outer_steps"]),
+                step=1,
+                key="draft_outer_steps",
             )
 
         with concrete_col:
@@ -1005,7 +1111,7 @@ def main() -> None:
                 draft_changed = False
 
             if validation_errors:
-                st.error("Перевірте геометричні дані:\n" + "\n".join(f"- {message}" for message in validation_errors))
+                st.error("Перевірте вхідні дані:\n" + "\n".join(f"- {message}" for message in validation_errors))
             elif draft_changed:
                 st.warning("Є незастосовані зміни. Натисніть `Перерахувати`.")
             else:
@@ -1029,7 +1135,6 @@ def main() -> None:
 
     selected_step = st.slider("Розрахункова точка", min_value=1, max_value=len(result.curve_points), value=result.peak_point.step_index)
     selected_point = next(point for point in result.curve_points if point.step_index == selected_step)
-    selected_strain_profile = build_strain_profile_for_point(section, selected_point)
     layer_force_rows = build_layer_force_table(section, catalog, selected_point)
     workbook_bytes = build_results_workbook_bytes(section, catalog, result, selected_point=selected_point)
     show_active_overlays = not validation_errors and not draft_changed
@@ -1060,9 +1165,9 @@ def main() -> None:
         if validation_errors:
             drawing_note = "Масштабні епюри та розрахункові підписи з'являться після виправлення геометрії та перерахунку."
         elif draft_changed:
-            drawing_note = "Епюри обох форм показуються лише для останнього застосованого стану після `Перерахувати`."
+            drawing_note = "Епюри доступних форм показуються лише для останнього застосованого стану після `Перерахувати`."
         else:
-            drawing_note = "Креслення показує геометрію перерізу та масштабні епюри 1-ї і 2-ї форм рівноваги для обраної точки."
+            drawing_note = "Креслення показує геометрію перерізу та доступні епюри форм рівноваги для обраної точки."
         st.markdown(
             _build_drawing_showcase_html(
                 draft_derived,
@@ -1083,55 +1188,18 @@ def main() -> None:
         else:
             st.caption("Блок поточної точки з'явиться після застосування змін кнопкою `Перерахувати`.")
 
-    curve_df = pd.DataFrame(
-        {
-            "Крок": [point.step_index for point in result.curve_points],
-            "M, кН·м": [point.moment_kNm for point in result.curve_points],
-            "κ, 1/м": [point.curvature_1_per_m for point in result.curve_points],
-            "ε_c,top, ‰": [_to_promille(point.top_strain) for point in result.curve_points],
-            "ε_c,bot, ‰": [_to_promille(point.bottom_strain) for point in result.curve_points],
-        }
-    )
     curve_chart_df = _build_curve_chart_df(result)
-    strain_chart_df = _build_concrete_strain_chart_df(selected_strain_profile)
-    strain_df = pd.DataFrame(
-        {
-            "z, мм": [point.z_mm for point in selected_strain_profile],
-            "ε_c, ‰": [_to_promille(point.strain) for point in selected_strain_profile],
-        }
-    )
-    iteration_df = pd.DataFrame(
-        {
-            "Крок": [row.outer_step for row in result.inner_iterations],
-            "Ітерація": [row.iteration for row in result.inner_iterations],
-            "ε_c2,min, ‰": [_to_promille(row.lower_bottom_strain) for row in result.inner_iterations],
-            "ε_c2,max, ‰": [_to_promille(row.upper_bottom_strain) for row in result.inner_iterations],
-            "ε_c2,trial, ‰": [_to_promille(row.trial_bottom_strain) for row in result.inner_iterations],
-            "ΣN, кН": [row.axial_residual_kN for row in result.inner_iterations],
-        }
-    )
-    selected_iteration_df = iteration_df[iteration_df["Крок"] == selected_step]
-    layer_force_df = pd.DataFrame(
-        {
-            "Тип": [row["kind"] for row in layer_force_rows],
-            "№": [row["index"] for row in layer_force_rows],
-            "Клас": [row["class"] for row in layer_force_rows],
-            "z, мм": [row["z_mm"] for row in layer_force_rows],
-            "A, мм²": [row["area_mm2"] for row in layer_force_rows],
-            "ε, ‰": [_to_promille(float(row["strain"])) for row in layer_force_rows],
-            "σ, МПа": [row["stress_mpa"] for row in layer_force_rows],
-            "N, кН": [row["force_kN"] for row in layer_force_rows],
-        }
-    )
+    concrete_moment_df = _build_concrete_moment_strain_df(result)
     top_rebar, bottom_rebar = _pick_extreme_rebar_layers(section)
     top_rebar_df = _build_rebar_moment_strain_df(section, result, rebar_index=top_rebar[0])
     bottom_rebar_df = _build_rebar_moment_strain_df(section, result, rebar_index=bottom_rebar[0])
+    analytics_summary_df = _build_analytics_summary_df(section, result)
 
     st.markdown(
         _build_section_lead_html(
             eyebrow="Аналітика",
             title="Графіки, деформації та таблиці",
-            copy="Деталізований перегляд діаграми M-κ, розподілу деформацій та внутрішніх зусиль для обраної розрахункової точки.",
+            copy="Основні графіки M-κ і момент-деформація для бетону та арматури зі зведеною таблицею по кроках.",
             data_role="analytics-section-lead",
         ),
         unsafe_allow_html=True,
@@ -1157,24 +1225,31 @@ def main() -> None:
         )
     )
     st.altair_chart(alt.layer(curve_chart, selected_curve_chart), width="stretch")
-    st.dataframe(curve_df, width="stretch")
 
-    strain_left, strain_center, strain_right = st.columns(3)
-    with strain_left:
-        st.subheader("Графік деформацій бетону")
-        strain_chart = (
-            alt.Chart(strain_chart_df)
+    chart_left, chart_center, chart_right = st.columns(3)
+    with chart_left:
+        st.subheader("Момент-деформація бетону")
+        concrete_moment_chart = (
+            alt.Chart(concrete_moment_df)
             .mark_line(point=True)
             .encode(
-                x=alt.X("ε_c, 10^-5:Q", title="ε_c, 10^-5"),
-                y=alt.Y("z, мм:Q", title="z, мм"),
-                tooltip=["z, мм", "ε_c, 10^-5"],
+                x=alt.X("ε_c,top, 10^-5:Q", title="ε_c,top, 10^-5"),
+                y=alt.Y("M, кН·м:Q", title="M, кН·м"),
+                tooltip=["Крок", "ε_c,top, 10^-5", "M, кН·м"],
             )
             .properties(height=320)
         )
-        st.altair_chart(strain_chart, width="stretch")
-        st.dataframe(strain_df, width="stretch")
-    with strain_center:
+        selected_concrete_moment_chart = (
+            alt.Chart(concrete_moment_df[concrete_moment_df["Крок"] == selected_step])
+            .mark_point(color="#c2410c", filled=True, size=180)
+            .encode(
+                x=alt.X("ε_c,top, 10^-5:Q"),
+                y=alt.Y("M, кН·м:Q"),
+                tooltip=["Крок", "ε_c,top, 10^-5", "M, кН·м"],
+            )
+        )
+        st.altair_chart(alt.layer(concrete_moment_chart, selected_concrete_moment_chart), width="stretch")
+    with chart_center:
         st.subheader("Момент-деформація верхньої арматури")
         st.caption(f"A{top_rebar[0]}, z = {top_rebar[1].z_mm:.1f} мм")
         top_rebar_chart = (
@@ -1197,7 +1272,7 @@ def main() -> None:
             )
         )
         st.altair_chart(alt.layer(top_rebar_chart, selected_top_rebar_chart), width="stretch")
-    with strain_right:
+    with chart_right:
         st.subheader("Момент-деформація нижньої арматури")
         st.caption(f"A{bottom_rebar[0]}, z = {bottom_rebar[1].z_mm:.1f} мм")
         bottom_rebar_chart = (
@@ -1217,15 +1292,12 @@ def main() -> None:
                 x=alt.X("ε_s, 10^-5:Q"),
                 y=alt.Y("M, кН·м:Q"),
                 tooltip=["Крок", "ε_s, 10^-5", "M, кН·м"],
-            )
+        )
         )
         st.altair_chart(alt.layer(bottom_rebar_chart, selected_bottom_rebar_chart), width="stretch")
 
-    st.subheader("Проміжні результати")
-    st.dataframe(selected_iteration_df, width="stretch", height=260)
-
-    st.subheader("Зусилля в шарах для обраної точки")
-    st.dataframe(layer_force_df, width="stretch", height=220)
+    st.caption("Зведена таблиця по всіх кроках розрахунку.")
+    st.dataframe(analytics_summary_df, width="stretch")
 
     st.download_button(
         "Завантажити результати у XLSX",
@@ -1233,7 +1305,6 @@ def main() -> None:
         file_name="bending_results.xlsx",
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     )
-    st.markdown(_build_author_cards_html(), unsafe_allow_html=True)
     st.markdown(_build_footer_html(), unsafe_allow_html=True)
 
 
