@@ -1,5 +1,7 @@
+streamlit>=1.39,<2
+altair>=5,<7
 numpy
 openpyxl
 pandas
+pyarrow
 pytest
-streamlit
