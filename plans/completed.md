@@ -7,6 +7,21 @@
 - Status: `done`
 
 ## Finished Items
+- Completion date: 2026-03-17
+  Title: Add MCP server for automated Streamlit calculations
+  Result: Added the `rc_bending_mcp` package with stdio MCP tool registration, machine-input adapters, direct Python handlers, a Playwright Streamlit UI runner, structured artifact output, automation-mode payload hooks in the Streamlit app, new MCP unit/live tests, and dependency updates for the MCP SDK plus Playwright.
+  Status: `done`
+
+- Completion date: 2026-03-12
+  Title: Autodetect experimental Excel workbooks
+  Result: Added rule-based inspection for one-sheet laboratory `.xlsx` files with four graph tables, preserved backward-compatible import for the legacy multi-sheet template, introduced pending-preview and confirm flow in the experimental Streamlit tab, added anonymized workbook fixtures, and extended parser/UI regression coverage for ready, incomplete, conflict, and confirmation scenarios.
+  Status: `done`
+
+- Completion date: 2026-03-11
+  Title: Refine chart annotations and per-graph explanations
+  Result: Restacked the three `M-ε` charts into full-width sections, replaced long overlapping Altair labels with short in-chart limit symbols, moved material-specific explanations directly under each graph, added a curvature caption for `M-κ`, refreshed the chart card styling for readability, and updated the UI/rendering tests to cover the new layout and explanation blocks.
+  Status: `done`
+
 - Completion date: 2026-03-09
   Title: Strict external validation via EurocodeApplied
   Result: Added a standalone EurocodeApplied validation module and CLI runner, mapped a canonical homogeneous benchmark case to the external calculator, generated a strict comparison workbook with evidence links, created output folders with inventories, captured live screenshot/HTML evidence, and covered the new flow with parser, comparison, workbook, process-filter, and opt-in live smoke tests.

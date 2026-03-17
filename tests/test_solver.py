@@ -13,6 +13,8 @@ from rc_bending.solver import (
     solve_bending_capacity,
 )
 
+TERMINATION_STUB = object()
+
 
 def make_case_a() -> SectionInput:
     return SectionInput(
@@ -56,6 +58,60 @@ def test_solver_respects_requested_outer_steps_until_early_stop():
 
     assert len(result.curve_points) <= 12
     assert result.curve_points[-1].step_index == len(result.curve_points)
+
+
+def test_solver_reports_early_stop_when_next_step_loses_tension_equilibrium():
+    catalog = load_material_catalog()
+    section = make_case_a()
+    expected_limit = catalog.display_limits.concrete[section.concrete_layers[0].concrete_class].strain_e5 * 1e-5
+
+    result = solve_bending_capacity(section, catalog, outer_steps=12)
+    termination = result.termination
+
+    assert termination.reason_code == "no_tension_equilibrium_at_steel_limit"
+    assert termination.last_step == result.curve_points[-1].step_index
+    assert termination.last_moment_kNm == pytest.approx(result.curve_points[-1].moment_kNm)
+    assert termination.previous_step == result.curve_points[-2].step_index
+    assert termination.previous_moment_kNm == pytest.approx(result.curve_points[-2].moment_kNm)
+    assert termination.attempted_step == result.curve_points[-1].step_index + 1
+    expected_attempted_strain = expected_limit * (termination.attempted_step - 1) / (12 - 1)
+    assert termination.attempted_top_strain == pytest.approx(expected_attempted_strain)
+    assert termination.attempted_top_strain < expected_limit
+    assert termination.attempted_lower_force_kN > 0.0
+    assert termination.attempted_upper_force_kN > 0.0
+    assert termination.residual_kN == pytest.approx(result.curve_points[-1].axial_residual_kN)
+
+
+def test_solver_reports_completion_when_curve_reaches_concrete_limit():
+    catalog = load_material_catalog()
+    section = SectionInput(
+        section_height_mm=120.0,
+        concrete_layers=(
+            ConcreteLayerInput(width_mm=500.0, height_mm=60.0, concrete_class="C20/25"),
+            ConcreteLayerInput(width_mm=500.0, height_mm=60.0, concrete_class="C20/25"),
+        ),
+        rebar_layers=(
+            RebarLayerInput(z_mm=12.0, area_mm2=615.8, steel_class="A400C"),
+            RebarLayerInput(z_mm=108.0, area_mm2=615.8, steel_class="A400C"),
+        ),
+    )
+
+    result = solve_bending_capacity(section, catalog, outer_steps=12)
+    termination = result.termination
+    expected_limit = catalog.display_limits.concrete[section.concrete_layers[0].concrete_class].strain_e5 * 1e-5
+
+    assert len(result.curve_points) == 12
+    assert termination.reason_code == "completed_at_concrete_limit"
+    assert termination.last_step == 12
+    assert termination.last_moment_kNm == pytest.approx(result.curve_points[-1].moment_kNm)
+    assert result.curve_points[-1].top_strain == pytest.approx(expected_limit)
+    assert termination.previous_step == 11
+    assert termination.previous_moment_kNm == pytest.approx(result.curve_points[-2].moment_kNm)
+    assert termination.attempted_step is None
+    assert termination.attempted_top_strain is None
+    assert termination.attempted_lower_force_kN is None
+    assert termination.attempted_upper_force_kN is None
+    assert termination.residual_kN == pytest.approx(result.curve_points[-1].axial_residual_kN)
 
 
 def test_same_material_partition_is_invariant():
@@ -230,6 +286,7 @@ def test_find_comparison_curve_point_prefers_closest_step_then_curvature():
         peak_moment_kNm=active_point.moment_kNm,
         strain_profile=(),
         inner_iterations=(),
+        termination=TERMINATION_STUB,
     )
 
     assert find_comparison_curve_point(result, active_point) == close_first

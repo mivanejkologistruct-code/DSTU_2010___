@@ -1,0 +1,74 @@
+{
+  "concrete": {
+    "C8/10": {
+      "label": "ε_cu1,ck",
+      "strain_e5": 450.0
+    },
+    "C12/15": {
+      "label": "ε_cu1,ck",
+      "strain_e5": 440.0
+    },
+    "C16/20": {
+      "label": "ε_cu1,ck",
+      "strain_e5": 415.0
+    },
+    "C20/25": {
+      "label": "ε_cu1,ck",
+      "strain_e5": 385.0
+    },
+    "C25/30": {
+      "label": "ε_cu1,ck",
+      "strain_e5": 355.0
+    },
+    "C30/35": {
+      "label": "ε_cu1,ck",
+      "strain_e5": 325.0
+    },
+    "C32/40": {
+      "label": "ε_cu1,ck",
+      "strain_e5": 300.0
+    },
+    "C35/45": {
+      "label": "ε_cu1,ck",
+      "strain_e5": 283.0
+    },
+    "C40/50": {
+      "label": "ε_cu1,ck",
+      "strain_e5": 263.0
+    },
+    "C45/55": {
+      "label": "ε_cu1,ck",
+      "strain_e5": 250.0
+    },
+    "C50/60": {
+      "label": "ε_cu1,ck",
+      "strain_e5": 240.0
+    }
+  },
+  "steel": {
+    "A240C": {
+      "label": "ε_yk",
+      "strain_e5": 114.29
+    },
+    "Vr-I": {
+      "label": "ε_yk",
+      "strain_e5": 192.86
+    },
+    "A400C": {
+      "label": "ε_yk",
+      "strain_e5": 190.48
+    },
+    "A500C": {
+      "label": "ε_yk",
+      "strain_e5": 281.0
+    },
+    "A500C_large": {
+      "label": "ε_yk",
+      "strain_e5": 281.0
+    },
+    "B500": {
+      "label": "ε_yk",
+      "strain_e5": 263.16
+    }
+  }
+}

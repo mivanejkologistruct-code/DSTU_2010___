@@ -23,12 +23,20 @@ class RebarLayerInput:
     z_mm: float
     area_mm2: float
     steel_class: str
+    bar_count: float | None = None
+    diameter_mm: float | None = None
+    face: str | None = None
+    distance_mm: float | None = None
 
     def validate(self) -> None:
         if self.area_mm2 <= 0:
             raise ValueError("Rebar layer area must be positive.")
         if not self.steel_class:
             raise ValueError("Rebar layer class is required.")
+        if self.bar_count is not None and self.bar_count <= 0:
+            raise ValueError("Rebar layer bar count must be positive when provided.")
+        if self.diameter_mm is not None and self.diameter_mm <= 0:
+            raise ValueError("Rebar layer diameter must be positive when provided.")
 
 
 @dataclass(frozen=True)
@@ -95,12 +103,37 @@ class InnerIterationRow:
 
 
 @dataclass(frozen=True)
+class CalculationTermination:
+    reason_code: str
+    last_step: int
+    last_moment_kNm: float
+    previous_step: int | None
+    previous_moment_kNm: float | None
+    attempted_step: int | None
+    attempted_top_strain: float | None
+    attempted_lower_force_kN: float | None
+    attempted_upper_force_kN: float | None
+    residual_kN: float
+
+
+@dataclass(frozen=True)
 class BendingResult:
     curve_points: tuple[CurvePoint, ...]
     peak_point: CurvePoint
     peak_moment_kNm: float
     strain_profile: tuple[StrainProfilePoint, ...]
     inner_iterations: tuple[InnerIterationRow, ...]
+    termination: CalculationTermination
+
+
+@dataclass(frozen=True)
+class ChartLimitAnnotation:
+    label: str
+    target_strain: float
+    moment_kNm: float | None
+    within_chart_range: bool
+    secondary_label: str | None = None
+    secondary_strain: float | None = None
 
 
 @dataclass(frozen=True)
@@ -143,3 +176,85 @@ class SectionDiagramState:
     concrete_resultant: DiagramResultant | None
     lever_arm_mm: float | None
     scale_limits: DiagramScaleLimits
+
+
+@dataclass(frozen=True)
+class ServiceabilityInput:
+    span_mm: float
+    support_scheme: str
+    a_mm: float | None
+    phi_creep: float
+    deflection_limit_profile: str
+    available_gap_mm: float | None
+    w_limit_mm: float
+    load_duration: str
+
+
+@dataclass(frozen=True)
+class CurrentPointSnapshot:
+    step_index: int
+    moment_kNm: float
+    curvature_1_per_m: float
+    neutral_axis_mm: float
+    top_strain: float
+    bottom_strain: float
+    section_height_mm: float
+    section_width_mm: float
+    tension_face: str | None
+    tension_zone_height_mm: float | None
+    effective_tension_height_mm: float | None
+    effective_tension_area_mm2: float | None
+    tension_rebar_index: int | None
+    tension_rebar_area_mm2: float | None
+    tension_rebar_bar_count: float | None
+    tension_rebar_diameter_mm: float | None
+    tension_rebar_spacing_mm: float | None
+    tension_rebar_cover_mm: float | None
+    tension_rebar_depth_from_top_mm: float | None
+    tension_steel_class: str | None
+    tension_steel_stress_mpa: float | None
+    alpha_e: float | None
+
+
+@dataclass(frozen=True)
+class DeflectionLimitResult:
+    profile: str
+    limit_mm: float
+    rule_text: str
+    requires_additional_data: bool
+    warning_message: str | None = None
+
+
+@dataclass(frozen=True)
+class DeflectionResult:
+    curvature_1_per_m: float
+    effective_curvature_1_per_m: float
+    support_scheme: str
+    k_m: float
+    span_mm: float
+    a_mm: float | None
+    deflection_mm: float
+    limit: DeflectionLimitResult
+    is_within_limit: bool
+    note: str | None = None
+
+
+@dataclass(frozen=True)
+class CrackWidthResult:
+    sigma_s_mpa: float | None
+    rho_p_eff: float | None
+    crack_spacing_mm: float | None
+    strain_difference: float | None
+    w_k_mm: float
+    w_limit_mm: float
+    is_within_limit: bool
+    derived_bar_spacing_mm: float | None = None
+    note: str | None = None
+
+
+@dataclass(frozen=True)
+class ServiceabilityReport:
+    input: ServiceabilityInput
+    snapshot: CurrentPointSnapshot
+    crack_width: CrackWidthResult
+    deflection: DeflectionResult

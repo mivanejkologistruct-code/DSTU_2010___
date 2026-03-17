@@ -4,10 +4,13 @@ This folder stores the regulatory documents, methodological extracts, and suppor
 
 ## Contents
 - `DodatokA_DSTU_B_V.2.6-156-2010.md` - Markdown transcription of Appendix A to `DSTU B V.2.6-156:2010`. It explains the deformation-method algorithm for solving the nonlinear equilibrium equations of a reinforced-concrete design section, lists the required input parameters, and walks through the iterative search for the section state diagram and bearing capacity.
+- `dstu-b-v-1-2-3-2006-progini-perem-shchennya.pdf` - full `DSTU B V.1.2-3:2006` document on allowable deflections and displacements; used as the normative source for the II GGS deflection limit rules shown in the app.
 - `DSTU_B_V.2.6-156-2010_DodatokA_scan.pdf` - three-page scan of the same Appendix A pages from the DSTU standard. It is useful for checking the Markdown transcription against the original printed layout and formulas.
 - `dstu_методика.md` - Markdown transcription of the Section 4 methodology extract from `DSTU B V.2.6-156:2010`. It reproduces the narrative assumptions, formulas `4.1` to `4.12`, and figure references for the rectangular-section deformation-method equations.
 - `dsty_b_v.2.6-156-2010.pdf` - full `DSTU B V.2.6-156:2010` standard, "Concrete and reinforced concrete structures made of heavy concrete. Design rules". This is the primary design-rule source referenced by the extracted materials in this folder.
+- `rozdil_5_dstu_fragment.md` - Markdown notes for the Section 5 serviceability provisions that back the crack-width and deflection explanatory text in the Streamlit interface.
 - `ДБН В.2.6-982009.pdf` - official `DBN V.2.6-98:2009` document, "Concrete and reinforced concrete structures. Basic provisions". It contains the baseline concrete and reinforcement parameters that are referenced by the appendix algorithm and the calculation workbook.
+- `Методика розрахунку ДСТУ 2 ГГСpdf.pdf` - serviceability-oriented methodological extract covering second-group limit-state checks referenced while shaping the II GGS tab behavior.
 - `Методика розрахунку ДСТУ.pdf` - five-page methodological extract from Section 4 of the DSTU standard. It covers the assumptions for first-group limit-state design, formulas `4.1` to `4.12`, and Figures `4.1` and `4.2` for rectangular section analysis.
 - `рисунок 4.1.jpg` - image export of Figure `4.1`, showing the rectangular section, the stress diagrams, the strain diagrams, and the two equilibrium forms used in the deformation-method formulation.
 - `рисунок 4.2.jpg` - image export of Figure `4.2`, showing stress and strain diagrams for a rectangular section under the first equilibrium form.

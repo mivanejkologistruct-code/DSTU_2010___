@@ -7,4 +7,3 @@
 - Status: `planned` or `in_progress`
 
 ## Active Items
-- There are no active entries at the moment.

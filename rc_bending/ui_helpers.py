@@ -7,6 +7,23 @@ from rc_bending.models import ConcreteLayerInput, RebarLayerInput, SectionInput
 
 TOP_FACE = "Верхня"
 BOTTOM_FACE = "Нижня"
+SERVICEABILITY_SUPPORT_SCHEMES = {
+    "cantilever_uniform",
+    "simply_supported_uniform",
+    "cantilever_tip_point",
+    "simply_supported_center_point",
+    "cantilever_point_at_a",
+    "simply_supported_two_point_symmetric",
+}
+SERVICEABILITY_DEFLECTION_LIMIT_PROFILES = {
+    "aesthetic_open_view",
+    "partition_gap",
+    "cracking_sensitive_finish",
+    "lintel_or_glazing_beam",
+    "fallback_unspecified",
+    "cantilever_fallback",
+}
+SERVICEABILITY_LOAD_DURATIONS = {"short_term", "long_term"}
 
 
 def _next_rebar_id(rows: list[dict[str, object]]) -> str:
@@ -29,6 +46,19 @@ def default_rebar_rows() -> list[dict[str, object]]:
         {"z_mm": 40.0, "bar_count": 4, "diameter_mm": 8, "steel_class": "A500C"},
         {"z_mm": 100.0, "bar_count": 4, "diameter_mm": 8, "steel_class": "A500C"},
     ]
+
+
+def default_serviceability_inputs() -> dict[str, object]:
+    return {
+        "span_mm": 6000.0,
+        "support_scheme": "simply_supported_uniform",
+        "a_mm": 1000.0,
+        "phi_creep": 0.0,
+        "deflection_limit_profile": "aesthetic_open_view",
+        "available_gap_mm": 40.0,
+        "w_limit_mm": 0.3,
+        "load_duration": "long_term",
+    }
 
 
 def default_draft_inputs() -> dict[str, object]:
@@ -58,11 +88,25 @@ def default_draft_inputs() -> dict[str, object]:
                 "steel_class": "A500C",
             },
         ],
+        "serviceability": default_serviceability_inputs(),
     }
 
 
 def copy_draft_inputs(draft_inputs: dict[str, object]) -> dict[str, object]:
     return deepcopy(draft_inputs)
+
+
+def ensure_serviceability_inputs(draft_inputs: dict[str, object]) -> dict[str, object]:
+    defaults = default_serviceability_inputs()
+    serviceability = draft_inputs.get("serviceability")
+    if not isinstance(serviceability, dict):
+        draft_inputs["serviceability"] = defaults
+        return draft_inputs
+
+    merged = dict(defaults)
+    merged.update(serviceability)
+    draft_inputs["serviceability"] = merged
+    return draft_inputs
 
 
 def add_rebar_layer(rows: list[dict[str, object]]) -> list[dict[str, object]]:
@@ -166,7 +210,6 @@ def validate_draft_inputs(draft_inputs: dict[str, object], catalog: MaterialCata
     concrete_rows = list(derived["concrete_rows"])
     rebar_rows = list(derived["rebar_rows"])
     outer_steps_raw = draft_inputs.get("outer_steps", 40)
-
     if section_height_mm <= 0:
         add_error("Висота перерізу h має бути додатною.")
     if section_width_mm <= 0:
@@ -321,6 +364,10 @@ def build_section_input(
                 z_mm=float(row["z_mm"]),
                 area_mm2=count * catalog.rebar_area_mm2[diameter],
                 steel_class=str(row["steel_class"]),
+                bar_count=count,
+                diameter_mm=diameter,
+                face=None if row.get("face") is None else str(row["face"]),
+                distance_mm=None if row.get("distance_mm") is None else float(row["distance_mm"]),
             )
         )
     section = SectionInput(
@@ -348,6 +395,8 @@ def build_section_input_from_draft(draft_inputs: dict[str, object], catalog: Mat
             "bar_count": row["bar_count"],
             "diameter_mm": row["diameter_mm"],
             "steel_class": row["steel_class"],
+            "face": row["face"],
+            "distance_mm": row["distance_mm"],
         }
         for row in derived["rebar_rows"]
     ]

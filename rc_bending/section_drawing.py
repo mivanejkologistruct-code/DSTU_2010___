@@ -153,6 +153,7 @@ def _dimension_label_chip(
     *,
     anchor: str = "middle",
     data_role: str = "dimension-label-chip",
+    rotation_deg: float | None = None,
 ) -> str:
     width = max(84.0, 24.0 + len(text) * 7.1)
     height = 24.0
@@ -162,9 +163,12 @@ def _dimension_label_chip(
         chip_x = x - width
     else:
         chip_x = x - width / 2.0
+    transform_attr = ""
+    if rotation_deg is not None:
+        transform_attr = f' transform="rotate({rotation_deg:.0f} {chip_x + width / 2.0:.1f} {y:.1f})"'
     return "".join(
         [
-            f'<g data-role="{data_role}">',
+            f'<g data-role="{data_role}"{transform_attr}>',
             _rect(chip_x, y - height / 2.0, width, height, css_class="dim-chip", rx=12.0, ry=12.0),
             _text(chip_x + width / 2.0, y + 4.0, text, css_class="dim-chip-text", anchor="middle"),
             "</g>",
@@ -190,7 +194,13 @@ def _vertical_dimension(
             _line(x + 22.0, y2, x - 8.0, y2, css_class="dim-extension"),
             _line(x, y1, x, y2, css_class="dim-line", marker_start="arrow-end", marker_end="arrow-end", data_role=data_role),
             (
-                _dimension_label_chip(label_x if label_x is not None else x - 14.0, mid_y, text, anchor=label_anchor)
+                _dimension_label_chip(
+                    label_x if label_x is not None else x - 14.0,
+                    mid_y,
+                    text,
+                    anchor=label_anchor,
+                    rotation_deg=-90.0,
+                )
                 if label_chip
                 else _text(x - 14.0, mid_y, text, css_class="dim-text", anchor="end")
             ),

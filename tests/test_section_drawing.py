@@ -6,6 +6,8 @@ from rc_bending.models import BendingResult
 from rc_bending.solver import solve_bending_capacity
 from rc_bending.ui_helpers import build_section_input_from_draft, default_draft_inputs, derive_draft_geometry
 
+TERMINATION_STUB = object()
+
 
 def _extract_viewbox(svg: str) -> tuple[float, float]:
     match = re.search(r'viewBox="0 0 ([0-9.]+) ([0-9.]+)"', svg)
@@ -43,6 +45,7 @@ def _with_first_form_comparison(result) -> BendingResult:
         peak_moment_kNm=result.peak_moment_kNm,
         strain_profile=result.strain_profile,
         inner_iterations=result.inner_iterations,
+        termination=TERMINATION_STUB,
     )
 
 
@@ -267,6 +270,7 @@ def test_build_section_drawing_svg_centers_single_panel_section_and_exposes_dime
     assert 'data-role="section-zone"' in svg
     assert 'data-role="right-detail-zone"' in svg
     assert svg.count('data-role="dimension-label-chip"') >= 5
+    assert svg.count('data-role="dimension-label-chip" transform="rotate(-90') >= 5
     assert abs(frame_center_x - viewbox_width / 2.0) <= 36.0
     assert left_h_x < left_z1_x < left_z2_x < frame_x
     assert frame_x + frame_width < right_h1_x < right_h2_x

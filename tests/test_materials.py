@@ -37,10 +37,29 @@ def test_material_catalog_contains_expected_reference_values():
     assert concrete.epsilon_c1 == pytest.approx(1.69e-3)
     assert concrete.epsilon_cu1 == pytest.approx(3.28e-3)
     assert concrete.a[0] == pytest.approx(2.7404)
+    assert concrete.f_ck_mpa == pytest.approx(25.0)
+    assert concrete.f_ctm_mpa == pytest.approx(2.5650, abs=1e-4)
+    assert concrete.e_cm_gpa == pytest.approx(31.4758, abs=1e-4)
+    assert concrete.epsilon_ctu == pytest.approx(1.6298e-4, abs=1e-8)
     assert steel.f_yk_mpa == pytest.approx(400.0)
     assert steel.gamma_s == pytest.approx(1.1)
     assert steel.epsilon_ud == pytest.approx(0.025)
     assert catalog.rebar_area_mm2[28] == pytest.approx(615.8)
+
+
+def test_material_catalog_loads_display_limits_for_all_material_classes():
+    catalog = load_material_catalog()
+
+    assert set(catalog.display_limits.concrete) == set(catalog.concrete)
+    assert set(catalog.display_limits.steel) == set(catalog.steel)
+
+    concrete_limit = catalog.display_limits.concrete["C40/50"]
+    steel_limit = catalog.display_limits.steel["A500C"]
+
+    assert concrete_limit.label == "ε_cu1,ck"
+    assert concrete_limit.strain_e5 == pytest.approx(263.0)
+    assert steel_limit.label == "ε_yk"
+    assert steel_limit.strain_e5 == pytest.approx(281.0)
 
 
 def test_section_input_validates_total_height_and_rebar_position():

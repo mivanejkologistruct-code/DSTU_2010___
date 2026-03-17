@@ -6,7 +6,7 @@ from openpyxl import Workbook
 from openpyxl.chart import ScatterChart, Series, Reference
 
 from rc_bending.materials import MaterialCatalog
-from rc_bending.models import BendingResult, CurvePoint, SectionInput
+from rc_bending.models import BendingResult, CurvePoint, SectionInput, ServiceabilityReport
 from rc_bending.solver import build_layer_force_table, build_strain_profile_for_point
 
 
@@ -44,6 +44,7 @@ def build_results_workbook(
     result: BendingResult,
     *,
     selected_point: CurvePoint | None = None,
+    serviceability_report: ServiceabilityReport | None = None,
 ) -> Workbook:
     export_point = selected_point or result.peak_point
     workbook = Workbook()
@@ -138,6 +139,55 @@ def build_results_workbook(
             ]
         )
 
+    if serviceability_report is not None:
+        service_input = serviceability_report.input
+        snapshot = serviceability_report.snapshot
+        crack_width = serviceability_report.crack_width
+        deflection = serviceability_report.deflection
+
+        service_input_sheet = workbook.create_sheet("ServiceabilityInputs")
+        service_input_sheet.append(["Parameter", "Value"])
+        service_input_sheet.append(["span_mm", service_input.span_mm])
+        service_input_sheet.append(["support_scheme", service_input.support_scheme])
+        service_input_sheet.append(["a_mm", service_input.a_mm])
+        service_input_sheet.append(["phi_creep", service_input.phi_creep])
+        service_input_sheet.append(["deflection_limit_profile", service_input.deflection_limit_profile])
+        service_input_sheet.append(["available_gap_mm", service_input.available_gap_mm])
+        service_input_sheet.append(["w_limit_mm", service_input.w_limit_mm])
+        service_input_sheet.append(["load_duration", service_input.load_duration])
+        service_input_sheet.append(["selected_step_index", snapshot.step_index])
+        service_input_sheet.append(["selected_moment_kNm", snapshot.moment_kNm])
+        service_input_sheet.append(["selected_curvature_1_per_m", snapshot.curvature_1_per_m])
+
+        crack_sheet = workbook.create_sheet("CrackWidthCheck")
+        crack_sheet.append(["Parameter", "Value"])
+        crack_sheet.append(["sigma_s_mpa", crack_width.sigma_s_mpa])
+        crack_sheet.append(["rho_p_eff", crack_width.rho_p_eff])
+        crack_sheet.append(["crack_spacing_mm", crack_width.crack_spacing_mm])
+        crack_sheet.append(["strain_difference", crack_width.strain_difference])
+        crack_sheet.append(["w_k_mm", crack_width.w_k_mm])
+        crack_sheet.append(["w_limit_mm", crack_width.w_limit_mm])
+        crack_sheet.append(["is_within_limit", "OK" if crack_width.is_within_limit else "NG"])
+        crack_sheet.append(["derived_bar_spacing_mm", crack_width.derived_bar_spacing_mm])
+        crack_sheet.append(["note", crack_width.note])
+
+        deflection_sheet = workbook.create_sheet("DeflectionCheck")
+        deflection_sheet.append(["Parameter", "Value"])
+        deflection_sheet.append(["curvature_1_per_m", deflection.curvature_1_per_m])
+        deflection_sheet.append(["effective_curvature_1_per_m", deflection.effective_curvature_1_per_m])
+        deflection_sheet.append(["support_scheme", deflection.support_scheme])
+        deflection_sheet.append(["k_m", deflection.k_m])
+        deflection_sheet.append(["span_mm", deflection.span_mm])
+        deflection_sheet.append(["a_mm", deflection.a_mm])
+        deflection_sheet.append(["deflection_mm", deflection.deflection_mm])
+        deflection_sheet.append(["limit_profile", deflection.limit.profile])
+        deflection_sheet.append(["limit_mm", deflection.limit.limit_mm])
+        deflection_sheet.append(["limit_rule_text", deflection.limit.rule_text])
+        deflection_sheet.append(["requires_additional_data", deflection.limit.requires_additional_data])
+        deflection_sheet.append(["warning_message", deflection.limit.warning_message])
+        deflection_sheet.append(["is_within_limit", "OK" if deflection.is_within_limit else "NG"])
+        deflection_sheet.append(["note", deflection.note])
+
     return workbook
 
 
@@ -147,8 +197,15 @@ def build_results_workbook_bytes(
     result: BendingResult,
     *,
     selected_point: CurvePoint | None = None,
+    serviceability_report: ServiceabilityReport | None = None,
 ) -> bytes:
     buffer = BytesIO()
-    workbook = build_results_workbook(section, catalog, result, selected_point=selected_point)
+    workbook = build_results_workbook(
+        section,
+        catalog,
+        result,
+        selected_point=selected_point,
+        serviceability_report=serviceability_report,
+    )
     workbook.save(buffer)
     return buffer.getvalue()

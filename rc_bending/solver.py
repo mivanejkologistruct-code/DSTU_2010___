@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from rc_bending.materials import ConcreteMaterial, MaterialCatalog, SteelMaterial
 from rc_bending.models import (
     BendingResult,
+    CalculationTermination,
     ConcreteDiagramPoint,
     ConcreteLayerInput,
     CurvePoint,
@@ -23,6 +24,14 @@ class _ConcreteFiber:
     z_mm: float
     area_mm2: float
     material: ConcreteMaterial
+
+
+class _EquilibriumBracketError(ValueError):
+    def __init__(self, reason_code: str, message: str, *, lower_force_kN: float, upper_force_kN: float) -> None:
+        super().__init__(message)
+        self.reason_code = reason_code
+        self.lower_force_kN = lower_force_kN
+        self.upper_force_kN = upper_force_kN
 
 
 def _concrete_stress_mpa(strain: float, material: ConcreteMaterial) -> float:
@@ -339,9 +348,19 @@ def _solve_bottom_strain(
     upper_force, _ = _section_response(section, materials, fibers, top_strain, upper)
 
     if lower_force > 0.0:
-        raise ValueError("Lower strain bound did not produce tension-dominated equilibrium.")
+        raise _EquilibriumBracketError(
+            "no_tension_equilibrium_at_steel_limit",
+            "Lower strain bound did not produce tension-dominated equilibrium.",
+            lower_force_kN=lower_force,
+            upper_force_kN=upper_force,
+        )
     if upper_force < 0.0:
-        raise ValueError("Upper strain bound did not produce compression-dominated equilibrium.")
+        raise _EquilibriumBracketError(
+            "no_compression_equilibrium_at_upper_bound",
+            "Upper strain bound did not produce compression-dominated equilibrium.",
+            lower_force_kN=lower_force,
+            upper_force_kN=upper_force,
+        )
 
     iterations: list[InnerIterationRow] = []
     trial = lower
@@ -389,6 +408,32 @@ def build_strain_profile_for_point(
     return _build_strain_profile(section, point, sample_count=sample_count)
 
 
+def _build_termination(
+    curve_points: list[CurvePoint],
+    *,
+    reason_code: str,
+    residual_kN: float,
+    attempted_step: int | None = None,
+    attempted_top_strain: float | None = None,
+    attempted_lower_force_kN: float | None = None,
+    attempted_upper_force_kN: float | None = None,
+) -> CalculationTermination:
+    last_point = curve_points[-1]
+    previous_point = curve_points[-2] if len(curve_points) > 1 else None
+    return CalculationTermination(
+        reason_code=reason_code,
+        last_step=last_point.step_index,
+        last_moment_kNm=last_point.moment_kNm,
+        previous_step=previous_point.step_index if previous_point is not None else None,
+        previous_moment_kNm=previous_point.moment_kNm if previous_point is not None else None,
+        attempted_step=attempted_step,
+        attempted_top_strain=attempted_top_strain,
+        attempted_lower_force_kN=attempted_lower_force_kN,
+        attempted_upper_force_kN=attempted_upper_force_kN,
+        residual_kN=residual_kN,
+    )
+
+
 def solve_bending_capacity(
     section: SectionInput,
     materials: MaterialCatalog,
@@ -402,7 +447,9 @@ def solve_bending_capacity(
     if outer_steps < 2:
         raise ValueError("outer_steps must be at least 2.")
     fibers = _build_fibers(section.concrete_layers, materials, section.section_height_mm, fibers_per_section)
-    max_top_strain = materials.concrete[section.concrete_layers[0].concrete_class].epsilon_cu1
+    max_top_strain = (
+        materials.display_limits.concrete[section.concrete_layers[0].concrete_class].strain_e5 * 1e-5
+    )
     max_bottom_strain = max(materials.steel[layer.steel_class].epsilon_ud for layer in section.rebar_layers) * 0.99
 
     curve_points: list[CurvePoint] = [
@@ -418,6 +465,7 @@ def solve_bending_capacity(
         )
     ]
     all_inner_iterations: list[InnerIterationRow] = []
+    termination: CalculationTermination | None = None
 
     for step_index in range(2, outer_steps + 1):
         top_strain = max_top_strain * (step_index - 1) / (outer_steps - 1)
@@ -431,10 +479,19 @@ def solve_bending_capacity(
                 max_inner_iterations,
                 max_bottom_strain,
             )
-        except ValueError:
+        except _EquilibriumBracketError as error:
             if len(curve_points) > 1:
+                termination = _build_termination(
+                    curve_points,
+                    reason_code=error.reason_code,
+                    residual_kN=curve_points[-1].axial_residual_kN,
+                    attempted_step=step_index,
+                    attempted_top_strain=top_strain,
+                    attempted_lower_force_kN=error.lower_force_kN,
+                    attempted_upper_force_kN=error.upper_force_kN,
+                )
                 break
-            raise
+            raise ValueError(str(error)) from error
         axial_force_kN, moment_kNm = _section_response(section, materials, fibers, top_strain, bottom_strain)
         curvature_1_per_m = (top_strain - bottom_strain) / (section.section_height_mm / 1000.0)
         neutral_axis_mm = (
@@ -465,7 +522,21 @@ def solve_bending_capacity(
             for row in iterations
         )
         if abs(residual) > axial_tolerance_kN * 10:
+            termination = _build_termination(
+                curve_points,
+                reason_code="high_axial_residual_after_iteration",
+                residual_kN=residual,
+                attempted_step=step_index,
+                attempted_top_strain=top_strain,
+            )
             break
+
+    if termination is None:
+        termination = _build_termination(
+            curve_points,
+            reason_code="completed_at_concrete_limit",
+            residual_kN=curve_points[-1].axial_residual_kN,
+        )
 
     peak_point = max(curve_points, key=lambda point: point.moment_kNm)
     return BendingResult(
@@ -474,4 +545,5 @@ def solve_bending_capacity(
         peak_moment_kNm=peak_point.moment_kNm,
         strain_profile=_build_strain_profile(section, peak_point),
         inner_iterations=tuple(all_inner_iterations),
+        termination=termination,
     )
