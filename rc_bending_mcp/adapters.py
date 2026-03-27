@@ -22,29 +22,40 @@ def build_draft_inputs(section_input: Mapping[str, object]) -> dict[str, object]
     rebar_layers = list(_require_sequence(section_input.get("rebar_layers"), "rebar_layers"))
     if len(concrete_layers) != 2:
         raise ValueError("Exactly two concrete layers are required.")
-    if len(rebar_layers) != 2:
-        raise ValueError("Exactly two rebar layers are required.")
 
     defaults = default_draft_inputs()
     top_concrete = _require_mapping(concrete_layers[0], "concrete_layers[0]")
     bottom_concrete = _require_mapping(concrete_layers[1], "concrete_layers[1]")
+    has_strengthening_layer = float(bottom_concrete["height_mm"]) > 0.0
+    base_concrete_class = (
+        str(bottom_concrete["concrete_class"]) if has_strengthening_layer else str(top_concrete["concrete_class"])
+    )
+    if has_strengthening_layer and len(rebar_layers) != 2:
+        raise ValueError("Exactly two rebar layers are required for strengthened sections.")
+    if not has_strengthening_layer and len(rebar_layers) not in {1, 2}:
+        raise ValueError("Reference sections require one rebar layer or a legacy two-layer payload.")
+
+    effective_rebar_layers = rebar_layers
+    if not has_strengthening_layer:
+        effective_rebar_layers = [_pick_reference_rebar_layer(rebar_layers)]
+
     return {
         "section_height_mm": float(section_input["section_height_mm"]),
         "section_width_mm": float(section_input["section_width_mm"]),
         "outer_steps": int(section_input.get("outer_steps", defaults["outer_steps"])),
+        "has_strengthening_layer": has_strengthening_layer,
         "concrete_layers": [
             {
-                "height_mm": float(top_concrete["height_mm"]),
+                "height_mm": float(top_concrete["height_mm"]) if has_strengthening_layer else 0.0,
                 "concrete_class": str(top_concrete["concrete_class"]),
             },
             {
-                "height_mm": float(bottom_concrete["height_mm"]),
-                "concrete_class": str(bottom_concrete["concrete_class"]),
+                "concrete_class": base_concrete_class,
             },
         ],
         "rebar_layers": [
             _build_rebar_row(index, _require_mapping(rebar_layer, f"rebar_layers[{index}]"))
-            for index, rebar_layer in enumerate(rebar_layers, start=1)
+            for index, rebar_layer in enumerate(effective_rebar_layers, start=1)
         ],
         "serviceability": default_serviceability_inputs(),
     }
@@ -92,6 +103,14 @@ def _build_rebar_row(index: int, rebar_layer: Mapping[str, object]) -> dict[str,
         "diameter_mm": int(rebar_layer["diameter_mm"]),
         "steel_class": str(rebar_layer["steel_class"]),
     }
+
+
+def _pick_reference_rebar_layer(rebar_layers: Sequence[object]) -> Mapping[str, object]:
+    mapped_rows = [_require_mapping(rebar_layer, f"rebar_layers[{index}]") for index, rebar_layer in enumerate(rebar_layers)]
+    bottom_rows = [row for row in mapped_rows if str(row["face"]).strip().lower() == "bottom"]
+    if bottom_rows:
+        return bottom_rows[0]
+    return mapped_rows[-1]
 
 
 def _require_mapping(value: object, label: str) -> Mapping[str, object]:

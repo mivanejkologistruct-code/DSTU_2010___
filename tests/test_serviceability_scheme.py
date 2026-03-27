@@ -124,7 +124,7 @@ def test_build_serviceability_scheme_svg_renders_default_simply_supported_scheme
     assert 'data-role="serviceability-utilization-deflection"' in svg
     assert 'data-role="serviceability-utilization-crack"' in svg
     assert "Балка на двох опорах" in svg
-    assert "l = 6000.0 мм" in svg
+    assert "l = 3000.0 мм" in svg
     assert 'data-role="serviceability-dimension-a"' not in svg
 
 
@@ -266,8 +266,8 @@ def test_streamlit_app_serviceability_scheme_uses_active_inputs_until_refresh():
     app.run(timeout=10)
     updated_scheme = _find_markdown_containing(app, 'data-role="serviceability-scheme-showcase"')
 
-    assert "6000.0 мм" in baseline_scheme
-    assert "6000.0 мм" in dirty_scheme
+    assert "3000.0 мм" in baseline_scheme
+    assert "3000.0 мм" in dirty_scheme
     assert "9000.0 мм" not in dirty_scheme
     assert "9000.0 мм" in updated_scheme
 

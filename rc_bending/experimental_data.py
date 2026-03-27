@@ -17,6 +17,11 @@ SUPPORTED_EXPERIMENTAL_SHEETS: dict[str, str] = {
     "M_eps_s_top": "ε_s, 10^-5",
     "M_eps_s_bot": "ε_s, 10^-5",
 }
+REFERENCE_SUPPORTED_EXPERIMENTAL_SHEETS: dict[str, str] = {
+    "M_f": "f, мм",
+    "M_eps_c": "ε_c,top, 10^-5",
+    "M_eps_s_bot": "ε_s, 10^-5",
+}
 
 
 @dataclass(frozen=True)
@@ -76,10 +81,10 @@ class _CandidateBlock:
         return f"{get_column_letter(self.col_start)}{self.row_start}:{get_column_letter(self.col_end)}{self.row_end}"
 
 
-def build_experimental_template_workbook_bytes() -> bytes:
+def _build_template_workbook_bytes(supported_sheets: dict[str, str]) -> bytes:
     workbook = Workbook()
     first_sheet = workbook.active
-    for sheet_index, (sheet_name, x_field) in enumerate(SUPPORTED_EXPERIMENTAL_SHEETS.items()):
+    for sheet_index, (sheet_name, x_field) in enumerate(supported_sheets.items()):
         sheet = first_sheet if sheet_index == 0 else workbook.create_sheet(sheet_name)
         sheet.title = sheet_name
         sheet.append([x_field, MOMENT_COLUMN])
@@ -87,6 +92,14 @@ def build_experimental_template_workbook_bytes() -> bytes:
     buffer = BytesIO()
     workbook.save(buffer)
     return buffer.getvalue()
+
+
+def build_experimental_template_workbook_bytes() -> bytes:
+    return _build_template_workbook_bytes(SUPPORTED_EXPERIMENTAL_SHEETS)
+
+
+def build_reference_experimental_template_workbook_bytes() -> bytes:
+    return _build_template_workbook_bytes(REFERENCE_SUPPORTED_EXPERIMENTAL_SHEETS)
 
 
 def _load_numeric_sheet(df: pd.DataFrame, *, sheet_name: str, x_field: str) -> pd.DataFrame:
@@ -242,7 +255,7 @@ def _score_target_graph(*, headers: tuple[str, str], evidence_labels: tuple[str,
     return 0.0
 
 
-def _extract_candidate_blocks(sheet) -> tuple[_CandidateBlock, ...]:
+def _extract_candidate_blocks(sheet, *, supported_sheets: dict[str, str] = SUPPORTED_EXPERIMENTAL_SHEETS) -> tuple[_CandidateBlock, ...]:
     candidates: list[_CandidateBlock] = []
     max_row = sheet.max_row or 0
     max_column = sheet.max_column or 0
@@ -281,7 +294,7 @@ def _extract_candidate_blocks(sheet) -> tuple[_CandidateBlock, ...]:
             )
             target_scores = {
                 target_graph: _score_target_graph(headers=headers, evidence_labels=evidence_labels, target_graph=target_graph)
-                for target_graph in SUPPORTED_EXPERIMENTAL_SHEETS
+                for target_graph in supported_sheets
             }
             if max(target_scores.values(), default=0.0) <= 0.0:
                 continue
@@ -301,8 +314,13 @@ def _extract_candidate_blocks(sheet) -> tuple[_CandidateBlock, ...]:
     return tuple(candidates)
 
 
-def _build_numeric_df_from_block(candidate: _CandidateBlock, *, target_graph: str) -> pd.DataFrame:
-    x_field = SUPPORTED_EXPERIMENTAL_SHEETS[target_graph]
+def _build_numeric_df_from_block(
+    candidate: _CandidateBlock,
+    *,
+    target_graph: str,
+    supported_sheets: dict[str, str] = SUPPORTED_EXPERIMENTAL_SHEETS,
+) -> pd.DataFrame:
+    x_field = supported_sheets[target_graph]
     raw_df = pd.DataFrame(candidate.raw_rows, columns=[x_field, MOMENT_COLUMN])
     numeric_candidates = raw_df.replace(r"^\s*$", pd.NA, regex=True)
     numeric_candidates = numeric_candidates.dropna(how="all").reset_index(drop=True)
@@ -334,9 +352,13 @@ def _candidate_to_detected_block(candidate: _CandidateBlock, *, target_graph: st
     )
 
 
-def _inspect_single_sheet(sheet) -> WorkbookInspectionResult:
-    candidates = _extract_candidate_blocks(sheet)
-    matches_by_target: dict[str, list[_CandidateBlock]] = {target_graph: [] for target_graph in SUPPORTED_EXPERIMENTAL_SHEETS}
+def _inspect_single_sheet(
+    sheet,
+    *,
+    supported_sheets: dict[str, str] = SUPPORTED_EXPERIMENTAL_SHEETS,
+) -> WorkbookInspectionResult:
+    candidates = _extract_candidate_blocks(sheet, supported_sheets=supported_sheets)
+    matches_by_target: dict[str, list[_CandidateBlock]] = {target_graph: [] for target_graph in supported_sheets}
     detected_blocks: list[DetectedExperimentalBlock] = []
 
     for candidate in candidates:
@@ -380,7 +402,7 @@ def _inspect_single_sheet(sheet) -> WorkbookInspectionResult:
             missing_graphs=missing_graphs,
             conflicts={},
             message=(
-                f"На аркуші {sheet.title} не знайдено всі 4 графіки. "
+                f"На аркуші {sheet.title} не знайдено всі {len(supported_sheets)} графіки. "
                 f"Відсутні: {', '.join(missing_graphs)}."
             ),
         )
@@ -389,10 +411,10 @@ def _inspect_single_sheet(sheet) -> WorkbookInspectionResult:
     ready_blocks: list[DetectedExperimentalBlock] = []
     for target_graph, matches in matches_by_target.items():
         candidate = matches[0]
-        numeric_df = _build_numeric_df_from_block(candidate, target_graph=target_graph)
+        numeric_df = _build_numeric_df_from_block(candidate, target_graph=target_graph, supported_sheets=supported_sheets)
         series[target_graph] = ExperimentalSeries(
             sheet_name=target_graph,
-            x_field=SUPPORTED_EXPERIMENTAL_SHEETS[target_graph],
+            x_field=supported_sheets[target_graph],
             data=numeric_df,
         )
         ready_blocks.append(_candidate_to_detected_block(candidate, target_graph=target_graph))
@@ -403,13 +425,17 @@ def _inspect_single_sheet(sheet) -> WorkbookInspectionResult:
         detected_blocks=tuple(ready_blocks),
         missing_graphs=(),
         conflicts={},
-        message=f"На аркуші {sheet.title} розпізнано всі 4 графіки.",
+        message=f"На аркуші {sheet.title} розпізнано всі {len(supported_sheets)} графіки.",
     )
 
 
-def inspect_experimental_workbook(workbook_bytes: bytes) -> WorkbookInspectionResult:
+def inspect_experimental_workbook(
+    workbook_bytes: bytes,
+    *,
+    supported_sheets: dict[str, str] = SUPPORTED_EXPERIMENTAL_SHEETS,
+) -> WorkbookInspectionResult:
     workbook = load_workbook(BytesIO(workbook_bytes), data_only=True)
-    sheet_results = [_inspect_single_sheet(sheet) for sheet in workbook.worksheets]
+    sheet_results = [_inspect_single_sheet(sheet, supported_sheets=supported_sheets) for sheet in workbook.worksheets]
     ready_results = [result for result in sheet_results if result.status == "ready"]
 
     if len(ready_results) == 1:
@@ -422,7 +448,7 @@ def inspect_experimental_workbook(workbook_bytes: bytes) -> WorkbookInspectionRe
             detected_blocks=all_blocks,
             missing_graphs=(),
             conflicts={"workbook": tuple(block.sheet_name for block in all_blocks)},
-            message="У книзі знайдено більше одного аркуша з повним набором із 4 графіків.",
+            message=f"У книзі знайдено більше одного аркуша з повним набором із {len(supported_sheets)} графіків.",
         )
 
     if not sheet_results:
@@ -430,7 +456,7 @@ def inspect_experimental_workbook(workbook_bytes: bytes) -> WorkbookInspectionRe
             status="incomplete",
             dataset=None,
             detected_blocks=(),
-            missing_graphs=tuple(SUPPORTED_EXPERIMENTAL_SHEETS),
+            missing_graphs=tuple(supported_sheets),
             conflicts={},
             message="Книга Excel не містить жодного аркуша для аналізу.",
         )
@@ -449,24 +475,32 @@ def inspect_experimental_workbook(workbook_bytes: bytes) -> WorkbookInspectionRe
         status="incomplete",
         dataset=None,
         detected_blocks=(),
-        missing_graphs=tuple(SUPPORTED_EXPERIMENTAL_SHEETS),
+        missing_graphs=tuple(supported_sheets),
         conflicts={},
         message="Не вдалося розпізнати жодної таблиці експериментальних графіків у завантаженому файлі.",
     )
 
 
-def _load_legacy_supported_dataset(workbook_bytes: bytes) -> ExperimentalDataset | None:
+def inspect_reference_experimental_workbook(workbook_bytes: bytes) -> WorkbookInspectionResult:
+    return inspect_experimental_workbook(workbook_bytes, supported_sheets=REFERENCE_SUPPORTED_EXPERIMENTAL_SHEETS)
+
+
+def _load_legacy_supported_dataset(
+    workbook_bytes: bytes,
+    *,
+    supported_sheets: dict[str, str],
+) -> ExperimentalDataset | None:
     excel_file = pd.ExcelFile(BytesIO(workbook_bytes))
-    supported_sheet_names = [sheet_name for sheet_name in excel_file.sheet_names if sheet_name in SUPPORTED_EXPERIMENTAL_SHEETS]
+    supported_sheet_names = [sheet_name for sheet_name in excel_file.sheet_names if sheet_name in supported_sheets]
     if not supported_sheet_names:
         return None
 
     series: dict[str, ExperimentalSeries] = {}
     ignored_sheets = tuple(
-        sheet_name for sheet_name in excel_file.sheet_names if sheet_name not in SUPPORTED_EXPERIMENTAL_SHEETS
+        sheet_name for sheet_name in excel_file.sheet_names if sheet_name not in supported_sheets
     )
 
-    for sheet_name, x_field in SUPPORTED_EXPERIMENTAL_SHEETS.items():
+    for sheet_name, x_field in supported_sheets.items():
         if sheet_name not in excel_file.sheet_names:
             continue
         parsed_df = excel_file.parse(sheet_name=sheet_name)
@@ -480,7 +514,7 @@ def _load_legacy_supported_dataset(workbook_bytes: bytes) -> ExperimentalDataset
 
 
 def load_experimental_dataset(workbook_bytes: bytes) -> ExperimentalDataset:
-    legacy_dataset = _load_legacy_supported_dataset(workbook_bytes)
+    legacy_dataset = _load_legacy_supported_dataset(workbook_bytes, supported_sheets=SUPPORTED_EXPERIMENTAL_SHEETS)
     if legacy_dataset is not None:
         return legacy_dataset
 
@@ -488,6 +522,22 @@ def load_experimental_dataset(workbook_bytes: bytes) -> ExperimentalDataset:
     if inspection_result.dataset is None:
         if not inspection_result.detected_blocks:
             raise ValueError("Файл не містить жодного підтримуваного аркуша з експериментальними кривими.")
+        raise ValueError(inspection_result.message)
+    return inspection_result.dataset
+
+
+def load_reference_experimental_dataset(workbook_bytes: bytes) -> ExperimentalDataset:
+    legacy_dataset = _load_legacy_supported_dataset(
+        workbook_bytes,
+        supported_sheets=REFERENCE_SUPPORTED_EXPERIMENTAL_SHEETS,
+    )
+    if legacy_dataset is not None:
+        return legacy_dataset
+
+    inspection_result = inspect_reference_experimental_workbook(workbook_bytes)
+    if inspection_result.dataset is None:
+        if not inspection_result.detected_blocks:
+            raise ValueError("Файл не містить жодного підтримуваного аркуша з експериментальними кривими еталонної плити.")
         raise ValueError(inspection_result.message)
     return inspection_result.dataset
 

@@ -7,10 +7,13 @@ import pytest
 
 from rc_bending.experimental_data import (
     ExperimentalSeries,
-    build_comparison_table,
     build_experimental_template_workbook_bytes,
+    build_comparison_table,
+    build_reference_experimental_template_workbook_bytes,
     inspect_experimental_workbook,
+    inspect_reference_experimental_workbook,
     load_experimental_dataset,
+    load_reference_experimental_dataset,
 )
 
 
@@ -57,6 +60,13 @@ def test_build_experimental_template_workbook_contains_supported_sheets_and_head
     assert [workbook["M_eps_s_bot"]["A1"].value, workbook["M_eps_s_bot"]["B1"].value] == ["ε_s, 10^-5", "M, кН·м"]
 
 
+def test_build_reference_experimental_template_workbook_contains_only_bottom_rebar_sheet():
+    workbook = load_workbook(BytesIO(build_reference_experimental_template_workbook_bytes()))
+
+    assert workbook.sheetnames == ["M_f", "M_eps_c", "M_eps_s_bot"]
+    assert [workbook["M_eps_s_bot"]["A1"].value, workbook["M_eps_s_bot"]["B1"].value] == ["ε_s, 10^-5", "M, кН·м"]
+
+
 def test_load_experimental_dataset_reads_all_supported_sheets():
     workbook_bytes = _build_workbook_bytes(
         {
@@ -73,6 +83,105 @@ def test_load_experimental_dataset_reads_all_supported_sheets():
     assert dataset.series["M_f"].x_field == "f, мм"
     assert list(dataset.series["M_f"].data.columns) == ["f, мм", "M, кН·м"]
     assert dataset.series["M_eps_s_top"].data.iloc[0]["ε_s, 10^-5"] == pytest.approx(-300.0)
+
+
+def test_load_experimental_dataset_can_be_reused_for_indic_and_dic_slots_with_same_workbook_format():
+    workbook_bytes = _build_workbook_bytes(
+        {
+            "M_f": [["f, мм", "M, кН·м"], [0.0, 0.0], [4.2, 38.5]],
+            "M_eps_c": [["ε_c,top, 10^-5", "M, кН·м"], [0.0, 0.0], [110.0, 42.0]],
+            "M_eps_s_top": [["ε_s, 10^-5", "M, кН·м"], [-300.0, 18.0], [-120.0, 6.0]],
+            "M_eps_s_bot": [["ε_s, 10^-5", "M, кН·м"], [0.0, 0.0], [180.0, 24.0]],
+        }
+    )
+
+    indic_dataset = load_experimental_dataset(workbook_bytes)
+    dic_dataset = load_experimental_dataset(workbook_bytes)
+
+    assert set(indic_dataset.series) == {"M_f", "M_eps_c", "M_eps_s_top", "M_eps_s_bot"}
+    assert set(dic_dataset.series) == {"M_f", "M_eps_c", "M_eps_s_top", "M_eps_s_bot"}
+    assert indic_dataset.series["M_f"].data.equals(dic_dataset.series["M_f"].data)
+
+
+def test_load_reference_experimental_dataset_reads_bottom_rebar_sheet_only():
+    workbook_bytes = _build_workbook_bytes(
+        {
+            "M_f": [["f, мм", "M, кН·м"], [0.0, 0.0], [4.2, 38.5]],
+            "M_eps_c": [["ε_c,top, 10^-5", "M, кН·м"], [0.0, 0.0], [110.0, 42.0]],
+            "M_eps_s_bot": [["ε_s, 10^-5", "M, кН·м"], [0.0, 0.0], [180.0, 24.0]],
+        }
+    )
+
+    dataset = load_reference_experimental_dataset(workbook_bytes)
+
+    assert set(dataset.series) == {"M_f", "M_eps_c", "M_eps_s_bot"}
+    assert "M_eps_s_top" not in dataset.series
+
+
+def test_load_reference_experimental_dataset_reads_positioned_single_sheet_blocks():
+    workbook_bytes = _build_positioned_workbook_bytes(
+        {
+            "A1": "Діаграма M-f",
+            "A2": "f, мм",
+            "B2": "M, кН·м",
+            "A3": 0.0,
+            "B3": 0.0,
+            "A4": 3.0,
+            "B4": 12.0,
+            "D1": "Момент-деформація бетону",
+            "D2": "ε_c,top, 10^-5",
+            "E2": "M, кН·м",
+            "D3": 0.0,
+            "E3": 0.0,
+            "D4": 130.0,
+            "E4": 24.0,
+            "A8": "Нижня арматура",
+            "A9": "ε_s, 10^-5",
+            "B9": "M, кН·м",
+            "A10": 0.0,
+            "B10": 0.0,
+            "A11": 210.0,
+            "B11": 29.0,
+        }
+    )
+
+    dataset = load_reference_experimental_dataset(workbook_bytes)
+
+    assert set(dataset.series) == {"M_f", "M_eps_c", "M_eps_s_bot"}
+
+
+def test_inspect_reference_experimental_workbook_detects_three_labeled_tables_on_single_sheet():
+    workbook_bytes = _build_positioned_workbook_bytes(
+        {
+            "A1": "Діаграма M-f",
+            "A2": "f, мм",
+            "B2": "M, кН·м",
+            "A3": 0.0,
+            "B3": 0.0,
+            "A4": 3.0,
+            "B4": 12.0,
+            "D1": "Момент-деформація бетону",
+            "D2": "ε_c,top, 10^-5",
+            "E2": "M, кН·м",
+            "D3": 0.0,
+            "E3": 0.0,
+            "D4": 130.0,
+            "E4": 24.0,
+            "A8": "Нижня арматура",
+            "A9": "ε_s, 10^-5",
+            "B9": "M, кН·м",
+            "A10": 0.0,
+            "B10": 0.0,
+            "A11": 210.0,
+            "B11": 29.0,
+        }
+    )
+
+    inspection = inspect_reference_experimental_workbook(workbook_bytes)
+
+    assert inspection.status == "ready"
+    assert inspection.dataset is not None
+    assert set(inspection.dataset.series) == {"M_f", "M_eps_c", "M_eps_s_bot"}
 
 
 def test_load_experimental_dataset_allows_partial_supported_set_and_ignores_unknown_sheets():

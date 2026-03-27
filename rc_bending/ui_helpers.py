@@ -50,7 +50,7 @@ def default_rebar_rows() -> list[dict[str, object]]:
 
 def default_serviceability_inputs() -> dict[str, object]:
     return {
-        "span_mm": 6000.0,
+        "span_mm": 3000.0,
         "support_scheme": "simply_supported_uniform",
         "a_mm": 1000.0,
         "phi_creep": 0.0,
@@ -66,6 +66,7 @@ def default_draft_inputs() -> dict[str, object]:
         "section_height_mm": 120.0,
         "section_width_mm": 500.0,
         "outer_steps": 12,
+        "has_strengthening_layer": True,
         "concrete_layers": [
             {"height_mm": 60.0, "concrete_class": "C40/50"},
             {"concrete_class": "C40/50"},
@@ -144,30 +145,62 @@ def remove_rebar_layer(rows: list[dict[str, object]], index: int) -> list[dict[s
     return [dict(row) for current, row in enumerate(rows) if current != index]
 
 
+def draft_has_strengthening_layer(draft_inputs: dict[str, object]) -> bool:
+    value = draft_inputs.get("has_strengthening_layer", True)
+    return value if isinstance(value, bool) else True
+
+
+def required_rebar_layer_count(draft_inputs: dict[str, object]) -> int:
+    return 2 if draft_has_strengthening_layer(draft_inputs) else 1
+
+
 def derive_draft_geometry(draft_inputs: dict[str, object]) -> dict[str, object]:
     section_height_mm = float(draft_inputs["section_height_mm"])
     section_width_mm = float(draft_inputs["section_width_mm"])
+    has_strengthening_layer = draft_has_strengthening_layer(draft_inputs)
 
     concrete_layers = copy_draft_inputs({"rows": draft_inputs["concrete_layers"]})["rows"]
-    top_height_mm = float(concrete_layers[0]["height_mm"])
-    bottom_height_mm = section_height_mm - top_height_mm
+    top_height_mm = float(concrete_layers[0].get("height_mm", 0.0))
+    top_class = str(concrete_layers[0].get("concrete_class", ""))
+    bottom_class = str(concrete_layers[1].get("concrete_class", ""))
 
-    concrete_rows = [
-        {
-            "layer": "B1",
-            "width_mm": section_width_mm,
-            "height_mm": top_height_mm,
-            "concrete_class": str(concrete_layers[0]["concrete_class"]),
-            "status": "OK" if top_height_mm >= 0 else "Помилка",
-        },
-        {
-            "layer": "B2",
-            "width_mm": section_width_mm,
-            "height_mm": bottom_height_mm,
-            "concrete_class": str(concrete_layers[1]["concrete_class"]),
-            "status": "OK" if bottom_height_mm >= 0 else "Помилка",
-        },
-    ]
+    if has_strengthening_layer:
+        bottom_height_mm = section_height_mm - top_height_mm
+        concrete_rows = [
+            {
+                "layer": "B1",
+                "width_mm": section_width_mm,
+                "height_mm": top_height_mm,
+                "concrete_class": top_class,
+                "status": "OK" if top_height_mm >= 0 else "Помилка",
+            },
+            {
+                "layer": "B2",
+                "width_mm": section_width_mm,
+                "height_mm": bottom_height_mm,
+                "concrete_class": bottom_class,
+                "status": "OK" if bottom_height_mm >= 0 else "Помилка",
+            },
+        ]
+        active_concrete_rows = [dict(row) for row in concrete_rows]
+    else:
+        concrete_rows = [
+            {
+                "layer": "B1",
+                "width_mm": section_width_mm,
+                "height_mm": section_height_mm,
+                "concrete_class": bottom_class,
+                "status": "OK" if section_height_mm >= 0 else "Помилка",
+            },
+            {
+                "layer": "B2",
+                "width_mm": section_width_mm,
+                "height_mm": 0.0,
+                "concrete_class": bottom_class,
+                "status": "OK",
+            },
+        ]
+        active_concrete_rows = [dict(concrete_rows[0])]
 
     rebar_rows = []
     for index, row in enumerate(list(draft_inputs["rebar_layers"]), start=1):
@@ -192,7 +225,9 @@ def derive_draft_geometry(draft_inputs: dict[str, object]) -> dict[str, object]:
     return {
         "section_height_mm": section_height_mm,
         "section_width_mm": section_width_mm,
+        "has_strengthening_layer": has_strengthening_layer,
         "concrete_rows": concrete_rows,
+        "active_concrete_rows": active_concrete_rows,
         "rebar_rows": rebar_rows,
     }
 
@@ -208,8 +243,10 @@ def validate_draft_inputs(draft_inputs: dict[str, object], catalog: MaterialCata
     section_height_mm = float(derived["section_height_mm"])
     section_width_mm = float(derived["section_width_mm"])
     concrete_rows = list(derived["concrete_rows"])
+    active_concrete_rows = list(derived.get("active_concrete_rows", concrete_rows))
     rebar_rows = list(derived["rebar_rows"])
     outer_steps_raw = draft_inputs.get("outer_steps", 40)
+    has_strengthening_layer = bool(derived.get("has_strengthening_layer", True))
     if section_height_mm <= 0:
         add_error("Висота перерізу h має бути додатною.")
     if section_width_mm <= 0:
@@ -225,17 +262,22 @@ def validate_draft_inputs(draft_inputs: dict[str, object], catalog: MaterialCata
             if not outer_steps.is_integer() or not (2 <= int(outer_steps) <= 200):
                 add_error("Кількість кроків розрахунку має бути цілим числом у межах від 2 до 200.")
 
-    if concrete_rows[0]["height_mm"] < 0 or concrete_rows[0]["height_mm"] > section_height_mm:
-        add_error("Товщина верхнього шару бетону h1 має бути в межах від 0 до h.")
-    if concrete_rows[1]["height_mm"] < 0:
-        add_error("Похідна товщина нижнього шару бетону h2 не може бути від'ємною.")
+    if has_strengthening_layer:
+        if concrete_rows[0]["height_mm"] < 0 or concrete_rows[0]["height_mm"] > section_height_mm:
+            add_error("Товщина верхнього шару бетону h1 має бути в межах від 0 до h.")
+        if concrete_rows[1]["height_mm"] < 0:
+            add_error("Похідна товщина нижнього шару бетону h2 не може бути від'ємною.")
 
-    for index, row in enumerate(concrete_rows, start=1):
+    for index, row in enumerate(active_concrete_rows, start=1):
         if not str(row["concrete_class"]):
             add_error(f"Клас бетону шару {index} обов'язковий.")
 
-    if len(rebar_rows) != 2:
-        add_error("Рівно два шари арматури є обов'язковими для нормативного сценарію: верхній і нижній.")
+    expected_rebar_layers = required_rebar_layer_count(draft_inputs)
+    if len(rebar_rows) != expected_rebar_layers:
+        if expected_rebar_layers == 1:
+            add_error("Для еталонної плити обов'язковий один нижній шар арматури.")
+        else:
+            add_error("Рівно два шари арматури є обов'язковими для нормативного сценарію: верхній і нижній.")
 
     for index, row in enumerate(rebar_rows, start=1):
         face = str(row["face"])
@@ -306,8 +348,8 @@ def validate_section_form_inputs(
     if concrete_rows and abs(concrete_height_sum - section_height_mm) > 1e-9:
         add_error("The sum of concrete layer heights must equal the section height.")
 
-    if len(rebar_rows) != 2:
-        add_error("Exactly two rebar layers are required.")
+    if len(rebar_rows) not in {1, 2}:
+        add_error("One or two rebar layers are required.")
 
     for row in rebar_rows:
         z_mm = float(row["z_mm"])

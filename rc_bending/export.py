@@ -7,6 +7,7 @@ from openpyxl.chart import ScatterChart, Series, Reference
 
 from rc_bending.materials import MaterialCatalog
 from rc_bending.models import BendingResult, CurvePoint, SectionInput, ServiceabilityReport
+from rc_bending.serviceability import calculate_deflection_mm_from_curvature
 from rc_bending.solver import build_layer_force_table, build_strain_profile_for_point
 
 
@@ -36,6 +37,195 @@ def _add_strain_profile_chart(sheet) -> None:
     chart.height = 8
     chart.width = 10
     sheet.add_chart(chart, "E2")
+
+
+def _add_xy_scatter_chart(
+    sheet,
+    *,
+    title: str,
+    x_axis_title: str,
+    y_axis_title: str,
+    x_col: int,
+    y_col: int,
+    anchor: str,
+    width: float = 14,
+    height: float = 8,
+) -> None:
+    chart = ScatterChart()
+    chart.title = title
+    chart.x_axis.title = x_axis_title
+    chart.y_axis.title = y_axis_title
+    x_values = Reference(sheet, min_col=x_col, min_row=2, max_row=sheet.max_row)
+    y_values = Reference(sheet, min_col=y_col, min_row=1, max_row=sheet.max_row)
+    series = Series(y_values, x_values, title_from_data=True)
+    chart.series.append(series)
+    chart.height = height
+    chart.width = width
+    sheet.add_chart(chart, anchor)
+
+
+def _to_strain_e5(value: float) -> float:
+    return value * 100000.0
+
+
+def _strain_at_depth(
+    *,
+    top_strain: float,
+    bottom_strain: float,
+    depth_mm: float,
+    section_height_mm: float,
+) -> float:
+    if abs(section_height_mm) <= 1e-9:
+        return top_strain
+    return top_strain + (bottom_strain - top_strain) * (depth_mm / section_height_mm)
+
+
+def _rebar_display_sign(section: SectionInput, *, rebar_index: int) -> float:
+    indexed_layers = list(enumerate(section.rebar_layers, start=1))
+    if len(indexed_layers) == 1:
+        return -1.0
+    bottom_rebar_index = max(indexed_layers, key=lambda item: item[1].z_mm)[0]
+    return -1.0 if rebar_index == bottom_rebar_index else 1.0
+
+
+def _build_rebar_strain_values_e5(
+    section: SectionInput,
+    result: BendingResult,
+    *,
+    rebar_index: int,
+) -> list[float]:
+    rebar = section.rebar_layers[rebar_index - 1]
+    display_sign = _rebar_display_sign(section, rebar_index=rebar_index)
+    return [
+        display_sign
+        * _to_strain_e5(
+            _strain_at_depth(
+                top_strain=point.top_strain,
+                bottom_strain=point.bottom_strain,
+                depth_mm=rebar.z_mm,
+                section_height_mm=section.section_height_mm,
+            )
+        )
+        for point in result.curve_points
+    ]
+
+
+def _append_sheet_rows(sheet, rows: list[list[float | int | str]]) -> None:
+    for row in rows:
+        sheet.append(row)
+
+
+def _add_concrete_theory_sheet(workbook: Workbook, result: BendingResult) -> None:
+    sheet = workbook.create_sheet("ConcreteMomentStrainTheory")
+    rows = sorted(
+        [
+            [point.step_index, point.moment_kNm, _to_strain_e5(point.top_strain)]
+            for point in result.curve_points
+        ],
+        key=lambda row: (float(row[2]), int(row[0])),
+    )
+    sheet.append(["Крок", "M, кН·м", "ε_c,top, 10^-5"])
+    _append_sheet_rows(sheet, rows)
+    _add_xy_scatter_chart(
+        sheet,
+        title="Concrete Moment-Strain Theory",
+        x_axis_title="ε_c,top [10^-5]",
+        y_axis_title="Moment [kN m]",
+        x_col=3,
+        y_col=2,
+        anchor="E2",
+    )
+
+
+def _add_rebar_theory_sheets(workbook: Workbook, section: SectionInput, result: BendingResult) -> None:
+    indexed_layers = list(enumerate(section.rebar_layers, start=1))
+    if len(indexed_layers) == 1:
+        rebar_index = indexed_layers[0][0]
+        rows = sorted(
+            [
+                [point.step_index, point.moment_kNm, strain_e5]
+                for point, strain_e5 in zip(
+                    result.curve_points,
+                    _build_rebar_strain_values_e5(section, result, rebar_index=rebar_index),
+                    strict=True,
+                )
+            ],
+            key=lambda row: (float(row[2]), int(row[0])),
+        )
+        sheet = workbook.create_sheet("RebarMomentStrainTheory")
+        sheet.append(["Крок", "M, кН·м", "ε_s, 10^-5"])
+        _append_sheet_rows(sheet, rows)
+        _add_xy_scatter_chart(
+            sheet,
+            title="Rebar Moment-Strain Theory",
+            x_axis_title="ε_s [10^-5]",
+            y_axis_title="Moment [kN m]",
+            x_col=3,
+            y_col=2,
+            anchor="E2",
+        )
+        return
+
+    top_rebar_index = min(indexed_layers, key=lambda item: item[1].z_mm)[0]
+    bottom_rebar_index = max(indexed_layers, key=lambda item: item[1].z_mm)[0]
+    sheet_configs = [
+        ("TopRebarMomentStrainTheory", top_rebar_index, "ε_s,top, 10^-5", "Top Rebar Moment-Strain Theory"),
+        ("BottomRebarMomentStrainTheory", bottom_rebar_index, "ε_s,bot, 10^-5", "Bottom Rebar Moment-Strain Theory"),
+    ]
+    for sheet_name, rebar_index, strain_label, chart_title in sheet_configs:
+        rows = sorted(
+            [
+                [point.step_index, point.moment_kNm, strain_e5]
+                for point, strain_e5 in zip(
+                    result.curve_points,
+                    _build_rebar_strain_values_e5(section, result, rebar_index=rebar_index),
+                    strict=True,
+                )
+            ],
+            key=lambda row: (float(row[2]), int(row[0])),
+        )
+        sheet = workbook.create_sheet(sheet_name)
+        sheet.append(["Крок", "M, кН·м", strain_label])
+        _append_sheet_rows(sheet, rows)
+        _add_xy_scatter_chart(
+            sheet,
+            title=chart_title,
+            x_axis_title=f"{strain_label} [10^-5]",
+            y_axis_title="Moment [kN m]",
+            x_col=3,
+            y_col=2,
+            anchor="E2",
+        )
+
+
+def _add_deflection_theory_sheet(workbook: Workbook, result: BendingResult, serviceability_report: ServiceabilityReport) -> None:
+    service_input = serviceability_report.input
+    rows = [
+        [
+            point.step_index,
+            point.moment_kNm,
+            calculate_deflection_mm_from_curvature(
+                curvature_1_per_m=point.curvature_1_per_m,
+                span_mm=service_input.span_mm,
+                support_scheme=service_input.support_scheme,
+                a_mm=service_input.a_mm,
+                phi_creep=service_input.phi_creep,
+            ),
+        ]
+        for point in result.curve_points
+    ]
+    sheet = workbook.create_sheet("DeflectionCurveTheory")
+    sheet.append(["Крок", "M, кН·м", "f, мм"])
+    _append_sheet_rows(sheet, rows)
+    _add_xy_scatter_chart(
+        sheet,
+        title="Deflection Theory",
+        x_axis_title="f [mm]",
+        y_axis_title="Moment [kN m]",
+        x_col=3,
+        y_col=2,
+        anchor="E2",
+    )
 
 
 def build_results_workbook(
@@ -139,6 +329,9 @@ def build_results_workbook(
             ]
         )
 
+    _add_concrete_theory_sheet(workbook, result)
+    _add_rebar_theory_sheets(workbook, section, result)
+
     if serviceability_report is not None:
         service_input = serviceability_report.input
         snapshot = serviceability_report.snapshot
@@ -187,6 +380,8 @@ def build_results_workbook(
         deflection_sheet.append(["warning_message", deflection.limit.warning_message])
         deflection_sheet.append(["is_within_limit", "OK" if deflection.is_within_limit else "NG"])
         deflection_sheet.append(["note", deflection.note])
+
+        _add_deflection_theory_sheet(workbook, result, serviceability_report)
 
     return workbook
 

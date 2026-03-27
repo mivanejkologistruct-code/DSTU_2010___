@@ -5,7 +5,14 @@ from pathlib import Path
 
 import pandas as pd
 
-from rc_bending.experimental_data import build_comparison_table, build_experimental_template_workbook_bytes, inspect_experimental_workbook, load_experimental_dataset
+from rc_bending.experimental_data import (
+    build_comparison_table,
+    build_experimental_template_workbook_bytes,
+    inspect_reference_experimental_workbook,
+    inspect_experimental_workbook,
+    load_experimental_dataset,
+    load_reference_experimental_dataset,
+)
 from rc_bending.export import build_results_workbook_bytes
 from rc_bending.materials import load_material_catalog
 from rc_bending.serviceability import (
@@ -77,6 +84,11 @@ def calculate_serviceability_python(
         selected_point=base["selected_point"],
         serviceability_report=report,
     )
+    theory_tables = _build_theory_tables(
+        base["section"],
+        base["result"],
+        serviceability_draft_inputs,
+    )
     python_result = dict(base["python_result"])
     python_result.update(
         {
@@ -93,6 +105,7 @@ def calculate_serviceability_python(
         {
             "serviceability_draft_inputs": serviceability_draft_inputs,
             "serviceability_report": report,
+            "theory_tables": theory_tables,
             "python_result": python_result,
             "workbook_bytes": workbook_bytes,
         }
@@ -108,9 +121,13 @@ def analyze_experimental_workbook_python(
 ) -> dict[str, object]:
     workbook_file = Path(workbook_path)
     workbook_bytes = workbook_file.read_bytes()
-    dataset = load_experimental_dataset(workbook_bytes)
-    inspection = inspect_experimental_workbook(workbook_bytes)
     section_data = calculate_section_python(section_input, selected_step=selected_step)
+    if len(section_data["section"].rebar_layers) == 1:
+        dataset = load_reference_experimental_dataset(workbook_bytes)
+        inspection = inspect_reference_experimental_workbook(workbook_bytes)
+    else:
+        dataset = load_experimental_dataset(workbook_bytes)
+        inspection = inspect_experimental_workbook(workbook_bytes)
     theory_tables = _build_theory_tables(
         section_data["section"],
         section_data["result"],
@@ -180,34 +197,64 @@ def _pick_extreme_rebar_layers(section) -> tuple[tuple[int, object], tuple[int, 
     return min(indexed_layers, key=lambda item: item[1].z_mm), max(indexed_layers, key=lambda item: item[1].z_mm)
 
 
+def _resolve_rebar_display_sign(section, *, rebar_index: int) -> float:
+    indexed_layers = list(enumerate(section.rebar_layers))
+    if len(indexed_layers) == 1:
+        return -1.0
+    bottom_rebar_index = max(indexed_layers, key=lambda item: item[1].z_mm)[0]
+    return -1.0 if rebar_index == bottom_rebar_index else 1.0
+
+
 def _build_theory_tables(section, result, serviceability_draft_inputs: dict[str, object] | None) -> dict[str, pd.DataFrame | None]:
-    top_rebar, bottom_rebar = _pick_extreme_rebar_layers(section)
     tables: dict[str, pd.DataFrame | None] = {
         "M_eps_c": pd.DataFrame(
             {
                 "ε_c,top, 10^-5": [point.top_strain * 100000.0 for point in result.curve_points],
                 "M, кН·м": [point.moment_kNm for point in result.curve_points],
             }
-        ),
-        "M_eps_s_top": pd.DataFrame(
-            {
-                "ε_s, 10^-5": [
-                    _strain_at_depth(point.top_strain, point.bottom_strain, top_rebar[1].z_mm, section.section_height_mm) * 100000.0
-                    for point in result.curve_points
-                ],
-                "M, кН·м": [point.moment_kNm for point in result.curve_points],
-            }
-        ),
-        "M_eps_s_bot": pd.DataFrame(
-            {
-                "ε_s, 10^-5": [
-                    _strain_at_depth(point.top_strain, point.bottom_strain, bottom_rebar[1].z_mm, section.section_height_mm) * 100000.0
-                    for point in result.curve_points
-                ],
-                "M, кН·м": [point.moment_kNm for point in result.curve_points],
-            }
-        ),
+        )
     }
+    indexed_layers = list(enumerate(section.rebar_layers))
+    if len(indexed_layers) == 1:
+        rebar_index, rebar = indexed_layers[0]
+        display_sign = _resolve_rebar_display_sign(section, rebar_index=rebar_index)
+        tables["M_eps_s_bot"] = pd.DataFrame(
+            {
+                "ε_s, 10^-5": [
+                    display_sign
+                    * _strain_at_depth(point.top_strain, point.bottom_strain, rebar.z_mm, section.section_height_mm)
+                    * 100000.0
+                    for point in result.curve_points
+                ],
+                "M, кН·м": [point.moment_kNm for point in result.curve_points],
+            }
+        )
+    else:
+        top_rebar, bottom_rebar = _pick_extreme_rebar_layers(section)
+        top_sign = _resolve_rebar_display_sign(section, rebar_index=top_rebar[0])
+        bottom_sign = _resolve_rebar_display_sign(section, rebar_index=bottom_rebar[0])
+        tables["M_eps_s_top"] = pd.DataFrame(
+            {
+                "ε_s, 10^-5": [
+                    top_sign
+                    * _strain_at_depth(point.top_strain, point.bottom_strain, top_rebar[1].z_mm, section.section_height_mm)
+                    * 100000.0
+                    for point in result.curve_points
+                ],
+                "M, кН·м": [point.moment_kNm for point in result.curve_points],
+            }
+        )
+        tables["M_eps_s_bot"] = pd.DataFrame(
+            {
+                "ε_s, 10^-5": [
+                    bottom_sign
+                    * _strain_at_depth(point.top_strain, point.bottom_strain, bottom_rebar[1].z_mm, section.section_height_mm)
+                    * 100000.0
+                    for point in result.curve_points
+                ],
+                "M, кН·м": [point.moment_kNm for point in result.curve_points],
+            }
+        )
     if serviceability_draft_inputs is None:
         tables["M_f"] = None
         return tables

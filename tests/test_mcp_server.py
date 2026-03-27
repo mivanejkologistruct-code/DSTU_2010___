@@ -72,6 +72,44 @@ def test_build_draft_inputs_maps_machine_faces_to_ui_labels():
     assert draft_inputs["rebar_layers"][1]["face"] == "Нижня"
 
 
+def test_build_draft_inputs_marks_normalized_single_layer_payload_as_reference_mode():
+    adapters = _import_module("rc_bending_mcp.adapters")
+    payload = _make_section_payload()
+    payload["concrete_layers"] = [
+        {"height_mm": 500.0, "concrete_class": "C25/30"},
+        {"height_mm": 0.0, "concrete_class": "C25/30"},
+    ]
+    payload["rebar_layers"] = [payload["rebar_layers"][1]]
+
+    draft_inputs = adapters.build_draft_inputs(payload)
+
+    assert draft_inputs["has_strengthening_layer"] is False
+    assert len(draft_inputs["rebar_layers"]) == 1
+    assert draft_inputs["rebar_layers"][0]["face"] == "Нижня"
+
+
+def test_extract_section_machine_input_normalizes_reference_mode_to_two_layers():
+    ui_helpers = _import_module("rc_bending.ui_helpers")
+    ui_runner = _import_module("rc_bending_mcp.ui_runner")
+    draft_inputs = ui_helpers.default_draft_inputs()
+    draft_inputs["section_height_mm"] = 500.0
+    draft_inputs["has_strengthening_layer"] = False
+    draft_inputs["concrete_layers"][0]["height_mm"] = 30.0
+    draft_inputs["concrete_layers"][0]["concrete_class"] = "C40/50"
+    draft_inputs["concrete_layers"][1]["concrete_class"] = "C25/30"
+    draft_inputs["rebar_layers"] = [draft_inputs["rebar_layers"][1]]
+
+    payload = ui_runner._extract_section_machine_input(draft_inputs)
+
+    assert payload["concrete_layers"] == [
+        {"height_mm": 500.0, "concrete_class": "C25/30"},
+        {"height_mm": 0.0, "concrete_class": "C25/30"},
+    ]
+    assert payload["rebar_layers"] == [
+        {"face": "bottom", "distance_mm": 20.0, "bar_count": 4, "diameter_mm": 8, "steel_class": "A500C"}
+    ]
+
+
 def test_get_catalogs_returns_machine_ids_and_choices():
     handlers = _import_module("rc_bending_mcp.handlers")
 
@@ -140,6 +178,23 @@ def test_execute_calculate_section_returns_invalid_input_without_ui(tmp_path):
     assert response["comparison"] is None
     assert response["artifacts"] == []
     assert response["messages"]
+
+
+def test_reference_section_theory_tables_use_single_bottom_rebar_series():
+    domain = _import_module("rc_bending_mcp.domain")
+    payload = _make_section_payload()
+    payload["concrete_layers"] = [
+        {"height_mm": 500.0, "concrete_class": "C25/30"},
+        {"height_mm": 0.0, "concrete_class": "C25/30"},
+    ]
+    payload["rebar_layers"] = [payload["rebar_layers"][1]]
+
+    result = domain.calculate_serviceability_python(payload, _make_serviceability_payload())
+
+    assert "M_eps_s_bot" in result["theory_tables"]
+    assert "M_eps_s_top" not in result["theory_tables"]
+    assert float(result["theory_tables"]["M_eps_s_bot"].iloc[0]["ε_s, 10^-5"]) == pytest.approx(0.0)
+    assert float(result["theory_tables"]["M_eps_s_bot"].iloc[-1]["ε_s, 10^-5"]) > 0.0
 
 
 def test_execute_calculate_serviceability_returns_ok_envelope(tmp_path):

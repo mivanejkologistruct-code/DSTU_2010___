@@ -9,6 +9,23 @@ FORM_TITLES = {
     "second": "2-га форма рівноваги",
 }
 
+VERTICAL_DIMENSION_LANE_LEFT_EXTENT = 40.0
+VERTICAL_DIMENSION_LANE_RIGHT_EXTENT = 22.0
+VERTICAL_DIMENSION_LANE_STEP = 68.0
+VERTICAL_DIMENSION_SECTION_GAP = 18.0
+CALLOUT_CARD_WIDTH = 176.0
+CALLOUT_COLUMN_GAP = 32.0
+CALLOUT_STACK_GAP = 12.0
+FORM_PANEL_TOP_MARGIN = 84.0
+FORM_PANEL_BODY_HEIGHT_SINGLE = 176.0
+FORM_PANEL_BODY_HEIGHT_MULTI = 190.0
+FORM_PANEL_SCALE_LINE_OFFSET = 16.0
+FORM_PANEL_SCALE_LABEL_OFFSET = 38.0
+FORM_PANEL_SCALE_UNIT_OFFSET = 56.0
+FORM_PANEL_RESULT_STRIP_HEIGHT = 40.0
+FORM_PANEL_RESULT_STRIP_TOP_GAP = 16.0
+FORM_PANEL_RESULT_STRIP_BOTTOM_GAP = 16.0
+
 
 def _escape_text(value: str) -> str:
     return value.replace("&", "&amp;").replace("<", "&lt;")
@@ -288,26 +305,85 @@ def _annotation_card(
     )
 
 
-def _stack_callout_tops(targets: list[float], min_top: float, max_top: float, gap: float) -> list[float]:
+def _panel_bottom_reserve() -> float:
+    return (
+        FORM_PANEL_SCALE_UNIT_OFFSET
+        + FORM_PANEL_RESULT_STRIP_TOP_GAP
+        + FORM_PANEL_RESULT_STRIP_HEIGHT
+        + FORM_PANEL_RESULT_STRIP_BOTTOM_GAP
+    )
+
+
+def _panel_height(body_height: float) -> float:
+    return FORM_PANEL_TOP_MARGIN + body_height + _panel_bottom_reserve()
+
+
+def _build_left_dimension_lane_positions(section_x: float) -> tuple[float, float, float]:
+    nearest_lane_x = section_x - (VERTICAL_DIMENSION_SECTION_GAP + VERTICAL_DIMENSION_LANE_RIGHT_EXTENT)
+    return (
+        nearest_lane_x - 2.0 * VERTICAL_DIMENSION_LANE_STEP,
+        nearest_lane_x - VERTICAL_DIMENSION_LANE_STEP,
+        nearest_lane_x,
+    )
+
+
+def _build_right_dimension_lane_positions(section_right_x: float) -> tuple[float, float]:
+    nearest_lane_x = section_right_x + VERTICAL_DIMENSION_SECTION_GAP + VERTICAL_DIMENSION_LANE_LEFT_EXTENT
+    return nearest_lane_x, nearest_lane_x + VERTICAL_DIMENSION_LANE_STEP
+
+
+def _build_callout_column_x(rightmost_lane_x: float) -> float:
+    return rightmost_lane_x + VERTICAL_DIMENSION_LANE_RIGHT_EXTENT + CALLOUT_COLUMN_GAP
+
+
+def _single_panel_section_x(top_row_left: float, top_row_right: float, drawing_width: float) -> float:
+    left_extent = (
+        VERTICAL_DIMENSION_SECTION_GAP
+        + VERTICAL_DIMENSION_LANE_RIGHT_EXTENT
+        + VERTICAL_DIMENSION_LANE_LEFT_EXTENT
+        + 2.0 * VERTICAL_DIMENSION_LANE_STEP
+    )
+    right_extent = (
+        VERTICAL_DIMENSION_SECTION_GAP
+        + VERTICAL_DIMENSION_LANE_LEFT_EXTENT
+        + VERTICAL_DIMENSION_LANE_RIGHT_EXTENT
+        + VERTICAL_DIMENSION_LANE_STEP
+        + CALLOUT_COLUMN_GAP
+        + CALLOUT_CARD_WIDTH
+    )
+    composition_width = left_extent + drawing_width + right_extent
+    composition_left = top_row_left + max((top_row_right - top_row_left - composition_width) / 2.0, 0.0)
+    return composition_left + left_extent
+
+
+def _stack_callout_tops(
+    targets: list[float],
+    heights: list[float],
+    min_top: float,
+    max_bottom: float,
+    gap: float,
+) -> list[float]:
     if not targets:
         return []
 
-    indexed_targets = sorted(enumerate(targets), key=lambda item: item[1])
+    indexed_targets = sorted(enumerate(zip(targets, heights)), key=lambda item: item[1][0])
     placed_tops: list[float] = []
+    sorted_heights: list[float] = []
     current_top = min_top
-    for _, target in indexed_targets:
+    for _, (target, height) in indexed_targets:
         top = max(target, current_top)
         placed_tops.append(top)
-        current_top = top + gap
+        sorted_heights.append(height)
+        current_top = top + height + gap
 
-    placed_tops[-1] = min(placed_tops[-1], max_top)
+    placed_tops[-1] = min(placed_tops[-1], max_bottom - sorted_heights[-1])
     for index in range(len(placed_tops) - 2, -1, -1):
-        placed_tops[index] = min(placed_tops[index], placed_tops[index + 1] - gap)
+        placed_tops[index] = min(placed_tops[index], placed_tops[index + 1] - sorted_heights[index] - gap)
 
     if placed_tops[0] < min_top:
         placed_tops[0] = min_top
         for index in range(1, len(placed_tops)):
-            placed_tops[index] = max(placed_tops[index], placed_tops[index - 1] + gap)
+            placed_tops[index] = max(placed_tops[index], placed_tops[index - 1] + sorted_heights[index - 1] + gap)
 
     resolved = [0.0] * len(targets)
     for (original_index, _), top in zip(indexed_targets, placed_tops):
@@ -426,8 +502,8 @@ def _build_form_panel(
     fragments.append(_rect(width - badge_width - 22.0, 12.0, badge_width, 28.0, css_class=badge_class, rx=14.0, ry=14.0, data_role="form-panel-badge"))
     fragments.append(_text(width - badge_width + 6.0, 31.0, badge_label, css_class="panel-badge-text"))
 
-    top_margin = 84.0
-    bottom_margin = 88.0
+    top_margin = FORM_PANEL_TOP_MARGIN
+    bottom_margin = _panel_bottom_reserve()
     body_height = height - top_margin - bottom_margin
     scale_y = body_height / max(section_height_mm, 1.0)
     diagram_y = lambda z_mm: top_margin + z_mm * scale_y
@@ -482,18 +558,18 @@ def _build_form_panel(
             _line(concrete_zero_x, body_top, concrete_zero_x, body_bottom, css_class="scale-axis"),
             _line(steel_zero_x, body_top, steel_zero_x, body_bottom, css_class="scale-axis"),
             _line(concrete_zone_right + stress_gap / 2.0, body_top + 2.0, concrete_zone_right + stress_gap / 2.0, body_bottom - 2.0, css_class="material-divider"),
-            f'<g data-role="concrete-stress-scale">{_line(concrete_zero_x, body_bottom + 16.0, concrete_zero_x + concrete_pos_width, body_bottom + 16.0, css_class="scale-line")}{_line(concrete_zero_x, body_bottom + 10.0, concrete_zero_x, body_bottom + 22.0, css_class="scale-tick")}{_line(concrete_zero_x + concrete_pos_width, body_bottom + 10.0, concrete_zero_x + concrete_pos_width, body_bottom + 22.0, css_class="scale-tick")}{_text(concrete_zero_x, body_bottom + 38.0, "0", css_class="scale-label", anchor="middle")}{_text(concrete_zero_x + concrete_pos_width, body_bottom + 38.0, f"{concrete_stress_abs_max_mpa:.1f}", css_class="scale-label", anchor="middle")}</g>',
-            f'<g data-role="steel-stress-scale">{_line(steel_zero_x - steel_half_width, body_bottom + 16.0, steel_zero_x + steel_half_width, body_bottom + 16.0, css_class="scale-line", data_role="stress-scale")}{_line(steel_zero_x - steel_half_width, body_bottom + 10.0, steel_zero_x - steel_half_width, body_bottom + 22.0, css_class="scale-tick")}{_line(steel_zero_x, body_bottom + 10.0, steel_zero_x, body_bottom + 22.0, css_class="scale-tick")}{_line(steel_zero_x + steel_half_width, body_bottom + 10.0, steel_zero_x + steel_half_width, body_bottom + 22.0, css_class="scale-tick")}{_text(steel_zero_x - steel_half_width, body_bottom + 38.0, f"-{steel_stress_abs_max_mpa:.0f}", css_class="scale-label", anchor="middle")}{_text(steel_zero_x, body_bottom + 38.0, "0", css_class="scale-label", anchor="middle")}{_text(steel_zero_x + steel_half_width, body_bottom + 38.0, f"+{steel_stress_abs_max_mpa:.0f}", css_class="scale-label", anchor="middle")}</g>',
-            _text(steel_zone_right, body_bottom + 56.0, "МПа", css_class="scale-label", anchor="end"),
+            f'<g data-role="concrete-stress-scale">{_line(concrete_zero_x, body_bottom + FORM_PANEL_SCALE_LINE_OFFSET, concrete_zero_x + concrete_pos_width, body_bottom + FORM_PANEL_SCALE_LINE_OFFSET, css_class="scale-line")}{_line(concrete_zero_x, body_bottom + 10.0, concrete_zero_x, body_bottom + 22.0, css_class="scale-tick")}{_line(concrete_zero_x + concrete_pos_width, body_bottom + 10.0, concrete_zero_x + concrete_pos_width, body_bottom + 22.0, css_class="scale-tick")}{_text(concrete_zero_x, body_bottom + FORM_PANEL_SCALE_LABEL_OFFSET, "0", css_class="scale-label", anchor="middle")}{_text(concrete_zero_x + concrete_pos_width, body_bottom + FORM_PANEL_SCALE_LABEL_OFFSET, f"{concrete_stress_abs_max_mpa:.1f}", css_class="scale-label", anchor="middle")}</g>',
+            f'<g data-role="steel-stress-scale">{_line(steel_zero_x - steel_half_width, body_bottom + FORM_PANEL_SCALE_LINE_OFFSET, steel_zero_x + steel_half_width, body_bottom + FORM_PANEL_SCALE_LINE_OFFSET, css_class="scale-line", data_role="stress-scale")}{_line(steel_zero_x - steel_half_width, body_bottom + 10.0, steel_zero_x - steel_half_width, body_bottom + 22.0, css_class="scale-tick")}{_line(steel_zero_x, body_bottom + 10.0, steel_zero_x, body_bottom + 22.0, css_class="scale-tick")}{_line(steel_zero_x + steel_half_width, body_bottom + 10.0, steel_zero_x + steel_half_width, body_bottom + 22.0, css_class="scale-tick")}{_text(steel_zero_x - steel_half_width, body_bottom + FORM_PANEL_SCALE_LABEL_OFFSET, f"-{steel_stress_abs_max_mpa:.0f}", css_class="scale-label", anchor="middle")}{_text(steel_zero_x, body_bottom + FORM_PANEL_SCALE_LABEL_OFFSET, "0", css_class="scale-label", anchor="middle")}{_text(steel_zero_x + steel_half_width, body_bottom + FORM_PANEL_SCALE_LABEL_OFFSET, f"+{steel_stress_abs_max_mpa:.0f}", css_class="scale-label", anchor="middle")}</g>',
+            _text(steel_zone_right, body_bottom + FORM_PANEL_SCALE_UNIT_OFFSET, "МПа", css_class="scale-label", anchor="end"),
             _line(strain_zero_x, body_top, strain_zero_x, body_bottom, css_class="scale-axis"),
-            _line(strain_zero_x - strain_half_width, body_bottom + 16.0, strain_zero_x + strain_half_width, body_bottom + 16.0, css_class="scale-line", data_role="strain-scale"),
+            _line(strain_zero_x - strain_half_width, body_bottom + FORM_PANEL_SCALE_LINE_OFFSET, strain_zero_x + strain_half_width, body_bottom + FORM_PANEL_SCALE_LINE_OFFSET, css_class="scale-line", data_role="strain-scale"),
             _line(strain_zero_x - strain_half_width, body_bottom + 10.0, strain_zero_x - strain_half_width, body_bottom + 22.0, css_class="scale-tick"),
             _line(strain_zero_x, body_bottom + 10.0, strain_zero_x, body_bottom + 22.0, css_class="scale-tick"),
             _line(strain_zero_x + strain_half_width, body_bottom + 10.0, strain_zero_x + strain_half_width, body_bottom + 22.0, css_class="scale-tick"),
-            _text(strain_zero_x - strain_half_width, body_bottom + 38.0, f"{-strain_abs_max * 1000.0:.2f}", css_class="scale-label", anchor="middle"),
-            _text(strain_zero_x, body_bottom + 38.0, "0", css_class="scale-label", anchor="middle"),
-            _text(strain_zero_x + strain_half_width, body_bottom + 38.0, f"{strain_abs_max * 1000.0:.2f}", css_class="scale-label", anchor="middle"),
-            _text(strain_zero_x + strain_half_width, body_bottom + 56.0, "‰", css_class="scale-label", anchor="end"),
+            _text(strain_zero_x - strain_half_width, body_bottom + FORM_PANEL_SCALE_LABEL_OFFSET, f"{-strain_abs_max * 1000.0:.2f}", css_class="scale-label", anchor="middle"),
+            _text(strain_zero_x, body_bottom + FORM_PANEL_SCALE_LABEL_OFFSET, "0", css_class="scale-label", anchor="middle"),
+            _text(strain_zero_x + strain_half_width, body_bottom + FORM_PANEL_SCALE_LABEL_OFFSET, f"{strain_abs_max * 1000.0:.2f}", css_class="scale-label", anchor="middle"),
+            _text(strain_zero_x + strain_half_width, body_bottom + FORM_PANEL_SCALE_UNIT_OFFSET, "‰", css_class="scale-label", anchor="end"),
         ]
     )
 
@@ -765,7 +841,8 @@ def _build_form_panel(
     if state.is_active:
         legend_width = width - 40.0
         legend_x = 20.0
-        legend_y = height - 54.0
+        result_strip_y = height - FORM_PANEL_RESULT_STRIP_BOTTOM_GAP - FORM_PANEL_RESULT_STRIP_HEIGHT
+        legend_y = result_strip_y + 2.0
         chip_gap = 10.0
         chip_width = (legend_width - chip_gap * 2.0) / 3.0
         metric_items = [
@@ -773,7 +850,18 @@ def _build_form_panel(
             ("κ", f"{state.point.curvature_1_per_m:.4f} 1/м"),
             ("ΣN", f"{state.point.axial_residual_kN:.3f} кН"),
         ]
-        fragments.append(_rect(20.0, legend_y - 2.0, width - 40.0, 40.0, css_class="result-strip", rx=15.0, ry=15.0, data_role="result-strip"))
+        fragments.append(
+            _rect(
+                20.0,
+                result_strip_y,
+                width - 40.0,
+                FORM_PANEL_RESULT_STRIP_HEIGHT,
+                css_class="result-strip",
+                rx=15.0,
+                ry=15.0,
+                data_role="result-strip",
+            )
+        )
         fragments.append(f'<g data-role="metric-legend" transform="translate({legend_x:.1f} {legend_y:.1f})">')
         for index, (label, value) in enumerate(metric_items):
             chip_x = index * (chip_width + chip_gap)
@@ -810,28 +898,24 @@ def build_section_drawing_svg(
     concrete_stress_abs_max_mpa, steel_stress_abs_max_mpa, strain_abs_max = _build_panel_scale_limits(panel_states)
 
     single_panel_mode = len(panel_entries) == 1
+    callout_width = CALLOUT_CARD_WIDTH
     if single_panel_mode:
-        canvas_width = 1220.0
+        canvas_width = 1248.0
         panel_x = 44.0
         panel_width = canvas_width - panel_x * 2.0
-        panel_height = 348.0
+        panel_height = _panel_height(FORM_PANEL_BODY_HEIGHT_SINGLE)
         panel_gap = 0.0
         top_row_left = panel_x + 12.0
         top_row_right = canvas_width - panel_x - 12.0
         scale = min(540.0 / max(section_width_mm, 1.0), 156.0 / max(section_height_mm, 1.0))
         drawing_width = section_width_mm * scale
         drawing_height = section_height_mm * scale
-        section_x = (top_row_left + top_row_right - drawing_width) / 2.0
+        section_x = _single_panel_section_x(top_row_left, top_row_right, drawing_width)
         section_y = 146.0
-        callout_width = 176.0
-        callout_gap = 58.0
-        callout_x = top_row_right - callout_width
-        left_h_lane_x = section_x - 120.0
-        left_z1_lane_x = section_x - 76.0
-        left_z2_lane_x = section_x - 32.0
+        left_h_lane_x, left_z1_lane_x, left_z2_lane_x = _build_left_dimension_lane_positions(section_x)
         axis_x = section_x - 10.0
-        right_h1_lane_x = section_x + drawing_width + 40.0
-        right_h2_lane_x = section_x + drawing_width + 84.0
+        right_h1_lane_x, right_h2_lane_x = _build_right_dimension_lane_positions(section_x + drawing_width)
+        callout_x = _build_callout_column_x(right_h2_lane_x)
         panel_y_values = [section_y + drawing_height + 28.0]
         bottom_margin = 36.0
         canvas_height = panel_y_values[-1] + panel_height + bottom_margin
@@ -841,19 +925,14 @@ def build_section_drawing_svg(
         drawing_height = section_height_mm * scale
         section_x = 190.0
         section_y = 146.0
-        callout_width = 176.0
-        callout_gap = 58.0
-        callout_x = section_x + drawing_width + 124.0
+        left_h_lane_x, left_z1_lane_x, left_z2_lane_x = _build_left_dimension_lane_positions(section_x)
+        axis_x = section_x - 10.0
+        right_h1_lane_x, right_h2_lane_x = _build_right_dimension_lane_positions(section_x + drawing_width)
+        callout_x = _build_callout_column_x(right_h2_lane_x)
         panel_x = callout_x + callout_width + 24.0
         panel_width = 602.0
-        panel_height = 362.0
+        panel_height = _panel_height(FORM_PANEL_BODY_HEIGHT_MULTI)
         panel_gap = 24.0
-        left_h_lane_x = section_x - 116.0
-        left_z1_lane_x = section_x - 74.0
-        left_z2_lane_x = section_x - 32.0
-        axis_x = section_x - 10.0
-        right_h1_lane_x = section_x + drawing_width + 40.0
-        right_h2_lane_x = section_x + drawing_width + 82.0
         top_row_left = left_h_lane_x - 20.0
         top_row_right = callout_x + callout_width
         panel_y_values = [104.0 + index * (panel_height + panel_gap) for index in range(len(panel_entries))]
@@ -863,6 +942,7 @@ def build_section_drawing_svg(
 
     top_layer_height_mm = float(concrete_rows[0]["height_mm"])
     bottom_layer_height_mm = float(concrete_rows[1]["height_mm"])
+    has_second_layer = bottom_layer_height_mm > 1e-9
     top_layer_height = top_layer_height_mm * scale
     bottom_layer_y = section_y + top_layer_height
 
@@ -992,13 +1072,31 @@ def build_section_drawing_svg(
                 data_role="section-width-dimension",
             ),
             _rect(section_x, section_y, drawing_width, top_layer_height, fill="#edf3fe"),
-            _rect(section_x, bottom_layer_y, drawing_width, max(section_height_mm - top_layer_height_mm, 0.0) * scale, fill="#dde8f8"),
-            _rect(section_x, section_y, drawing_width, drawing_height, css_class="outline", data_role="section-frame"),
-            _line(section_x, bottom_layer_y, section_x + drawing_width, bottom_layer_y, css_class="layer-split"),
-            _chip(section_x + 18.0, section_y + 26.0, f"B1: {concrete_rows[0]['concrete_class']}", data_role="layer-chip"),
-            _chip(section_x + 18.0, bottom_layer_y + 26.0, f"B2: {concrete_rows[1]['concrete_class']}", data_role="layer-chip"),
         ]
     )
+    if has_second_layer:
+        section_zone_fragments.extend(
+            [
+                _rect(
+                    section_x,
+                    bottom_layer_y,
+                    drawing_width,
+                    max(section_height_mm - top_layer_height_mm, 0.0) * scale,
+                    fill="#dde8f8",
+                ),
+                _line(section_x, bottom_layer_y, section_x + drawing_width, bottom_layer_y, css_class="layer-split"),
+            ]
+        )
+    section_zone_fragments.extend(
+        [
+            _rect(section_x, section_y, drawing_width, drawing_height, css_class="outline", data_role="section-frame"),
+            _chip(section_x + 18.0, section_y + 26.0, f"B1: {concrete_rows[0]['concrete_class']}", data_role="layer-chip"),
+        ]
+    )
+    if has_second_layer:
+        section_zone_fragments.append(
+            _chip(section_x + 18.0, bottom_layer_y + 26.0, f"B2: {concrete_rows[1]['concrete_class']}", data_role="layer-chip")
+        )
 
     left_zone_fragments.extend(
         [
@@ -1015,33 +1113,43 @@ def build_section_drawing_svg(
         ]
     )
 
-    right_zone_fragments.extend(
-        [
-            _vertical_dimension_lane(
-                right_h1_lane_x,
-                section_y,
-                bottom_layer_y,
-                f"h1 = {_fmt_mm(top_layer_height_mm)}",
-                lane_role="dimension-lane-right-h1",
-                line_role="layer-height-dimension",
-            ),
-            _vertical_dimension_lane(
-                right_h2_lane_x,
-                bottom_layer_y,
-                section_y + drawing_height,
-                f"h2 = {_fmt_mm(bottom_layer_height_mm)}",
-                lane_role="dimension-lane-right-h2",
-                line_role="layer-height-dimension",
-            ),
-        ]
-    )
+    if has_second_layer:
+        right_zone_fragments.extend(
+            [
+                _vertical_dimension_lane(
+                    right_h1_lane_x,
+                    section_y,
+                    bottom_layer_y,
+                    f"h1 = {_fmt_mm(top_layer_height_mm)}",
+                    lane_role="dimension-lane-right-h1",
+                    line_role="layer-height-dimension",
+                ),
+                _vertical_dimension_lane(
+                    right_h2_lane_x,
+                    bottom_layer_y,
+                    section_y + drawing_height,
+                    f"h2 = {_fmt_mm(bottom_layer_height_mm)}",
+                    lane_role="dimension-lane-right-h2",
+                    line_role="layer-height-dimension",
+                ),
+            ]
+        )
 
     callout_targets = [section_y + float(row["z_mm"]) * scale - 28.0 for row in rebar_rows]
+    callout_box_heights = [
+        78.0 if int(row["bar_count"]) * int(row["diameter_mm"]) > section_width_mm else 60.0 for row in rebar_rows
+    ]
     callout_min_top = section_y + 10.0
-    callout_max_top = section_y + drawing_height - 64.0
-    callout_tops = _stack_callout_tops(callout_targets, callout_min_top, callout_max_top, callout_gap)
+    callout_max_bottom = section_y + drawing_height + 24.0
+    callout_tops = _stack_callout_tops(
+        callout_targets,
+        callout_box_heights,
+        callout_min_top,
+        callout_max_bottom,
+        CALLOUT_STACK_GAP,
+    )
 
-    for row, callout_top in zip(rebar_rows, callout_tops):
+    for row, callout_top, box_height in zip(rebar_rows, callout_tops, callout_box_heights):
         index = int(str(row["layer"])[1:])
         count = int(row["bar_count"])
         diameter_mm = int(row["diameter_mm"])
@@ -1049,7 +1157,6 @@ def build_section_drawing_svg(
         actual_y = section_y + z_mm * scale
         radius = max(diameter_mm * scale / 2.0, 4.0)
         layout_warning = count * diameter_mm > section_width_mm
-        box_height = 78.0 if layout_warning else 60.0
         rebar_class = "rebar-warning" if layout_warning else "rebar"
 
         for center_x in _build_rebar_centers(section_x, drawing_width, count):

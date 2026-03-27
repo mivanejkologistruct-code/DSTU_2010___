@@ -7,6 +7,11 @@
 - Status: `done`
 
 ## Finished Items
+- Completion date: 2026-03-25
+  Title: Верхня арматура і таблиця `f_u` в блоці Експеримент
+  Result: Повернуто інженерний напрям осі `0 -> від'ємні значення` для графіка верхньої арматури в теоретичному та experimental overlay режимах, додано спільну таблицю `Граничний момент при досягненні граничного прогину` під графіками блоку `Експеримент`, а також оновлено UI-регресії для осі, таблиці, порядку рендерингу та reference mode без колонки DIC.
+  Status: `done`
+
 - Completion date: 2026-03-17
   Title: Add MCP server for automated Streamlit calculations
   Result: Added the `rc_bending_mcp` package with stdio MCP tool registration, machine-input adapters, direct Python handlers, a Playwright Streamlit UI runner, structured artifact output, automation-mode payload hooks in the Streamlit app, new MCP unit/live tests, and dependency updates for the MCP SDK plus Playwright.

@@ -11,6 +11,7 @@ from pathlib import Path
 from urllib.parse import urlencode
 from urllib.request import urlopen
 
+from rc_bending.ui_helpers import derive_draft_geometry
 from rc_bending_mcp.artifacts import BASE_DIR, build_artifact, write_json_artifact, write_text_artifact
 
 
@@ -177,7 +178,8 @@ def _wait_for_streamlit(base_url: str, process: subprocess.Popen[str], stderr_pa
 
 
 def _extract_section_machine_input(draft_inputs: Mapping[str, object]) -> dict[str, object]:
-    concrete_layers = list(draft_inputs["concrete_layers"])
+    derived = derive_draft_geometry(dict(draft_inputs))
+    concrete_layers = list(derived["concrete_rows"])
     rebar_layers = list(draft_inputs["rebar_layers"])
     return {
         "section_height_mm": float(draft_inputs["section_height_mm"]),

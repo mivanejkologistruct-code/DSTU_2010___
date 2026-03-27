@@ -1,5 +1,6 @@
 from dataclasses import replace
 import re
+import xml.etree.ElementTree as ET
 
 from rc_bending.materials import load_material_catalog
 from rc_bending.models import BendingResult
@@ -7,6 +8,7 @@ from rc_bending.solver import solve_bending_capacity
 from rc_bending.ui_helpers import build_section_input_from_draft, default_draft_inputs, derive_draft_geometry
 
 TERMINATION_STUB = object()
+SVG_NS = "{http://www.w3.org/2000/svg}"
 
 
 def _extract_viewbox(svg: str) -> tuple[float, float]:
@@ -28,6 +30,58 @@ def _extract_group_translate_x(svg: str, role: str) -> float:
     match = re.search(rf'<g data-role="{re.escape(role)}" transform="translate\(([0-9.]+) 0\)">', svg)
     assert match is not None
     return float(match.group(1))
+
+
+def _parse_svg(svg: str) -> ET.Element:
+    return ET.fromstring(svg)
+
+
+def _extract_group_translate_xy(root: ET.Element, role: str) -> list[tuple[float, float]]:
+    positions: list[tuple[float, float]] = []
+    for group in root.iter(f"{SVG_NS}g"):
+        if group.attrib.get("data-role") != role:
+            continue
+        transform = group.attrib.get("transform", "")
+        match = re.search(r"translate\(([0-9.]+) ([0-9.]+)\)", transform)
+        assert match is not None
+        positions.append((float(match.group(1)), float(match.group(2))))
+    return positions
+
+
+def _extract_rect_by_role(root: ET.Element, role: str) -> ET.Element:
+    for rect in root.iter(f"{SVG_NS}rect"):
+        if rect.attrib.get("data-role") == role:
+            return rect
+    raise AssertionError(f"Rect with role {role} not found")
+
+
+def _extract_callout_boxes(root: ET.Element) -> list[tuple[float, float, float, float]]:
+    boxes: list[tuple[float, float, float, float]] = []
+    for group in root.iter(f"{SVG_NS}g"):
+        if group.attrib.get("data-role") != "rebar-callout":
+            continue
+        transform = group.attrib.get("transform", "")
+        match = re.search(r"translate\(([0-9.]+) ([0-9.]+)\)", transform)
+        assert match is not None
+        callout_rect = next(
+            child for child in group if child.tag == f"{SVG_NS}rect" and child.attrib.get("class") == "callout-card"
+        )
+        boxes.append(
+            (
+                float(match.group(1)),
+                float(match.group(2)),
+                float(callout_rect.attrib["width"]),
+                float(callout_rect.attrib["height"]),
+            )
+        )
+    return boxes
+
+
+def _extract_text_y(root: ET.Element, value: str) -> float:
+    for text in root.iter(f"{SVG_NS}text"):
+        if (text.text or "").strip() == value:
+            return float(text.attrib["y"])
+    raise AssertionError(f"Text {value} not found")
 
 
 def _with_first_form_comparison(result) -> BendingResult:
@@ -92,6 +146,24 @@ def test_build_section_drawing_svg_renders_placeholders_without_active_point():
     assert "N_c =" not in svg
     assert "N_A1 =" not in svg
     assert 'data-role="neutral-axis"' not in svg
+
+
+def test_build_section_drawing_svg_hides_zero_height_placeholder_layer_for_reference_slab():
+    from rc_bending.section_drawing import build_section_drawing_svg
+
+    draft = default_draft_inputs()
+    draft["has_strengthening_layer"] = False
+    draft["concrete_layers"][0]["height_mm"] = 20.0
+    draft["concrete_layers"][0]["concrete_class"] = "C40/50"
+    draft["concrete_layers"][1]["concrete_class"] = "C25/30"
+
+    svg = build_section_drawing_svg(derive_draft_geometry(draft))
+
+    assert "B1: C25/30" in svg
+    assert "B2:" not in svg
+    assert "h2 =" not in svg
+    assert 'class="layer-split"' not in svg
+    assert svg.count('data-role="layer-height-dimension"') == 0
 
 
 def test_build_section_drawing_svg_renders_active_and_comparison_forms_when_available():
@@ -235,10 +307,10 @@ def test_build_section_drawing_svg_uses_compact_canvas_for_readability():
 
     assert frame_width >= 500.0
     assert viewbox_width <= 1280.0
-    assert viewbox_height <= 700.0
+    assert viewbox_height <= 760.0
 
 
-def test_build_section_drawing_svg_centers_single_panel_section_and_exposes_dimension_lanes():
+def test_build_section_drawing_svg_balances_single_panel_section_and_exposes_dimension_lanes():
     from rc_bending.section_drawing import build_section_drawing_svg
 
     catalog = load_material_catalog()
@@ -271,9 +343,40 @@ def test_build_section_drawing_svg_centers_single_panel_section_and_exposes_dime
     assert 'data-role="right-detail-zone"' in svg
     assert svg.count('data-role="dimension-label-chip"') >= 5
     assert svg.count('data-role="dimension-label-chip" transform="rotate(-90') >= 5
-    assert abs(frame_center_x - viewbox_width / 2.0) <= 36.0
+    assert viewbox_width * 0.40 <= frame_center_x <= viewbox_width * 0.50
     assert left_h_x < left_z1_x < left_z2_x < frame_x
     assert frame_x + frame_width < right_h1_x < right_h2_x
+
+
+def test_build_section_drawing_svg_separates_single_panel_dimension_lanes_and_callout_column():
+    from rc_bending.section_drawing import build_section_drawing_svg
+
+    catalog = load_material_catalog()
+    draft = default_draft_inputs()
+    derived = derive_draft_geometry(draft)
+    section = build_section_input_from_draft(draft, catalog)
+    result = solve_bending_capacity(section, catalog)
+
+    svg = build_section_drawing_svg(
+        derived,
+        selected_point=result.peak_point,
+        section=section,
+        materials=catalog,
+        result=result,
+    )
+    root = _parse_svg(svg)
+
+    left_h_x = _extract_group_translate_x(svg, "dimension-lane-left-h")
+    left_z1_x = _extract_group_translate_x(svg, "dimension-lane-left-z1")
+    left_z2_x = _extract_group_translate_x(svg, "dimension-lane-left-z2")
+    right_h1_x = _extract_group_translate_x(svg, "dimension-lane-right-h1")
+    right_h2_x = _extract_group_translate_x(svg, "dimension-lane-right-h2")
+    callout_positions = _extract_group_translate_xy(root, "rebar-callout")
+
+    assert left_z1_x - left_h_x >= 64.0
+    assert left_z2_x - left_z1_x >= 64.0
+    assert right_h2_x - right_h1_x >= 64.0
+    assert min(callout_x for callout_x, _ in callout_positions) - right_h2_x >= 52.0
 
 
 def test_build_section_drawing_svg_moves_metrics_into_legend_block():
@@ -295,6 +398,30 @@ def test_build_section_drawing_svg_moves_metrics_into_legend_block():
 
     assert 'data-role="metric-legend"' in svg
     assert svg.count('data-role="metric-chip"') >= 3
+
+
+def test_build_section_drawing_svg_keeps_scale_labels_above_result_strip():
+    from rc_bending.section_drawing import build_section_drawing_svg
+
+    catalog = load_material_catalog()
+    draft = default_draft_inputs()
+    derived = derive_draft_geometry(draft)
+    section = build_section_input_from_draft(draft, catalog)
+    result = solve_bending_capacity(section, catalog)
+
+    svg = build_section_drawing_svg(
+        derived,
+        selected_point=result.peak_point,
+        section=section,
+        materials=catalog,
+        result=result,
+    )
+    root = _parse_svg(svg)
+    result_strip = _extract_rect_by_role(root, "result-strip")
+    result_strip_y = float(result_strip.attrib["y"])
+
+    assert _extract_text_y(root, "МПа") <= result_strip_y - 12.0
+    assert _extract_text_y(root, "‰") <= result_strip_y - 12.0
 
 
 def test_build_section_drawing_svg_uses_scaled_hatching_for_stress_epures():
@@ -319,6 +446,28 @@ def test_build_section_drawing_svg_uses_scaled_hatching_for_stress_epures():
     assert svg.count('patternUnits="userSpaceOnUse"') >= 2
     assert 'data-role="concrete-stress-area"' in svg
     assert svg.count('data-role="steel-stress-block"') == len(section.rebar_layers)
+
+
+def test_build_section_drawing_svg_stacks_callout_boxes_with_positive_gap():
+    from rc_bending.section_drawing import build_section_drawing_svg
+
+    draft = default_draft_inputs()
+    draft["rebar_layers"] = [
+        {"id": "rebar_1", "face": "Верхня", "distance_mm": 30.0, "bar_count": 4, "diameter_mm": 20, "steel_class": "A400C"},
+        {"id": "rebar_2", "face": "Верхня", "distance_mm": 45.0, "bar_count": 3, "diameter_mm": 18, "steel_class": "A400C"},
+        {"id": "rebar_3", "face": "Нижня", "distance_mm": 50.0, "bar_count": 3, "diameter_mm": 18, "steel_class": "A500C"},
+        {"id": "rebar_4", "face": "Нижня", "distance_mm": 30.0, "bar_count": 4, "diameter_mm": 20, "steel_class": "A500C"},
+    ]
+
+    svg = build_section_drawing_svg(derive_draft_geometry(draft))
+    root = _parse_svg(svg)
+    callout_boxes = sorted(_extract_callout_boxes(root), key=lambda item: item[1])
+
+    assert len(callout_boxes) == 4
+    for previous, current in zip(callout_boxes, callout_boxes[1:]):
+        _, previous_top, _, previous_height = previous
+        _, current_top, _, _ = current
+        assert current_top - (previous_top + previous_height) >= 8.0
 
 
 def test_build_section_drawing_svg_uses_separate_scales_for_concrete_and_steel_stress():
